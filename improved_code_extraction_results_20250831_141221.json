@@ -1,8 +1,0 @@
-{
-  "total_processed": 15,
-  "successful": 0,
-  "failed": 15,
-  "success_rate": 0.0,
-  "extraction_date": "2025-08-31T14:12:21.886570",
-  "improvements": "Repository caching, better commit detection, fallback strategies"
-}
