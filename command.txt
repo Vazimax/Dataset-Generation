@@ -1,0 +1,28 @@
+The core object of the project is not to train a model on 700 CVEs to generate variants directly from that training data. As established previously, training an LLM like DeepSeek-Coder on only 700 samples would lead to hallucinations and unreliable results.
+
+Instead, the refined objective is:
+
+Create a High-Quality, Verified Seed Dataset:
+Collect: Gather a smaller, manageable set (e.g., 50-100) of real, confirmed, and weaponizable CVEs. These must be meticulously verified (like CVE-2022-0778) to ensure they represent genuine, exploitable vulnerabilities (e.g., buffer overflows leading to crashes or RCE, crypto issues causing DoS, etc.).
+Extract: For each CVE, extract the precise vulnerable code snippet and its corresponding fixed version from the official code repository.
+Validate: Prove the exploitability of the original vulnerability (e.g., using fuzzing, symbolic execution, or known PoCs). This ensures the "ground truth" is solid.
+Use the Seed Dataset to Guide Variant Generation:
+Leverage LLMs (like DeepSeek-Coder): Use these verified CVE examples as prompts or in-context examples for a powerful code LLM.
+Generate Variants: Prompt the LLM to create syntactic variants of the code patterns found in these verified vulnerabilities. The prompt engineering will be crucial, instructing the model to preserve the core vulnerability (e.g., the buffer overflow condition or infinite loop structure) while changing syntax (loop types, variable names, code structure, applying specific transformations like pointer arithmetic for buffer overflows).
+Focus on Weaponizability: The generation process (guided by prompts based on the seed CVEs) should aim to produce variants that are not just different but are also likely to be weaponizable (e.g., maintaining conditions for RCE, ensuring DoS conditions persist).
+Rigorous Validation of Generated Variants:
+Filter Generated Output: The LLM will likely produce many incorrect or non-vulnerable variants.
+Apply Triple Validation: Every single generated variant must undergo strict validation:
+Symbolic Execution (angr): Confirm the specific vulnerability (e.g., buffer overflow, infinite loop) still exists.
+Fuzzing (AFL++): Demonstrate that the variant is exploitable (e.g., crashes, exhibits the vulnerable behavior).
+Manual Review : Security expert verification.
+Build the Final Dataset: Only variants that pass all validation steps become part of your final dataset. This ensures quality over quantity initially.
+Scale the Validated Variants (to Reach ~700):
+Iterate: Continue generating variants from your seed CVEs using different prompts or transformation types.
+Validate: Apply the strict validation pipeline to each batch.
+Accumulate: Keep only the validated, weaponizable variants. Aim to accumulate around 700 high-quality, verified variants. This number comes from validating a much larger set of LLM outputs (likely several thousand candidates).
+Final Objective (with ~700 Validated Variants):
+Create a Benchmark Dataset: Possess a dataset of ~700 real (originating from verified CVEs) and weaponizable (validated as exploitable) code samples, each being a syntactic variant of known vulnerability patterns.
+Test Vulnerability Detectors: Use this dataset to rigorously test existing vulnerability detection models (like Devign, LineVul). The goal is to measure how effectively these detectors are "tricked" by the syntactic diversity while the core vulnerability remains.
+Analyze Detector Weaknesses: Identify specific patterns or transformation types that cause detectors to fail, providing insights for improving detection robustness.
+In essence: The ~700 CVEs/variants are the end goal of a rigorous process involving a small, high-quality seed dataset, LLM-guided generation focused on known vulnerability patterns, and extensive validation to ensure every sample is real and weaponizable. This validated set of ~700 variants then serves as the powerful dataset to demonstrate and test detector evasion.

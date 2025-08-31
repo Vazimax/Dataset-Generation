@@ -1,0 +1,449 @@
+[
+  {
+    "cve_id": "CVE-2016-5359",
+    "cwe_id": "CWE-119",
+    "cwe_name": "Buffer Overflow",
+    "project": "wireshark",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [],
+    "source_code_length": 19122,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2018-16839",
+    "cwe_id": "CWE-119",
+    "cwe_name": "Buffer Overflow",
+    "project": "curl",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [
+      "Buffer overflow risk: \\bmemcpy\\s*\\("
+    ],
+    "source_code_length": 899,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2017-9996",
+    "cwe_id": "CWE-119",
+    "cwe_name": "Buffer Overflow",
+    "project": "FFmpeg",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [],
+    "source_code_length": 2600,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2019-13300",
+    "cwe_id": "CWE-787",
+    "cwe_name": "Out-of-bounds Write",
+    "project": "ImageMagick",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [
+      "Buffer overflow risk: \\bmemset\\s*\\("
+    ],
+    "source_code_length": 1077,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2013-4263",
+    "cwe_id": "CWE-119",
+    "cwe_name": "Buffer Overflow",
+    "project": "FFmpeg",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [],
+    "source_code_length": 2386,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2013-7024",
+    "cwe_id": "CWE-119",
+    "cwe_name": "Buffer Overflow",
+    "project": "FFmpeg",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [],
+    "source_code_length": 5084,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2013-7012",
+    "cwe_id": "CWE-119",
+    "cwe_name": "Buffer Overflow",
+    "project": "FFmpeg",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [],
+    "source_code_length": 4901,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2017-9990",
+    "cwe_id": "CWE-119",
+    "cwe_name": "Buffer Overflow",
+    "project": "FFmpeg",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [],
+    "source_code_length": 186,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2016-10190",
+    "cwe_id": "CWE-119",
+    "cwe_name": "Buffer Overflow",
+    "project": "FFmpeg",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [
+      "Buffer overflow risk: \\bmemcpy\\s*\\("
+    ],
+    "source_code_length": 4836,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2016-10067",
+    "cwe_id": "CWE-119",
+    "cwe_name": "Buffer Overflow",
+    "project": "ImageMagick",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [],
+    "source_code_length": 307,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2018-16644",
+    "cwe_id": "CWE-119",
+    "cwe_name": "Buffer Overflow",
+    "project": "ImageMagick",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [
+      "Buffer overflow risk: \\bmemset\\s*\\("
+    ],
+    "source_code_length": 33012,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2020-35965",
+    "cwe_id": "CWE-787",
+    "cwe_name": "Out-of-bounds Write",
+    "project": "FFmpeg",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [
+      "Buffer overflow risk: \\bmemset\\s*\\("
+    ],
+    "source_code_length": 4427,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2013-7020",
+    "cwe_id": "CWE-119",
+    "cwe_name": "Buffer Overflow",
+    "project": "FFmpeg",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [
+      "Buffer overflow risk: \\bmemcpy\\s*\\(",
+      "Buffer overflow risk: \\bmemset\\s*\\("
+    ],
+    "source_code_length": 8359,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2016-10191",
+    "cwe_id": "CWE-119",
+    "cwe_name": "Buffer Overflow",
+    "project": "FFmpeg",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [],
+    "source_code_length": 3129,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2016-10066",
+    "cwe_id": "CWE-119",
+    "cwe_name": "Buffer Overflow",
+    "project": "ImageMagick",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [],
+    "source_code_length": 32276,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2017-16546",
+    "cwe_id": "CWE-119",
+    "cwe_name": "Buffer Overflow",
+    "project": "ImageMagick",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [
+      "Buffer overflow risk: \\bmemset\\s*\\("
+    ],
+    "source_code_length": 14660,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2017-7863",
+    "cwe_id": "CWE-787",
+    "cwe_name": "Out-of-bounds Write",
+    "project": "FFmpeg",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [
+      "Buffer overflow risk: \\bmemmove\\s*\\(",
+      "Buffer overflow risk: \\bmemset\\s*\\("
+    ],
+    "source_code_length": 6043,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2017-5509",
+    "cwe_id": "CWE-787",
+    "cwe_name": "Out-of-bounds Write",
+    "project": "ImageMagick",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [],
+    "source_code_length": 2251,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2016-9933",
+    "cwe_id": "CWE-119",
+    "cwe_name": "Buffer Overflow",
+    "project": "php",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [],
+    "source_code_length": 1783,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2015-0206",
+    "cwe_id": "CWE-119",
+    "cwe_name": "Buffer Overflow",
+    "project": "openssl",
+    "weaponization_score": 8.0,
+    "vulnerability_patterns": [],
+    "source_code_length": 2720,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2019-19275",
+    "cwe_id": "CWE-125",
+    "cwe_name": "Out-of-bounds Read",
+    "project": "python",
+    "weaponization_score": 7.5,
+    "vulnerability_patterns": [],
+    "source_code_length": 63447,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2016-2180",
+    "cwe_id": "CWE-125",
+    "cwe_name": "Out-of-bounds Read",
+    "project": "openssl",
+    "weaponization_score": 7.5,
+    "vulnerability_patterns": [],
+    "source_code_length": 302,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2016-7528",
+    "cwe_id": "CWE-125",
+    "cwe_name": "Out-of-bounds Read",
+    "project": "ImageMagick",
+    "weaponization_score": 7.5,
+    "vulnerability_patterns": [],
+    "source_code_length": 18829,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2016-6491",
+    "cwe_id": "CWE-125",
+    "cwe_name": "Out-of-bounds Read",
+    "project": "ImageMagick",
+    "weaponization_score": 7.5,
+    "vulnerability_patterns": [],
+    "source_code_length": 3833,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2016-10161",
+    "cwe_id": "CWE-125",
+    "cwe_name": "Out-of-bounds Read",
+    "project": "php",
+    "weaponization_score": 7.5,
+    "vulnerability_patterns": [],
+    "source_code_length": 482,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2016-5842",
+    "cwe_id": "CWE-125",
+    "cwe_name": "Out-of-bounds Read",
+    "project": "ImageMagick",
+    "weaponization_score": 7.5,
+    "vulnerability_patterns": [],
+    "source_code_length": 693,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2016-7515",
+    "cwe_id": "CWE-125",
+    "cwe_name": "Out-of-bounds Read",
+    "project": "ImageMagick",
+    "weaponization_score": 7.5,
+    "vulnerability_patterns": [],
+    "source_code_length": 13833,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2017-11399",
+    "cwe_id": "CWE-125",
+    "cwe_name": "Out-of-bounds Read",
+    "project": "FFmpeg",
+    "weaponization_score": 7.5,
+    "vulnerability_patterns": [],
+    "source_code_length": 4367,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2016-10070",
+    "cwe_id": "CWE-125",
+    "cwe_name": "Out-of-bounds Read",
+    "project": "ImageMagick",
+    "weaponization_score": 7.5,
+    "vulnerability_patterns": [],
+    "source_code_length": 14012,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2016-10071",
+    "cwe_id": "CWE-125",
+    "cwe_name": "Out-of-bounds Read",
+    "project": "ImageMagick",
+    "weaponization_score": 7.5,
+    "vulnerability_patterns": [],
+    "source_code_length": 14021,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2016-7514",
+    "cwe_id": "CWE-125",
+    "cwe_name": "Out-of-bounds Read",
+    "project": "ImageMagick",
+    "weaponization_score": 7.5,
+    "vulnerability_patterns": [],
+    "source_code_length": 2779,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2017-9608",
+    "cwe_id": "CWE-476",
+    "cwe_name": "NULL Pointer Dereference",
+    "project": "FFmpeg",
+    "weaponization_score": 6.5,
+    "vulnerability_patterns": [
+      "Pointer dereference operations",
+      "Pointer dereference operations"
+    ],
+    "source_code_length": 2265,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2017-14225",
+    "cwe_id": "CWE-476",
+    "cwe_name": "NULL Pointer Dereference",
+    "project": "FFmpeg",
+    "weaponization_score": 6.5,
+    "vulnerability_patterns": [
+      "Pointer dereference operations"
+    ],
+    "source_code_length": 8948,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2018-20406",
+    "cwe_id": "CWE-190",
+    "cwe_name": "Integer Overflow",
+    "project": "python",
+    "weaponization_score": 6.5,
+    "vulnerability_patterns": [],
+    "source_code_length": 240,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2016-7133",
+    "cwe_id": "CWE-190",
+    "cwe_name": "Integer Overflow",
+    "project": "php",
+    "weaponization_score": 6.5,
+    "vulnerability_patterns": [
+      "Integer arithmetic operations"
+    ],
+    "source_code_length": 7359,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2016-5354",
+    "cwe_id": "CWE-476",
+    "cwe_name": "NULL Pointer Dereference",
+    "project": "wireshark",
+    "weaponization_score": 6.5,
+    "vulnerability_patterns": [
+      "Pointer dereference operations",
+      "Pointer dereference operations",
+      "Pointer dereference operations"
+    ],
+    "source_code_length": 5124,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2017-12877",
+    "cwe_id": "CWE-416",
+    "cwe_name": "Use After Free",
+    "project": "ImageMagick",
+    "weaponization_score": 6.5,
+    "vulnerability_patterns": [],
+    "source_code_length": 15771,
+    "is_critical": true,
+    "is_high_priority_project": true
+  },
+  {
+    "cve_id": "CVE-2016-5770",
+    "cwe_id": "CWE-190",
+    "cwe_name": "Integer Overflow",
+    "project": "php",
+    "weaponization_score": 6.5,
+    "vulnerability_patterns": [],
+    "source_code_length": 795,
+    "is_critical": true,
+    "is_high_priority_project": true
+  }
+]

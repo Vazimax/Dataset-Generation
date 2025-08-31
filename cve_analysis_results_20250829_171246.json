@@ -1,0 +1,3358 @@
+{
+  "CVE-2021-3711": {
+    "cve_id": "CVE-2021-3711",
+    "files": {
+      "vulnerable.c": {
+        "filename": "vulnerable.c",
+        "file_size": 9306,
+        "lines_of_code": 403,
+        "functions": [
+          {
+            "name": "_asn1_check_infinite_end",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_check_infinite_end",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_const_check_infinite_end",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_get_object",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "while",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "asn1_get_length",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "while",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "while",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_put_object",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "while",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_put_eoc",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "asn1_put_length",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "while",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_object_size",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "while",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "while",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_copy",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_dup",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_set",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_set0",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_new",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_type_new",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "asn1_string_embed_free",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_free",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_clear_free",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_cmp",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_length",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_length_set",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_type",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_get0_data",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_data",
+            "return_type": "void",
+            "type": "c_function"
+          }
+        ],
+        "vulnerability_indicators": [
+          {
+            "type": "memcpy_usage",
+            "description": "Buffer overflow risk",
+            "line": 304,
+            "code": "memcpy(str->data, data, len)",
+            "severity": "high"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 4,
+            "code": "use\n * this",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 5,
+            "code": "copy\n * in",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 6,
+            "code": "at\n * https",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 16,
+            "code": "int *inf",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 16,
+            "code": "long *rl",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 44,
+            "code": "long *plength",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 44,
+            "code": "int *ptag",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 45,
+            "code": "int *pclass",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 49,
+            "code": "char *p",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 93,
+            "code": "are\n         * set",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 108,
+            "code": "indicates\n * the",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 109,
+            "code": "octets\n * are",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 112,
+            "code": "int *inf",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 112,
+            "code": "long *rl",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 115,
+            "code": "char *p",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 158,
+            "code": "char *p",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 187,
+            "code": "char *p",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 196,
+            "code": "char *p",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 243,
+            "code": "ASN1_STRING *dst",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 243,
+            "code": "ASN1_STRING *str",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 256,
+            "code": "ASN1_STRING *ASN1_STRING_dup",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 256,
+            "code": "ASN1_STRING *str",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 258,
+            "code": "ASN1_STRING *ret",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 271,
+            "code": "ASN1_STRING *str",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 271,
+            "code": "void *_data",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 273,
+            "code": "char *c",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 274,
+            "code": "char *data",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 285,
+            "code": "to\n     * str",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 311,
+            "code": "ASN1_STRING *str",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 311,
+            "code": "void *data",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 318,
+            "code": "ASN1_STRING *ASN1_STRING_new",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 323,
+            "code": "ASN1_STRING *ASN1_STRING_type_new",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 325,
+            "code": "ASN1_STRING *ret",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 336,
+            "code": "ASN1_STRING *a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 346,
+            "code": "ASN1_STRING *a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 353,
+            "code": "ASN1_STRING *a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 362,
+            "code": "ASN1_STRING *a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 362,
+            "code": "ASN1_STRING *b",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 377,
+            "code": "ASN1_STRING *x",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 382,
+            "code": "ASN1_STRING *x",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 387,
+            "code": "ASN1_STRING *x",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 392,
+            "code": "char *ASN1_STRING_get0_data",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 392,
+            "code": "ASN1_STRING *x",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 398,
+            "code": "char *ASN1_STRING_data",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 398,
+            "code": "ASN1_STRING *x",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 128,
+            "code": "i + 1",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 240,
+            "code": "ret + length",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 295,
+            "code": "len + 1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 2,
+            "code": "1995-2020",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 58,
+            "code": "high-tag",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 107,
+            "code": "0 - 127",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 108,
+            "code": "0 - 127",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 172,
+            "code": "ttag - 1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 219,
+            "code": "return -1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 238,
+            "code": "INT_MAX - length",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 239,
+            "code": "return -1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 289,
+            "code": "INT_MAX - 1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 366,
+            "code": "length - b",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 370,
+            "code": "type - b",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 265,
+            "code": "free(ret)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 313,
+            "code": "free(str->data)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 336,
+            "code": "free(ASN1_STRING *a, int embed)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 341,
+            "code": "free(a->data)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 343,
+            "code": "free(a)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 346,
+            "code": "free(ASN1_STRING *a)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 350,
+            "code": "free(a, a->flags & ASN1_STRING_FLAG_EMBED)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 353,
+            "code": "free(ASN1_STRING *a)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 359,
+            "code": "free(a)",
+            "severity": "medium"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 63,
+            "code": "while (*p & 0x80)",
+            "severity": "low"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 131,
+            "code": "while (i > 0 && *p == 0)",
+            "severity": "low"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 137,
+            "code": "while (i > 0)",
+            "severity": "low"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 170,
+            "code": "while (i-- > 0)",
+            "severity": "low"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 206,
+            "code": "while (i-- > 0)",
+            "severity": "low"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 221,
+            "code": "while (tag > 0)",
+            "severity": "low"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 232,
+            "code": "while (tmplen > 0)",
+            "severity": "low"
+          },
+          {
+            "type": "for_loop",
+            "description": "Loop structure",
+            "line": 167,
+            "code": "for (i = 0, ttag = tag; ttag > 0; i++)",
+            "severity": "low"
+          },
+          {
+            "type": "for_loop",
+            "description": "Loop structure",
+            "line": 202,
+            "code": "for (i = 0; l > 0; i++)",
+            "severity": "low"
+          }
+        ],
+        "complexity_metrics": {
+          "cyclomatic_complexity": 74,
+          "nesting_depth": 0,
+          "function_count": 43,
+          "comment_ratio": 0.12406947890818859
+        }
+      },
+      "fixed.c": {
+        "filename": "fixed.c",
+        "file_size": 9610,
+        "lines_of_code": 413,
+        "functions": [
+          {
+            "name": "_asn1_check_infinite_end",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_check_infinite_end",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_const_check_infinite_end",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_get_object",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "while",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "asn1_get_length",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "while",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "while",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_put_object",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "while",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_put_eoc",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "asn1_put_length",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "while",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_object_size",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "while",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "while",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_copy",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_dup",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_set",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "endif",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_set0",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_new",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_type_new",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "asn1_string_embed_free",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_free",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_clear_free",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_cmp",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_length",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_length_set",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_type",
+            "return_type": "int",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_get0_data",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "ASN1_STRING_data",
+            "return_type": "void",
+            "type": "c_function"
+          }
+        ],
+        "vulnerability_indicators": [
+          {
+            "type": "memcpy_usage",
+            "description": "Buffer overflow risk",
+            "line": 309,
+            "code": "memcpy(str->data, data, len)",
+            "severity": "high"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 4,
+            "code": "use\n * this",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 5,
+            "code": "copy\n * in",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 6,
+            "code": "at\n * https",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 16,
+            "code": "int *inf",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 16,
+            "code": "long *rl",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 44,
+            "code": "long *plength",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 44,
+            "code": "int *ptag",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 45,
+            "code": "int *pclass",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 49,
+            "code": "char *p",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 93,
+            "code": "are\n         * set",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 108,
+            "code": "indicates\n * the",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 109,
+            "code": "octets\n * are",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 112,
+            "code": "int *inf",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 112,
+            "code": "long *rl",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 115,
+            "code": "char *p",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 158,
+            "code": "char *p",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 187,
+            "code": "char *p",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 196,
+            "code": "char *p",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 243,
+            "code": "ASN1_STRING *dst",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 243,
+            "code": "ASN1_STRING *str",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 256,
+            "code": "ASN1_STRING *ASN1_STRING_dup",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 256,
+            "code": "ASN1_STRING *str",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 258,
+            "code": "ASN1_STRING *ret",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 271,
+            "code": "ASN1_STRING *str",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 271,
+            "code": "void *_data",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 273,
+            "code": "char *c",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 274,
+            "code": "char *data",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 285,
+            "code": "to\n     * str",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 312,
+            "code": "as\n         * a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 321,
+            "code": "ASN1_STRING *str",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 321,
+            "code": "void *data",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 328,
+            "code": "ASN1_STRING *ASN1_STRING_new",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 333,
+            "code": "ASN1_STRING *ASN1_STRING_type_new",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 335,
+            "code": "ASN1_STRING *ret",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 346,
+            "code": "ASN1_STRING *a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 356,
+            "code": "ASN1_STRING *a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 363,
+            "code": "ASN1_STRING *a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 372,
+            "code": "ASN1_STRING *a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 372,
+            "code": "ASN1_STRING *b",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 387,
+            "code": "ASN1_STRING *x",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 392,
+            "code": "ASN1_STRING *x",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 397,
+            "code": "ASN1_STRING *x",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 402,
+            "code": "char *ASN1_STRING_get0_data",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 402,
+            "code": "ASN1_STRING *x",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 408,
+            "code": "char *ASN1_STRING_data",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 408,
+            "code": "ASN1_STRING *x",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 128,
+            "code": "i + 1",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 240,
+            "code": "ret + length",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 299,
+            "code": "len + 1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 2,
+            "code": "1995-2021",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 58,
+            "code": "high-tag",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 107,
+            "code": "0 - 127",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 108,
+            "code": "0 - 127",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 172,
+            "code": "ttag - 1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 219,
+            "code": "return -1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 238,
+            "code": "INT_MAX - length",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 239,
+            "code": "return -1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 289,
+            "code": "INT_MAX - 1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 312,
+            "code": "necessary - but",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 376,
+            "code": "length - b",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 380,
+            "code": "type - b",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 265,
+            "code": "free(ret)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 323,
+            "code": "free(str->data)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 346,
+            "code": "free(ASN1_STRING *a, int embed)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 351,
+            "code": "free(a->data)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 353,
+            "code": "free(a)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 356,
+            "code": "free(ASN1_STRING *a)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 360,
+            "code": "free(a, a->flags & ASN1_STRING_FLAG_EMBED)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 363,
+            "code": "free(ASN1_STRING *a)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 369,
+            "code": "free(a)",
+            "severity": "medium"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 63,
+            "code": "while (*p & 0x80)",
+            "severity": "low"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 131,
+            "code": "while (i > 0 && *p == 0)",
+            "severity": "low"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 137,
+            "code": "while (i > 0)",
+            "severity": "low"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 170,
+            "code": "while (i-- > 0)",
+            "severity": "low"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 206,
+            "code": "while (i-- > 0)",
+            "severity": "low"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 221,
+            "code": "while (tag > 0)",
+            "severity": "low"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 232,
+            "code": "while (tmplen > 0)",
+            "severity": "low"
+          },
+          {
+            "type": "for_loop",
+            "description": "Loop structure",
+            "line": 167,
+            "code": "for (i = 0, ttag = tag; ttag > 0; i++)",
+            "severity": "low"
+          },
+          {
+            "type": "for_loop",
+            "description": "Loop structure",
+            "line": 202,
+            "code": "for (i = 0; l > 0; i++)",
+            "severity": "low"
+          }
+        ],
+        "complexity_metrics": {
+          "cyclomatic_complexity": 74,
+          "nesting_depth": 0,
+          "function_count": 43,
+          "comment_ratio": 0.13075060532687652
+        }
+      }
+    },
+    "vulnerability_patterns": [
+      {
+        "type": "memcpy_usage",
+        "count": 2,
+        "severity": "high",
+        "locations": [
+          304,
+          309
+        ],
+        "description": "Buffer overflow risk"
+      },
+      {
+        "type": "multiplication",
+        "count": 91,
+        "severity": "medium",
+        "locations": [
+          4,
+          5,
+          6,
+          16,
+          16,
+          44,
+          44,
+          45,
+          49,
+          93,
+          108,
+          109,
+          112,
+          112,
+          115,
+          158,
+          187,
+          196,
+          243,
+          243,
+          256,
+          256,
+          258,
+          271,
+          271,
+          273,
+          274,
+          285,
+          311,
+          311,
+          318,
+          323,
+          325,
+          336,
+          346,
+          353,
+          362,
+          362,
+          377,
+          382,
+          387,
+          392,
+          392,
+          398,
+          398,
+          4,
+          5,
+          6,
+          16,
+          16,
+          44,
+          44,
+          45,
+          49,
+          93,
+          108,
+          109,
+          112,
+          112,
+          115,
+          158,
+          187,
+          196,
+          243,
+          243,
+          256,
+          256,
+          258,
+          271,
+          271,
+          273,
+          274,
+          285,
+          312,
+          321,
+          321,
+          328,
+          333,
+          335,
+          346,
+          356,
+          363,
+          372,
+          372,
+          387,
+          392,
+          397,
+          402,
+          402,
+          408,
+          408
+        ],
+        "description": "Potential integer overflow"
+      },
+      {
+        "type": "addition",
+        "count": 6,
+        "severity": "medium",
+        "locations": [
+          128,
+          240,
+          295,
+          128,
+          240,
+          299
+        ],
+        "description": "Potential integer overflow"
+      },
+      {
+        "type": "subtraction",
+        "count": 23,
+        "severity": "medium",
+        "locations": [
+          2,
+          58,
+          107,
+          108,
+          172,
+          219,
+          238,
+          239,
+          289,
+          366,
+          370,
+          2,
+          58,
+          107,
+          108,
+          172,
+          219,
+          238,
+          239,
+          289,
+          312,
+          376,
+          380
+        ],
+        "description": "Potential integer underflow"
+      },
+      {
+        "type": "free_usage",
+        "count": 18,
+        "severity": "medium",
+        "locations": [
+          265,
+          313,
+          336,
+          341,
+          343,
+          346,
+          350,
+          353,
+          359,
+          265,
+          323,
+          346,
+          351,
+          353,
+          356,
+          360,
+          363,
+          369
+        ],
+        "description": "Memory deallocation"
+      },
+      {
+        "type": "while_loop",
+        "count": 14,
+        "severity": "low",
+        "locations": [
+          63,
+          131,
+          137,
+          170,
+          206,
+          221,
+          232,
+          63,
+          131,
+          137,
+          170,
+          206,
+          221,
+          232
+        ],
+        "description": "Potential infinite loop"
+      },
+      {
+        "type": "for_loop",
+        "count": 4,
+        "severity": "low",
+        "locations": [
+          167,
+          202,
+          167,
+          202
+        ],
+        "description": "Loop structure"
+      }
+    ],
+    "code_analysis": {},
+    "metadata": {},
+    "analysis_status": "completed"
+  },
+  "CVE-2022-0778": {
+    "cve_id": "CVE-2022-0778",
+    "files": {
+      "vulnerable.c": {
+        "filename": "vulnerable.c",
+        "file_size": 9566,
+        "lines_of_code": 363,
+        "functions": [
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "while",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "for",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          }
+        ],
+        "vulnerability_indicators": [
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 4,
+            "code": "use\n * this",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 5,
+            "code": "copy\n * in",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 6,
+            "code": "at\n * https",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 13,
+            "code": "BIGNUM *BN_mod_sqrt",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 13,
+            "code": "BIGNUM *in",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 13,
+            "code": "BIGNUM *a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 13,
+            "code": "BIGNUM *p",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 13,
+            "code": "BN_CTX *ctx",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 15,
+            "code": "Shanks\n * algorithm",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 16,
+            "code": "Number\n * Theory",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 20,
+            "code": "BIGNUM *ret",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 23,
+            "code": "BIGNUM *A",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 80,
+            "code": "e*q",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 88,
+            "code": "inverse\n         * modulo",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 89,
+            "code": "computed\n         * directly",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 91,
+            "code": "have\n         *     2",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 110,
+            "code": "since\n         * Legendre",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 112,
+            "code": "2*a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 113,
+            "code": "for\n         *      b",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 114,
+            "code": "2*a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 115,
+            "code": "2*a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 115,
+            "code": "2\n         * we",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 116,
+            "code": "have\n         *     i",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 117,
+            "code": "2*a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 118,
+            "code": "2*a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 120,
+            "code": "set\n         *      x",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 121,
+            "code": "a*b",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 122,
+            "code": "then\n         *     x",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 123,
+            "code": "2 * b",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 123,
+            "code": "2*i",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 124,
+            "code": "2 * b",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 124,
+            "code": "2*i",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 125,
+            "code": "2*a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 131,
+            "code": "4026\n         * November",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 135,
+            "code": "2*a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 139,
+            "code": "2*a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 150,
+            "code": "2*a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 156,
+            "code": "a*b",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 178,
+            "code": "random\n         * numbers",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 210,
+            "code": "bug\n         * than",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 211,
+            "code": "found\n         * some",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 223,
+            "code": "e\n     * by",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 234,
+            "code": "integer\n     * k",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 237,
+            "code": "q * y",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 246,
+            "code": "q * a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 278,
+            "code": "a*x",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 284,
+            "code": "a*x",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 290,
+            "code": "q * y",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 290,
+            "code": "E\n         * where",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 291,
+            "code": "we\n         * don",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 294,
+            "code": "a*b",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 339,
+            "code": "test\n         * added",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 93,
+            "code": "4 + 1",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 123,
+            "code": "i + 1",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 130,
+            "code": "8n+5",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 240,
+            "code": "q+1",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 242,
+            "code": "q+1",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 257,
+            "code": "e + 1",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 284,
+            "code": "q+1",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 292,
+            "code": "q+1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 2,
+            "code": "2000-2021",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 110,
+            "code": "non-square",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 111,
+            "code": "2-1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 112,
+            "code": "non-square",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 118,
+            "code": "p-1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 121,
+            "code": "i-1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 123,
+            "code": "2 - 2",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 131,
+            "code": "cgi-bin",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 150,
+            "code": "2 - 1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 210,
+            "code": "non-square",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 223,
+            "code": "non-square",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 252,
+            "code": "q-1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 256,
+            "code": "q-1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 295,
+            "code": "e-1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 296,
+            "code": "e-1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 320,
+            "code": "e - i",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 323,
+            "code": "e - i",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 35,
+            "code": "free(ret)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 53,
+            "code": "free(ret)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 355,
+            "code": "free(ret)",
+            "severity": "medium"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 82,
+            "code": "while (!BN_is_bit_set(p, e)",
+            "severity": "low"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 206,
+            "code": "while (r == 1 && ++i < 82)",
+            "severity": "low"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 288,
+            "code": "while (1)",
+            "severity": "low"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 310,
+            "code": "while (!BN_is_one(t)",
+            "severity": "low"
+          },
+          {
+            "type": "for_loop",
+            "description": "Loop structure",
+            "line": 323,
+            "code": "for (j = e - i - 1; j > 0; j--)",
+            "severity": "low"
+          }
+        ],
+        "complexity_metrics": {
+          "cyclomatic_complexity": 94,
+          "nesting_depth": 0,
+          "function_count": 10,
+          "comment_ratio": 0.3168044077134986
+        }
+      },
+      "fixed.c": {
+        "filename": "fixed.c",
+        "file_size": 9803,
+        "lines_of_code": 369,
+        "functions": [
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "while",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "for",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "for",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          },
+          {
+            "name": "if",
+            "return_type": "void",
+            "type": "c_function"
+          }
+        ],
+        "vulnerability_indicators": [
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 4,
+            "code": "use\n * this",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 5,
+            "code": "copy\n * in",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 6,
+            "code": "at\n * https",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 13,
+            "code": "BIGNUM *BN_mod_sqrt",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 13,
+            "code": "BIGNUM *in",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 13,
+            "code": "BIGNUM *a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 13,
+            "code": "BIGNUM *p",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 13,
+            "code": "BN_CTX *ctx",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 15,
+            "code": "Shanks\n * algorithm",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 16,
+            "code": "Number\n * Theory",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 17,
+            "code": "or\n * an",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 21,
+            "code": "BIGNUM *ret",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 24,
+            "code": "BIGNUM *A",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 81,
+            "code": "e*q",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 89,
+            "code": "inverse\n         * modulo",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 90,
+            "code": "computed\n         * directly",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 92,
+            "code": "have\n         *     2",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 111,
+            "code": "since\n         * Legendre",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 113,
+            "code": "2*a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 114,
+            "code": "for\n         *      b",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 115,
+            "code": "2*a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 116,
+            "code": "2*a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 116,
+            "code": "2\n         * we",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 117,
+            "code": "have\n         *     i",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 118,
+            "code": "2*a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 119,
+            "code": "2*a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 121,
+            "code": "set\n         *      x",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 122,
+            "code": "a*b",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 123,
+            "code": "then\n         *     x",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 124,
+            "code": "2 * b",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 124,
+            "code": "2*i",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 125,
+            "code": "2 * b",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 125,
+            "code": "2*i",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 126,
+            "code": "2*a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 132,
+            "code": "4026\n         * November",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 136,
+            "code": "2*a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 140,
+            "code": "2*a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 151,
+            "code": "2*a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 157,
+            "code": "a*b",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 179,
+            "code": "random\n         * numbers",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 211,
+            "code": "bug\n         * than",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 212,
+            "code": "found\n         * some",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 224,
+            "code": "e\n     * by",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 235,
+            "code": "integer\n     * k",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 238,
+            "code": "q * y",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 247,
+            "code": "q * a",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 279,
+            "code": "a*x",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 285,
+            "code": "a*x",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 291,
+            "code": "q * y",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 291,
+            "code": "E\n         * where",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 292,
+            "code": "we\n         * don",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 295,
+            "code": "a*b",
+            "severity": "medium"
+          },
+          {
+            "type": "multiplication",
+            "description": "Potential integer overflow",
+            "line": 345,
+            "code": "test\n         * added",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 94,
+            "code": "4 + 1",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 124,
+            "code": "i + 1",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 131,
+            "code": "8n+5",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 241,
+            "code": "q+1",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 243,
+            "code": "q+1",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 258,
+            "code": "e + 1",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 285,
+            "code": "q+1",
+            "severity": "medium"
+          },
+          {
+            "type": "addition",
+            "description": "Potential integer overflow",
+            "line": 293,
+            "code": "q+1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 2,
+            "code": "2000-2021",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 111,
+            "code": "non-square",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 112,
+            "code": "2-1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 113,
+            "code": "non-square",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 119,
+            "code": "p-1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 122,
+            "code": "i-1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 124,
+            "code": "2 - 2",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 132,
+            "code": "cgi-bin",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 151,
+            "code": "2 - 1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 211,
+            "code": "non-square",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 224,
+            "code": "non-square",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 253,
+            "code": "q-1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 257,
+            "code": "q-1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 296,
+            "code": "e-1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 297,
+            "code": "e-1",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 326,
+            "code": "e - i",
+            "severity": "medium"
+          },
+          {
+            "type": "subtraction",
+            "description": "Potential integer underflow",
+            "line": 329,
+            "code": "e - i",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 36,
+            "code": "free(ret)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 54,
+            "code": "free(ret)",
+            "severity": "medium"
+          },
+          {
+            "type": "free_usage",
+            "description": "Memory deallocation",
+            "line": 361,
+            "code": "free(ret)",
+            "severity": "medium"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 83,
+            "code": "while (!BN_is_bit_set(p, e)",
+            "severity": "low"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 207,
+            "code": "while (r == 1 && ++i < 82)",
+            "severity": "low"
+          },
+          {
+            "type": "while_loop",
+            "description": "Potential infinite loop",
+            "line": 289,
+            "code": "while (1)",
+            "severity": "low"
+          },
+          {
+            "type": "for_loop",
+            "description": "Loop structure",
+            "line": 308,
+            "code": "for (i = 1; i < e; i++)",
+            "severity": "low"
+          },
+          {
+            "type": "for_loop",
+            "description": "Loop structure",
+            "line": 329,
+            "code": "for (j = e - i - 1; j > 0; j--)",
+            "severity": "low"
+          }
+        ],
+        "complexity_metrics": {
+          "cyclomatic_complexity": 97,
+          "nesting_depth": 0,
+          "function_count": 12,
+          "comment_ratio": 0.3170731707317073
+        }
+      }
+    },
+    "vulnerability_patterns": [
+      {
+        "type": "multiplication",
+        "count": 105,
+        "severity": "medium",
+        "locations": [
+          4,
+          5,
+          6,
+          13,
+          13,
+          13,
+          13,
+          13,
+          15,
+          16,
+          20,
+          23,
+          80,
+          88,
+          89,
+          91,
+          110,
+          112,
+          113,
+          114,
+          115,
+          115,
+          116,
+          117,
+          118,
+          120,
+          121,
+          122,
+          123,
+          123,
+          124,
+          124,
+          125,
+          131,
+          135,
+          139,
+          150,
+          156,
+          178,
+          210,
+          211,
+          223,
+          234,
+          237,
+          246,
+          278,
+          284,
+          290,
+          290,
+          291,
+          294,
+          339,
+          4,
+          5,
+          6,
+          13,
+          13,
+          13,
+          13,
+          13,
+          15,
+          16,
+          17,
+          21,
+          24,
+          81,
+          89,
+          90,
+          92,
+          111,
+          113,
+          114,
+          115,
+          116,
+          116,
+          117,
+          118,
+          119,
+          121,
+          122,
+          123,
+          124,
+          124,
+          125,
+          125,
+          126,
+          132,
+          136,
+          140,
+          151,
+          157,
+          179,
+          211,
+          212,
+          224,
+          235,
+          238,
+          247,
+          279,
+          285,
+          291,
+          291,
+          292,
+          295,
+          345
+        ],
+        "description": "Potential integer overflow"
+      },
+      {
+        "type": "addition",
+        "count": 16,
+        "severity": "medium",
+        "locations": [
+          93,
+          123,
+          130,
+          240,
+          242,
+          257,
+          284,
+          292,
+          94,
+          124,
+          131,
+          241,
+          243,
+          258,
+          285,
+          293
+        ],
+        "description": "Potential integer overflow"
+      },
+      {
+        "type": "subtraction",
+        "count": 34,
+        "severity": "medium",
+        "locations": [
+          2,
+          110,
+          111,
+          112,
+          118,
+          121,
+          123,
+          131,
+          150,
+          210,
+          223,
+          252,
+          256,
+          295,
+          296,
+          320,
+          323,
+          2,
+          111,
+          112,
+          113,
+          119,
+          122,
+          124,
+          132,
+          151,
+          211,
+          224,
+          253,
+          257,
+          296,
+          297,
+          326,
+          329
+        ],
+        "description": "Potential integer underflow"
+      },
+      {
+        "type": "free_usage",
+        "count": 6,
+        "severity": "medium",
+        "locations": [
+          35,
+          53,
+          355,
+          36,
+          54,
+          361
+        ],
+        "description": "Memory deallocation"
+      },
+      {
+        "type": "while_loop",
+        "count": 7,
+        "severity": "low",
+        "locations": [
+          82,
+          206,
+          288,
+          310,
+          83,
+          207,
+          289
+        ],
+        "description": "Potential infinite loop"
+      },
+      {
+        "type": "for_loop",
+        "count": 3,
+        "severity": "low",
+        "locations": [
+          323,
+          308,
+          329
+        ],
+        "description": "Loop structure"
+      }
+    ],
+    "code_analysis": {},
+    "metadata": {},
+    "analysis_status": "completed"
+  }
+}
