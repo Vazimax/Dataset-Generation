@@ -4,7 +4,7 @@
 
 **Project Name:** High-Quality, Weaponizable CVE Dataset Generation for AI/ML Training
 **Objective:** Create a benchmark dataset of ~700 real and weaponizable code samples (syntactic variants of known vulnerabilities) to test vulnerability detection models
-**Target:** 50+ critical, weaponizable CVEs in C language
+**Target:** 50+ critical, weaponizable CVEs in C/C++ 
 **Status:** ✅ COMPLETED - Exceeded target by 726% (363 critical CVEs achieved)
 
 ---
