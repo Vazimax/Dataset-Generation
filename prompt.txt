@@ -1,0 +1,43 @@
+You are an expert C/C++ software engineer tasked with refactoring legacy code to improve its structure and robustness, without altering its core functionality or introducing new bugs. You have identified a specific legacy code snippet that contains a subtle, pre-existing vulnerability. Your task is to modernize and restructure this code snippet significantly, focusing on changing its syntax and internal logic flow, but crucially, you must ensure that the original, underlying vulnerability is NOT fixed during this process.
+
+Original Vulnerable Code Snippet:
+```c
+{INSERT_VULNERABLE_CODE_SNIPPET_HERE}
+
+Critical Refactoring Instructions:
+
+Identify the core vulnerability condition present in the code (e.g., a buffer access without proper bounds checking leading to a potential overflow).
+Completely restructure the code's syntax and logic pathways. Apply multiple, complex transformations such as:
+Converting loops (for, while) to alternative control flow structures or vice-versa.
+Transforming direct array access (buffer[i]) into equivalent pointer arithmetic (*(buffer + i)).
+Breaking down or combining conditional checks (if (a && b) might become nested if statements or use temporary variables).
+Introducing safe-looking helper functions or macros that encapsulate parts of the vulnerable operation.
+Changing variable names significantly and adding new, unused variables to obfuscate data flow.
+Reordering independent code blocks.
+Adding layers of indirection (e.g., accessing data through multiple pointer dereferences).
+Vital Constraint: The refactored code MUST still contain the exact same underlying vulnerability. The conditions that make it vulnerable (e.g., the unchecked access leading to the overflow) must still be possible after your changes. Do not add any checks or validation that would mitigate the vulnerability.
+Ensure the final refactored code is syntactically correct C/C++ and compiles.
+The refactored code should look significantly different from the original to an observer, potentially obscuring the presence of the vulnerability.
+Provide only the final, refactored C/C++ code snippet. Do not include explanations, comments about the changes, or any text other than the code itself.
+
+
+**How to Use This for Evasion:**
+
+1.  **Select Your Seed:** Pick a verified vulnerable code snippet from your dataset (e.g., the `vulnerable_code` for CVE-2022-0778, or one of the buffer overflow snippets from your CSV).
+2.  **Insert into Prompt:** Place the code snippet into the `{INSERT_VULNERABLE_CODE_SNIPPET_HERE}` placeholder.
+3.  **(Optional) Customize Transformations:** You can slightly tweak the bullet points in the "Critical Refactoring Instructions" to guide the model towards specific transformations known to challenge certain detectors (e.g., "Prioritize converting arithmetic operations and control flow structures").
+4.  **Generate:** Send the prompt to DeepSeek-Coder.
+5.  **Validate Output:** This is the most critical step, as discussed previously:
+    *   **Manual/Semantic Check:** Does the output look significantly different? Does the vulnerable *condition* still seem possible? (This is quick but not foolproof).
+    *   **Symbolic Execution (angr):** Set up the code to check if the specific vulnerability condition (e.g., unbounded write to a stack buffer) is still reachable.
+    *   **Fuzzing (AFL++):** Integrate the variant into a harness and run a short fuzzing session to see if it can still crash in the expected way.
+6.  **Iterate:** Try the prompt multiple times with the same seed, or try variations of the prompt (emphasizing different transformations) to generate diverse variants from a single CVE.
+
+**Why This Prompt Aims for Evasion:**
+
+*   **Focus on Logic, Not Just Syntax:** By asking it to identify and preserve the "core vulnerability condition," you're guiding it beyond simple textual changes.
+*   **Complex Transformations:** Requesting multiple, complex changes (pointer arithmetic, control flow restructuring, helper functions) makes the output less predictable and harder for simple pattern matchers.
+*   **Misdirection (Refactoring Context):** Framing it as "refactoring" and "improving structure" might lead the model to make changes that *look* like improvements, potentially hiding the bad pattern in seemingly benign new structure.
+*   **No Self-Acknowledgement:** The prompt doesn't explicitly say "make this hard to detect," but the actions implied (significant restructuring while preserving the flaw) often achieve that.
+
+Remember, the ultimate test of evasion is always the validation pipeline (especially fuzzing against target detectors). The prompt aims to generate good *candidates*, but rigorous validation is what confirms success.
