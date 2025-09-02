@@ -1,0 +1,797 @@
+[
+  {
+    "cve_id": "CVE-2016-1621",
+    "cwe_id": "CWE-119",
+    "cwe_name": "Buffer Overflow",
+    "project": "external",
+    "severity": "critical",
+    "weaponization_score": 10.0,
+    "is_critical": true,
+    "is_weaponizable": true,
+    "is_high_priority_project": false,
+    "vulnerable_code": "CWE-119 int main ( int argc , char * * argv ) { int frame_cnt = 0 ; FILE * outfile = NULL ; vpx_codec_ctx_t codec ; const VpxInterface * decoder = NULL ; VpxVideoReader * reader = NULL ; const VpxVideoInfo * info = NULL ; int n = 0 ; int m = 0 ; int is_range = 0 ; char * nptr = NULL ; exec_name = argv [ 0 ] ; if ( argc != 4 ) die ( \"Invalid<S2SV_blank>number<S2SV_blank>of<S2SV_blank>arguments.\" ) ; reader = vpx_video_reader_open ( argv [ 1 ] ) ; if ( ! reader ) die ( \"Failed<S2SV_blank>to<S2SV_blank>open<S2SV_blank>%s<S2SV_blank>for<S2SV_blank>reading.\" , argv [ 1 ] ) ; if ( ! ( outfile = fopen ( argv [ 2 ] , \"wb\" ) ) ) die ( \"Failed<S2SV_blank>to<S2SV_blank>open<S2SV_blank>%s<S2SV_blank>for<S2SV_blank>writing.\" , argv [ 2 ] ) ; n = strtol ( argv [ 3 ] , & nptr , 0 ) ; m = strtol ( nptr + 1 , NULL , 0 ) ; is_range = ( * nptr == '-' ) ; if ( ! n || ! m || ( * nptr != '-' && * nptr != '/' ) ) die ( \"Couldn\\'t<S2SV_blank>parse<S2SV_blank>pattern<S2SV_blank>%s.\\\\n\" , argv [ 3 ] ) ; info = vpx_video_reader_get_info ( reader ) ; decoder = get_vpx_decoder_by_fourcc ( info -> codec_fourcc ) ; if ( ! decoder ) die ( \"Unknown<S2SV_blank>input<S2SV_blank>codec.\" ) ; <S2SV_StartBug> printf ( \"Using<S2SV_blank>%s\\\\n\" , vpx_codec_iface_name ( decoder -> interface ( ) ) ) ; <S2SV_EndBug> <S2SV_StartBug> if ( vpx_codec_dec_init ( & codec , decoder -> interface ( ) , NULL , 0 ) ) <S2SV_EndBug> die_codec ( & codec , \"Failed<S2SV_blank>to<S2SV_blank>initialize<S2SV_blank>decoder.\" ) ; while ( vpx_video_reader_read_frame ( reader ) ) { vpx_codec_iter_t iter = NULL ; vpx_image_t * img = NULL ; size_t frame_size = 0 ; int skip ; const unsigned char * frame = vpx_video_reader_get_frame ( reader , & frame_size ) ; if ( vpx_codec_decode ( & codec , frame , ( unsigned int ) frame_size , NULL , 0 ) ) die_codec ( & codec , \"Failed<S2SV_blank>to<S2SV_blank>decode<S2SV_blank>frame.\" ) ; ++ frame_cnt ; skip = ( is_range && frame_cnt >= n && frame_cnt <= m ) || ( ! is_range && m - ( frame_cnt - 1 ) % m <= n ) ; if ( ! skip ) { putc ( '.' , stdout ) ; while ( ( img = vpx_codec_get_frame ( & codec , & iter ) ) != NULL ) vpx_img_write ( img , outfile ) ; } else { putc ( 'X' , stdout ) ; } fflush ( stdout ) ; } printf ( \"Processed<S2SV_blank>%d<S2SV_blank>frames.\\\\n\" , frame_cnt ) ; if ( vpx_codec_destroy ( & codec ) ) die_codec ( & codec , \"Failed<S2SV_blank>to<S2SV_blank>destroy<S2SV_blank>codec.\" ) ; printf ( \"Play:<S2SV_blank>ffplay<S2SV_blank>-f<S2SV_blank>rawvideo<S2SV_blank>-pix_fmt<S2SV_blank>yuv420p<S2SV_blank>-s<S2SV_blank>%dx%d<S2SV_blank>%s\\\\n\" , info -> frame_width , info -> frame_height , argv [ 2 ] ) ; vpx_video_reader_close ( reader ) ; fclose ( outfile ) ; return EXIT_SUCCESS ; }\n",
+    "fixed_code": "<S2SV_ModStart> ( decoder -> codec_interface <S2SV_ModEnd> ( ) ) <S2SV_ModStart> , decoder -> codec_interface <S2SV_ModEnd> ( ) ,\n",
+    "source_code_length": 2710,
+    "target_code_length": 130,
+    "vulnerability_patterns": {
+      "buffer_overflow": 2,
+      "use_after_free": 6,
+      "integer_overflow": 23,
+      "null_pointer": 146,
+      "total": 177
+    },
+    "total_patterns": 177,
+    "original_address": "https://android.googlesource.com/platform/external/libvpx/+/5a9753fca56f0eeb9f61e342b2fccffc364f9426",
+    "discovery_time": "2016-03-12T21:59Z",
+    "project_commit_id": "external@libvpx/5a9753fca56f0eeb9f61e342b2fccffc364f9426",
+    "extraction_time": "2025-08-31T15:41:49.174025",
+    "label": 1,
+    "vulnerability_type": "buffer_overflow",
+    "difficulty_level": "expert",
+    "risk_factors": [
+      "memory_corruption",
+      "arbitrary_code_execution",
+      "buffer_overflow",
+      "system_crash",
+      "use_after_free"
+    ],
+    "attack_vectors": [
+      "memory_manipulation",
+      "malicious_input",
+      "code_analysis",
+      "buffer_overflow",
+      "reverse_engineering",
+      "fuzzing"
+    ],
+    "mitigation_strategies": [
+      "safe_string_functions",
+      "dynamic_analysis",
+      "code_review",
+      "static_analysis",
+      "memory_safety_checks",
+      "input_validation",
+      "fuzzing",
+      "bounds_checking",
+      "secure_coding_practices"
+    ],
+    "code_differences": {
+      "has_differences": true,
+      "source_lines": 2,
+      "target_lines": 2,
+      "character_differences": 2580,
+      "similarity_percentage": 4.464285714285714
+    },
+    "vulnerability_location": {
+      "vulnerability_present": true,
+      "fix_applied": true,
+      "code_changed": true,
+      "estimated_lines_changed": 0
+    },
+    "variants": [
+      {
+        "variant_id": "CVE-2016-1621_variant_1",
+        "source_cve_id": "CVE-2016-1621",
+        "variant_number": 1,
+        "vulnerable_code": "// Refactored buffer handling code\nCWE-119 int main ( int argc , char * * argv ) { int frame_cnt = 0 ; FILE * outfile = NULL ; vpx_codec_ctx_t codec ; const VpxInterface * decoder = NULL ; VpxVideoReader * reader = NULL ; const VpxVideoInfo * info = NULL ; int n = 0 ; int m = 0 ; int is_range = 0 ; char * nptr = NULL ; exec_name = argv [ 0 ] ; if ( argc != 4 ) die ( \"Invalid<S2SV_blank>number<S2SV_blank>of<S2SV_blank>arguments.\" ) ; reader = vpx_video_reader_open ( argv [ 1 ] ) ; if ( ! reader ) die ( \"Failed<S2SV_blank>to<S2SV_blank>open<S2SV_blank>%s<S2SV_blank>for<S2SV_blank>reading.\" , argv [ 1 ] ) ; if ( ! ( outfile = fopen ( argv [ 2 ] , \"wb\" ) ) ) die ( \"Failed<S2SV_blank>to<S2SV_blank>open<S2SV_blank>%s<S2SV_blank>for<S2SV_blank>writing.\" , argv [ 2 ] ) ; n = strtol ( argv [ 3 ] , & nptr , 0 ) ; m = strtol ( nptr + 1 , NULL , 0 ) ; is_range = ( * nptr == '-' ) ; if ( ! n || ! m || ( * nptr != '-' && * nptr != '/' ) ) die ( \"Couldn\\'t<S2SV_blank>parse<S2SV_blank>pattern<S2SV_blank>%s.\\\\n\" , argv [ 3 ] ) ; info = vpx_video_reader_get_info ( reader ) ; decoder = get_vpx_decoder_by_fourcc ( info -> codec_fourcc ) ; if ( ! decoder ) die ( \"Unknown<S2SV_blank>input<S2SV_blank>codec.\" ) ; <S2SV_StartBug> printf ( \"Using<S2SV_blank>%s\\\\n\" , vpx_codec_iface_name ( decoder -> interface ( ) ) ) ; <S2SV_EndBug> <S2SV_StartBug> if ( vpx_codec_dec_init ( & codec , decoder -> interface ( ) , NULL , 0 ) ) <S2SV_EndBug> die_codec ( & codec , \"Failed<S2SV_blank>to<S2SV_blank>initialize<S2SV_blank>decoder.\" ) ; while ( vpx_video_reader_read_frame ( reader ) ) { vpx_codec_iter_t iter = NULL ; vpx_image_t * img = NULL ; buffer_size_t frame_buffer_size = 0 ; int skip ; const unsigned char * frame = vpx_video_reader_get_frame ( reader , & frame_buffer_size ) ; if ( vpx_codec_decode ( & codec , frame , ( unsigned int ) frame_buffer_size , NULL , 0 ) ) die_codec ( & codec , \"Failed<S2SV_blank>to<S2SV_blank>decode<S2SV_blank>frame.\" ) ; ++ frame_cnt ; skip = ( is_range && frame_cnt >= n && frame_cnt <= m ) || ( ! is_range && m - ( frame_cnt - 1 ) % m <= n ) ; if ( ! skip ) { putc ( '.' , stdout ) ; while ( ( img = vpx_codec_get_frame ( & codec , & iter ) ) != NULL ) vpx_img_write ( img , outfile ) ; } else { putc ( 'X' , stdout ) ; } fflush ( stdout ) ; } printf ( \"Processed<S2SV_blank>%d<S2SV_blank>frames.\\\\n\" , frame_cnt ) ; if ( vpx_codec_destroy ( & codec ) ) die_codec ( & codec , \"Failed<S2SV_blank>to<S2SV_blank>destroy<S2SV_blank>codec.\" ) ; printf ( \"Play:<S2SV_blank>ffplay<S2SV_blank>-f<S2SV_blank>rawvideo<S2SV_blank>-pix_fmt<S2SV_blank>yuv420p<S2SV_blank>-s<S2SV_blank>%dx%d<S2SV_blank>%s\\\\n\" , info -> frame_width , info -> frame_height , argv [ 2 ] ) ; vpx_video_reader_close ( reader ) ; fclose ( outfile ) ; return EXIT_SUCCESS ; }\n",
+        "fixed_code": "<S2SV_ModStart> ( decoder -> codec_interface <S2SV_ModEnd> ( ) ) <S2SV_ModStart> , decoder -> codec_interface <S2SV_ModEnd> ( ) ,\n",
+        "cwe_id": "CWE-119",
+        "cvss_score": "critical",
+        "weaponization_score": 10.0,
+        "project": "external",
+        "vulnerability_type": "buffer_overflow",
+        "difficulty_level": "expert",
+        "risk_factors": [
+          "memory_corruption",
+          "arbitrary_code_execution",
+          "buffer_overflow",
+          "system_crash",
+          "use_after_free"
+        ],
+        "attack_vectors": [
+          "memory_manipulation",
+          "malicious_input",
+          "code_analysis",
+          "buffer_overflow",
+          "reverse_engineering",
+          "fuzzing"
+        ],
+        "mitigation_strategies": [
+          "safe_string_functions",
+          "dynamic_analysis",
+          "code_review",
+          "static_analysis",
+          "memory_safety_checks",
+          "input_validation",
+          "fuzzing",
+          "bounds_checking",
+          "secure_coding_practices"
+        ],
+        "code_differences": {
+          "original_length": 2710,
+          "variant_length": 2773,
+          "length_difference": 63,
+          "original_lines": 2,
+          "variant_lines": 3,
+          "line_difference": 1,
+          "added_lines": 3,
+          "removed_lines": 2,
+          "similarity_ratio": 0.9885099398139705
+        },
+        "vulnerability_location": {
+          "vulnerability_present": true,
+          "fix_applied": true,
+          "code_changed": true,
+          "estimated_lines_changed": 0
+        },
+        "validation_score": 0.75,
+        "validation_checks": {
+          "code_differences": true,
+          "pattern_preservation": true,
+          "structure_quality": true,
+          "cwe_consistency": false
+        },
+        "generation_timestamp": "2025-09-02T14:02:47.379716",
+        "generation_method": "deepseek_coder_refactoring"
+      },
+      {
+        "variant_id": "CVE-2016-1621_variant_2",
+        "source_cve_id": "CVE-2016-1621",
+        "variant_number": 2,
+        "vulnerable_code": "// Refactored buffer handling code\nCWE-119 int main ( int argc , char * * argv ) { int frame_cnt = 0 ; FILE * outfile = NULL ; vpx_codec_ctx_t codec ; const VpxInterface * decoder = NULL ; VpxVideoReader * reader = NULL ; const VpxVideoInfo * info = NULL ; int n = 0 ; int m = 0 ; int is_range = 0 ; char * nptr = NULL ; exec_name = argv [ 0 ] ; if ( argc != 4 ) die ( \"Invalid<S2SV_blank>number<S2SV_blank>of<S2SV_blank>arguments.\" ) ; reader = vpx_video_reader_open ( argv [ 1 ] ) ; if ( ! reader ) die ( \"Failed<S2SV_blank>to<S2SV_blank>open<S2SV_blank>%s<S2SV_blank>for<S2SV_blank>reading.\" , argv [ 1 ] ) ; if ( ! ( outfile = fopen ( argv [ 2 ] , \"wb\" ) ) ) die ( \"Failed<S2SV_blank>to<S2SV_blank>open<S2SV_blank>%s<S2SV_blank>for<S2SV_blank>writing.\" , argv [ 2 ] ) ; n = strtol ( argv [ 3 ] , & nptr , 0 ) ; m = strtol ( nptr + 1 , NULL , 0 ) ; is_range = ( * nptr == '-' ) ; if ( ! n || ! m || ( * nptr != '-' && * nptr != '/' ) ) die ( \"Couldn\\'t<S2SV_blank>parse<S2SV_blank>pattern<S2SV_blank>%s.\\\\n\" , argv [ 3 ] ) ; info = vpx_video_reader_get_info ( reader ) ; decoder = get_vpx_decoder_by_fourcc ( info -> codec_fourcc ) ; if ( ! decoder ) die ( \"Unknown<S2SV_blank>input<S2SV_blank>codec.\" ) ; <S2SV_StartBug> printf ( \"Using<S2SV_blank>%s\\\\n\" , vpx_codec_iface_name ( decoder -> interface ( ) ) ) ; <S2SV_EndBug> <S2SV_StartBug> if ( vpx_codec_dec_init ( & codec , decoder -> interface ( ) , NULL , 0 ) ) <S2SV_EndBug> die_codec ( & codec , \"Failed<S2SV_blank>to<S2SV_blank>initialize<S2SV_blank>decoder.\" ) ; while ( vpx_video_reader_read_frame ( reader ) ) { vpx_codec_iter_t iter = NULL ; vpx_image_t * img = NULL ; buffer_size_t frame_buffer_size = 0 ; int skip ; const unsigned char * frame = vpx_video_reader_get_frame ( reader , & frame_buffer_size ) ; if ( vpx_codec_decode ( & codec , frame , ( unsigned int ) frame_buffer_size , NULL , 0 ) ) die_codec ( & codec , \"Failed<S2SV_blank>to<S2SV_blank>decode<S2SV_blank>frame.\" ) ; ++ frame_cnt ; skip = ( is_range && frame_cnt >= n && frame_cnt <= m ) || ( ! is_range && m - ( frame_cnt - 1 ) % m <= n ) ; if ( ! skip ) { putc ( '.' , stdout ) ; while ( ( img = vpx_codec_get_frame ( & codec , & iter ) ) != NULL ) vpx_img_write ( img , outfile ) ; } else { putc ( 'X' , stdout ) ; } fflush ( stdout ) ; } printf ( \"Processed<S2SV_blank>%d<S2SV_blank>frames.\\\\n\" , frame_cnt ) ; if ( vpx_codec_destroy ( & codec ) ) die_codec ( & codec , \"Failed<S2SV_blank>to<S2SV_blank>destroy<S2SV_blank>codec.\" ) ; printf ( \"Play:<S2SV_blank>ffplay<S2SV_blank>-f<S2SV_blank>rawvideo<S2SV_blank>-pix_fmt<S2SV_blank>yuv420p<S2SV_blank>-s<S2SV_blank>%dx%d<S2SV_blank>%s\\\\n\" , info -> frame_width , info -> frame_height , argv [ 2 ] ) ; vpx_video_reader_close ( reader ) ; fclose ( outfile ) ; return EXIT_SUCCESS ; }\n",
+        "fixed_code": "<S2SV_ModStart> ( decoder -> codec_interface <S2SV_ModEnd> ( ) ) <S2SV_ModStart> , decoder -> codec_interface <S2SV_ModEnd> ( ) ,\n",
+        "cwe_id": "CWE-119",
+        "cvss_score": "critical",
+        "weaponization_score": 10.0,
+        "project": "external",
+        "vulnerability_type": "buffer_overflow",
+        "difficulty_level": "expert",
+        "risk_factors": [
+          "memory_corruption",
+          "arbitrary_code_execution",
+          "buffer_overflow",
+          "system_crash",
+          "use_after_free"
+        ],
+        "attack_vectors": [
+          "memory_manipulation",
+          "malicious_input",
+          "code_analysis",
+          "buffer_overflow",
+          "reverse_engineering",
+          "fuzzing"
+        ],
+        "mitigation_strategies": [
+          "safe_string_functions",
+          "dynamic_analysis",
+          "code_review",
+          "static_analysis",
+          "memory_safety_checks",
+          "input_validation",
+          "fuzzing",
+          "bounds_checking",
+          "secure_coding_practices"
+        ],
+        "code_differences": {
+          "original_length": 2710,
+          "variant_length": 2773,
+          "length_difference": 63,
+          "original_lines": 2,
+          "variant_lines": 3,
+          "line_difference": 1,
+          "added_lines": 3,
+          "removed_lines": 2,
+          "similarity_ratio": 0.9885099398139705
+        },
+        "vulnerability_location": {
+          "vulnerability_present": true,
+          "fix_applied": true,
+          "code_changed": true,
+          "estimated_lines_changed": 0
+        },
+        "validation_score": 0.75,
+        "validation_checks": {
+          "code_differences": true,
+          "pattern_preservation": true,
+          "structure_quality": true,
+          "cwe_consistency": false
+        },
+        "generation_timestamp": "2025-09-02T14:02:47.487024",
+        "generation_method": "deepseek_coder_refactoring"
+      },
+      {
+        "variant_id": "CVE-2016-1621_variant_3",
+        "source_cve_id": "CVE-2016-1621",
+        "variant_number": 3,
+        "vulnerable_code": "// Refactored buffer handling code\nCWE-119 int main ( int argc , char * * argv ) { int frame_cnt = 0 ; FILE * outfile = NULL ; vpx_codec_ctx_t codec ; const VpxInterface * decoder = NULL ; VpxVideoReader * reader = NULL ; const VpxVideoInfo * info = NULL ; int n = 0 ; int m = 0 ; int is_range = 0 ; char * nptr = NULL ; exec_name = argv [ 0 ] ; if ( argc != 4 ) die ( \"Invalid<S2SV_blank>number<S2SV_blank>of<S2SV_blank>arguments.\" ) ; reader = vpx_video_reader_open ( argv [ 1 ] ) ; if ( ! reader ) die ( \"Failed<S2SV_blank>to<S2SV_blank>open<S2SV_blank>%s<S2SV_blank>for<S2SV_blank>reading.\" , argv [ 1 ] ) ; if ( ! ( outfile = fopen ( argv [ 2 ] , \"wb\" ) ) ) die ( \"Failed<S2SV_blank>to<S2SV_blank>open<S2SV_blank>%s<S2SV_blank>for<S2SV_blank>writing.\" , argv [ 2 ] ) ; n = strtol ( argv [ 3 ] , & nptr , 0 ) ; m = strtol ( nptr + 1 , NULL , 0 ) ; is_range = ( * nptr == '-' ) ; if ( ! n || ! m || ( * nptr != '-' && * nptr != '/' ) ) die ( \"Couldn\\'t<S2SV_blank>parse<S2SV_blank>pattern<S2SV_blank>%s.\\\\n\" , argv [ 3 ] ) ; info = vpx_video_reader_get_info ( reader ) ; decoder = get_vpx_decoder_by_fourcc ( info -> codec_fourcc ) ; if ( ! decoder ) die ( \"Unknown<S2SV_blank>input<S2SV_blank>codec.\" ) ; <S2SV_StartBug> printf ( \"Using<S2SV_blank>%s\\\\n\" , vpx_codec_iface_name ( decoder -> interface ( ) ) ) ; <S2SV_EndBug> <S2SV_StartBug> if ( vpx_codec_dec_init ( & codec , decoder -> interface ( ) , NULL , 0 ) ) <S2SV_EndBug> die_codec ( & codec , \"Failed<S2SV_blank>to<S2SV_blank>initialize<S2SV_blank>decoder.\" ) ; while ( vpx_video_reader_read_frame ( reader ) ) { vpx_codec_iter_t iter = NULL ; vpx_image_t * img = NULL ; buffer_size_t frame_buffer_size = 0 ; int skip ; const unsigned char * frame = vpx_video_reader_get_frame ( reader , & frame_buffer_size ) ; if ( vpx_codec_decode ( & codec , frame , ( unsigned int ) frame_buffer_size , NULL , 0 ) ) die_codec ( & codec , \"Failed<S2SV_blank>to<S2SV_blank>decode<S2SV_blank>frame.\" ) ; ++ frame_cnt ; skip = ( is_range && frame_cnt >= n && frame_cnt <= m ) || ( ! is_range && m - ( frame_cnt - 1 ) % m <= n ) ; if ( ! skip ) { putc ( '.' , stdout ) ; while ( ( img = vpx_codec_get_frame ( & codec , & iter ) ) != NULL ) vpx_img_write ( img , outfile ) ; } else { putc ( 'X' , stdout ) ; } fflush ( stdout ) ; } printf ( \"Processed<S2SV_blank>%d<S2SV_blank>frames.\\\\n\" , frame_cnt ) ; if ( vpx_codec_destroy ( & codec ) ) die_codec ( & codec , \"Failed<S2SV_blank>to<S2SV_blank>destroy<S2SV_blank>codec.\" ) ; printf ( \"Play:<S2SV_blank>ffplay<S2SV_blank>-f<S2SV_blank>rawvideo<S2SV_blank>-pix_fmt<S2SV_blank>yuv420p<S2SV_blank>-s<S2SV_blank>%dx%d<S2SV_blank>%s\\\\n\" , info -> frame_width , info -> frame_height , argv [ 2 ] ) ; vpx_video_reader_close ( reader ) ; fclose ( outfile ) ; return EXIT_SUCCESS ; }\n",
+        "fixed_code": "<S2SV_ModStart> ( decoder -> codec_interface <S2SV_ModEnd> ( ) ) <S2SV_ModStart> , decoder -> codec_interface <S2SV_ModEnd> ( ) ,\n",
+        "cwe_id": "CWE-119",
+        "cvss_score": "critical",
+        "weaponization_score": 10.0,
+        "project": "external",
+        "vulnerability_type": "buffer_overflow",
+        "difficulty_level": "expert",
+        "risk_factors": [
+          "memory_corruption",
+          "arbitrary_code_execution",
+          "buffer_overflow",
+          "system_crash",
+          "use_after_free"
+        ],
+        "attack_vectors": [
+          "memory_manipulation",
+          "malicious_input",
+          "code_analysis",
+          "buffer_overflow",
+          "reverse_engineering",
+          "fuzzing"
+        ],
+        "mitigation_strategies": [
+          "safe_string_functions",
+          "dynamic_analysis",
+          "code_review",
+          "static_analysis",
+          "memory_safety_checks",
+          "input_validation",
+          "fuzzing",
+          "bounds_checking",
+          "secure_coding_practices"
+        ],
+        "code_differences": {
+          "original_length": 2710,
+          "variant_length": 2773,
+          "length_difference": 63,
+          "original_lines": 2,
+          "variant_lines": 3,
+          "line_difference": 1,
+          "added_lines": 3,
+          "removed_lines": 2,
+          "similarity_ratio": 0.9885099398139705
+        },
+        "vulnerability_location": {
+          "vulnerability_present": true,
+          "fix_applied": true,
+          "code_changed": true,
+          "estimated_lines_changed": 0
+        },
+        "validation_score": 0.75,
+        "validation_checks": {
+          "code_differences": true,
+          "pattern_preservation": true,
+          "structure_quality": true,
+          "cwe_consistency": false
+        },
+        "generation_timestamp": "2025-09-02T14:02:47.595945",
+        "generation_method": "deepseek_coder_refactoring"
+      }
+    ],
+    "variant_count": 3
+  },
+  {
+    "cve_id": "CVE-2020-14954",
+    "cwe_id": "CWE-74",
+    "cwe_name": "Command Injection",
+    "project": "neomutt",
+    "severity": "critical",
+    "weaponization_score": 10.0,
+    "is_critical": true,
+    "is_weaponizable": true,
+    "is_high_priority_project": true,
+    "vulnerable_code": "CWE-74 int nntp_open_connection ( struct NntpAccountData * adata ) { struct Connection * conn = adata -> conn ; char buf [ 256 ] ; int cap ; bool posting = false , auth = true ; if ( adata -> status == NNTP_OK ) return 0 ; if ( adata -> status == NNTP_BYE ) return - 1 ; adata -> status = NNTP_NONE ; if ( mutt_socket_open ( conn ) < 0 ) return - 1 ; if ( mutt_socket_readln ( buf , sizeof ( buf ) , conn ) < 0 ) return nntp_connect_error ( adata ) ; if ( mutt_str_startswith ( buf , \"200\" , CASE_MATCH ) ) posting = true ; else if ( ! mutt_str_startswith ( buf , \"201\" , CASE_MATCH ) ) { mutt_socket_close ( conn ) ; mutt_str_remove_trailing_ws ( buf ) ; mutt_error ( \"%s\" , buf ) ; return - 1 ; } cap = nntp_capabilities ( adata ) ; if ( cap < 0 ) return - 1 ; if ( cap > 0 ) { if ( ( mutt_socket_send ( conn , \"MODE<S2SV_blank>READER\\\\r\\\\n\" ) < 0 ) || ( mutt_socket_readln ( buf , sizeof ( buf ) , conn ) < 0 ) ) { return nntp_connect_error ( adata ) ; } if ( mutt_str_startswith ( buf , \"200\" , CASE_MATCH ) ) posting = true ; else if ( mutt_str_startswith ( buf , \"201\" , CASE_MATCH ) ) posting = false ; else if ( adata -> hasCAPABILITIES ) { mutt_socket_close ( conn ) ; mutt_error ( _ ( \"Could<S2SV_blank>not<S2SV_blank>switch<S2SV_blank>to<S2SV_blank>reader<S2SV_blank>mode\" ) ) ; return - 1 ; } if ( adata -> hasCAPABILITIES ) { cap = nntp_capabilities ( adata ) ; if ( cap < 0 ) return - 1 ; } } mutt_message ( _ ( \"Connected<S2SV_blank>to<S2SV_blank>%s.<S2SV_blank>%s\" ) , conn -> account . host , posting ? _ ( \"Posting<S2SV_blank>is<S2SV_blank>ok\" ) : _ ( \"Posting<S2SV_blank>is<S2SV_blank>NOT<S2SV_blank>ok\" ) ) ; mutt_sleep ( 1 ) ; # ifdef USE_SSL if ( ( adata -> use_tls != 1 ) && ( adata -> hasSTARTTLS || C_SslForceTls ) ) { if ( adata -> use_tls == 0 ) { adata -> use_tls = C_SslForceTls || query_quadoption ( C_SslStarttls , _ ( \"Secure<S2SV_blank>connection<S2SV_blank>with<S2SV_blank>TLS?\" ) ) == MUTT_YES ? 2 : 1 ; } if ( adata -> use_tls == 2 ) { if ( ( mutt_socket_send ( conn , \"STARTTLS\\\\r\\\\n\" ) < 0 ) || ( mutt_socket_readln ( buf , sizeof ( buf ) , conn ) < 0 ) ) { return nntp_connect_error ( adata ) ; <S2SV_StartBug> } <S2SV_EndBug> if ( ! mutt_str_startswith ( buf , \"382\" , CASE_MATCH ) ) { adata -> use_tls = 0 ; mutt_error ( \"STARTTLS:<S2SV_blank>%s\" , buf ) ; } else if ( mutt_ssl_starttls ( conn ) ) { adata -> use_tls = 0 ; adata -> status = NNTP_NONE ; mutt_socket_close ( adata -> conn ) ; mutt_error ( _ ( \"Could<S2SV_blank>not<S2SV_blank>negotiate<S2SV_blank>TLS<S2SV_blank>connection\" ) ) ; return - 1 ; } else { cap = nntp_capabilities ( adata ) ; if ( cap < 0 ) return - 1 ; } } } # endif if ( conn -> account . flags & MUTT_ACCT_USER ) { if ( ! conn -> account . user [ 0 ] ) auth = false ; } else { if ( ( mutt_socket_send ( conn , \"STAT\\\\r\\\\n\" ) < 0 ) || ( mutt_socket_readln ( buf , sizeof ( buf ) , conn ) < 0 ) ) { return nntp_connect_error ( adata ) ; } if ( ! mutt_str_startswith ( buf , \"480\" , CASE_MATCH ) ) auth = false ; } if ( auth && ( nntp_auth ( adata ) < 0 ) ) return - 1 ; if ( adata -> hasCAPABILITIES && ( auth || ( cap > 0 ) ) ) { cap = nntp_capabilities ( adata ) ; if ( cap < 0 ) return - 1 ; if ( cap > 0 ) { mutt_socket_close ( conn ) ; mutt_error ( _ ( \"Could<S2SV_blank>not<S2SV_blank>switch<S2SV_blank>to<S2SV_blank>reader<S2SV_blank>mode\" ) ) ; return - 1 ; } } if ( nntp_attempt_features ( adata ) < 0 ) return - 1 ; adata -> status = NNTP_OK ; return 0 ; }\n",
+    "fixed_code": "<S2SV_ModStart> ) ; } mutt_socket_empty ( conn ) ;\n",
+    "source_code_length": 3436,
+    "target_code_length": 51,
+    "vulnerability_patterns": {
+      "null_pointer": 20,
+      "total": 20
+    },
+    "total_patterns": 20,
+    "original_address": "https://github.com/neomutt/neomutt/commit/fb013ec666759cb8a9e294347c7b4c1f597639cc",
+    "discovery_time": "2020-06-21T17:15Z",
+    "project_commit_id": "neomutt@neomutt/fb013ec666759cb8a9e294347c7b4c1f597639cc",
+    "extraction_time": "2025-08-31T15:41:49.174087",
+    "label": 1,
+    "vulnerability_type": "command_injection",
+    "difficulty_level": "expert",
+    "risk_factors": [
+      "command_injection",
+      "arbitrary_code_execution",
+      "critical_infrastructure",
+      "remote_code_execution"
+    ],
+    "attack_vectors": [
+      "command_injection",
+      "system_commands",
+      "code_analysis",
+      "reverse_engineering",
+      "fuzzing",
+      "user_input"
+    ],
+    "mitigation_strategies": [
+      "fuzzing",
+      "dynamic_analysis",
+      "command_whitelisting",
+      "static_analysis",
+      "secure_coding_practices",
+      "privilege_separation",
+      "input_sanitization",
+      "code_review",
+      "input_validation"
+    ],
+    "code_differences": {
+      "has_differences": true,
+      "source_lines": 2,
+      "target_lines": 2,
+      "character_differences": 3385,
+      "similarity_percentage": 4.901960784313726
+    },
+    "vulnerability_location": {
+      "vulnerability_present": true,
+      "fix_applied": true,
+      "code_changed": true,
+      "estimated_lines_changed": 0
+    },
+    "variants": [
+      {
+        "variant_id": "CVE-2020-14954_variant_1",
+        "source_cve_id": "CVE-2020-14954",
+        "variant_number": 1,
+        "vulnerable_code": "// Refactored code\nCWE-74 int nntp_open_connection ( string_datauct NntpAccountData * adata ) { string_datauct Connection * conn = adata -> conn ; char buf [ 256 ] ; int cap ; bool posting = false , auth = true ; if ( adata -> status == NNTP_OK ) return 0 ; if ( adata -> status == NNTP_BYE ) return - 1 ; adata -> status = NNTP_NONE ; if ( mutt_socket_open ( conn ) < 0 ) return - 1 ; if ( mutt_socket_readln ( buf , buffer_sizeof ( buf ) , conn ) < 0 ) return nntp_connect_error ( adata ) ; if ( mutt_string_data_startswith ( buf , \"200\" , CASE_MATCH ) ) posting = true ; else if ( ! mutt_string_data_startswith ( buf , \"201\" , CASE_MATCH ) ) { mutt_socket_close ( conn ) ; mutt_string_data_remove_trailing_ws ( buf ) ; mutt_error ( \"%s\" , buf ) ; return - 1 ; } cap = nntp_capabilities ( adata ) ; if ( cap < 0 ) return - 1 ; if ( cap > 0 ) { if ( ( mutt_socket_send ( conn , \"MODE<S2SV_blank>READER\\\\r\\\\n\" ) < 0 ) || ( mutt_socket_readln ( buf , buffer_sizeof ( buf ) , conn ) < 0 ) ) { return nntp_connect_error ( adata ) ; } if ( mutt_string_data_startswith ( buf , \"200\" , CASE_MATCH ) ) posting = true ; else if ( mutt_string_data_startswith ( buf , \"201\" , CASE_MATCH ) ) posting = false ; else if ( adata -> hasCAPABILITIES ) { mutt_socket_close ( conn ) ; mutt_error ( _ ( \"Could<S2SV_blank>not<S2SV_blank>switch<S2SV_blank>to<S2SV_blank>reader<S2SV_blank>mode\" ) ) ; return - 1 ; } if ( adata -> hasCAPABILITIES ) { cap = nntp_capabilities ( adata ) ; if ( cap < 0 ) return - 1 ; } } mutt_message ( _ ( \"Connected<S2SV_blank>to<S2SV_blank>%s.<S2SV_blank>%s\" ) , conn -> account . host , posting ? _ ( \"Posting<S2SV_blank>is<S2SV_blank>ok\" ) : _ ( \"Posting<S2SV_blank>is<S2SV_blank>NOT<S2SV_blank>ok\" ) ) ; mutt_sleep ( 1 ) ; # ifdef USE_SSL if ( ( adata -> use_tls != 1 ) && ( adata -> hasSTARTTLS || C_SslForceTls ) ) { if ( adata -> use_tls == 0 ) { adata -> use_tls = C_SslForceTls || query_quadoption ( C_SslStarttls , _ ( \"Secure<S2SV_blank>connection<S2SV_blank>with<S2SV_blank>TLS?\" ) ) == MUTT_YES ? 2 : 1 ; } if ( adata -> use_tls == 2 ) { if ( ( mutt_socket_send ( conn , \"STARTTLS\\\\r\\\\n\" ) < 0 ) || ( mutt_socket_readln ( buf , buffer_sizeof ( buf ) , conn ) < 0 ) ) { return nntp_connect_error ( adata ) ; <S2SV_StartBug> } <S2SV_EndBug> if ( ! mutt_string_data_startswith ( buf , \"382\" , CASE_MATCH ) ) { adata -> use_tls = 0 ; mutt_error ( \"STARTTLS:<S2SV_blank>%s\" , buf ) ; } else if ( mutt_ssl_starttls ( conn ) ) { adata -> use_tls = 0 ; adata -> status = NNTP_NONE ; mutt_socket_close ( adata -> conn ) ; mutt_error ( _ ( \"Could<S2SV_blank>not<S2SV_blank>negotiate<S2SV_blank>TLS<S2SV_blank>connection\" ) ) ; return - 1 ; } else { cap = nntp_capabilities ( adata ) ; if ( cap < 0 ) return - 1 ; } } } # endif if ( conn -> account . flags & MUTT_ACCT_USER ) { if ( ! conn -> account . user [ 0 ] ) auth = false ; } else { if ( ( mutt_socket_send ( conn , \"STAT\\\\r\\\\n\" ) < 0 ) || ( mutt_socket_readln ( buf , buffer_sizeof ( buf ) , conn ) < 0 ) ) { return nntp_connect_error ( adata ) ; } if ( ! mutt_string_data_startswith ( buf , \"480\" , CASE_MATCH ) ) auth = false ; } if ( auth && ( nntp_auth ( adata ) < 0 ) ) return - 1 ; if ( adata -> hasCAPABILITIES && ( auth || ( cap > 0 ) ) ) { cap = nntp_capabilities ( adata ) ; if ( cap < 0 ) return - 1 ; if ( cap > 0 ) { mutt_socket_close ( conn ) ; mutt_error ( _ ( \"Could<S2SV_blank>not<S2SV_blank>switch<S2SV_blank>to<S2SV_blank>reader<S2SV_blank>mode\" ) ) ; return - 1 ; } } if ( nntp_attempt_features ( adata ) < 0 ) return - 1 ; adata -> status = NNTP_OK ; return 0 ; }\n",
+        "fixed_code": "<S2SV_ModStart> ) ; } mutt_socket_empty ( conn ) ;\n",
+        "cwe_id": "CWE-74",
+        "cvss_score": "critical",
+        "weaponization_score": 10.0,
+        "project": "neomutt",
+        "vulnerability_type": "command_injection",
+        "difficulty_level": "expert",
+        "risk_factors": [
+          "command_injection",
+          "arbitrary_code_execution",
+          "critical_infrastructure",
+          "remote_code_execution"
+        ],
+        "attack_vectors": [
+          "command_injection",
+          "system_commands",
+          "code_analysis",
+          "reverse_engineering",
+          "fuzzing",
+          "user_input"
+        ],
+        "mitigation_strategies": [
+          "fuzzing",
+          "dynamic_analysis",
+          "command_whitelisting",
+          "static_analysis",
+          "secure_coding_practices",
+          "privilege_separation",
+          "input_sanitization",
+          "code_review",
+          "input_validation"
+        ],
+        "code_differences": {
+          "original_length": 3436,
+          "variant_length": 3555,
+          "length_difference": 119,
+          "original_lines": 2,
+          "variant_lines": 3,
+          "line_difference": 1,
+          "added_lines": 3,
+          "removed_lines": 2,
+          "similarity_ratio": 0.9829781147189244
+        },
+        "vulnerability_location": {
+          "vulnerability_present": true,
+          "fix_applied": true,
+          "code_changed": true,
+          "estimated_lines_changed": 0
+        },
+        "validation_score": 0.75,
+        "validation_checks": {
+          "code_differences": true,
+          "pattern_preservation": true,
+          "structure_quality": true,
+          "cwe_consistency": false
+        },
+        "generation_timestamp": "2025-09-02T14:02:47.706388",
+        "generation_method": "deepseek_coder_refactoring"
+      },
+      {
+        "variant_id": "CVE-2020-14954_variant_2",
+        "source_cve_id": "CVE-2020-14954",
+        "variant_number": 2,
+        "vulnerable_code": "// Refactored code\nCWE-74 int nntp_open_connection ( string_datauct NntpAccountData * adata ) { string_datauct Connection * conn = adata -> conn ; char buf [ 256 ] ; int cap ; bool posting = false , auth = true ; if ( adata -> status == NNTP_OK ) return 0 ; if ( adata -> status == NNTP_BYE ) return - 1 ; adata -> status = NNTP_NONE ; if ( mutt_socket_open ( conn ) < 0 ) return - 1 ; if ( mutt_socket_readln ( buf , buffer_sizeof ( buf ) , conn ) < 0 ) return nntp_connect_error ( adata ) ; if ( mutt_string_data_startswith ( buf , \"200\" , CASE_MATCH ) ) posting = true ; else if ( ! mutt_string_data_startswith ( buf , \"201\" , CASE_MATCH ) ) { mutt_socket_close ( conn ) ; mutt_string_data_remove_trailing_ws ( buf ) ; mutt_error ( \"%s\" , buf ) ; return - 1 ; } cap = nntp_capabilities ( adata ) ; if ( cap < 0 ) return - 1 ; if ( cap > 0 ) { if ( ( mutt_socket_send ( conn , \"MODE<S2SV_blank>READER\\\\r\\\\n\" ) < 0 ) || ( mutt_socket_readln ( buf , buffer_sizeof ( buf ) , conn ) < 0 ) ) { return nntp_connect_error ( adata ) ; } if ( mutt_string_data_startswith ( buf , \"200\" , CASE_MATCH ) ) posting = true ; else if ( mutt_string_data_startswith ( buf , \"201\" , CASE_MATCH ) ) posting = false ; else if ( adata -> hasCAPABILITIES ) { mutt_socket_close ( conn ) ; mutt_error ( _ ( \"Could<S2SV_blank>not<S2SV_blank>switch<S2SV_blank>to<S2SV_blank>reader<S2SV_blank>mode\" ) ) ; return - 1 ; } if ( adata -> hasCAPABILITIES ) { cap = nntp_capabilities ( adata ) ; if ( cap < 0 ) return - 1 ; } } mutt_message ( _ ( \"Connected<S2SV_blank>to<S2SV_blank>%s.<S2SV_blank>%s\" ) , conn -> account . host , posting ? _ ( \"Posting<S2SV_blank>is<S2SV_blank>ok\" ) : _ ( \"Posting<S2SV_blank>is<S2SV_blank>NOT<S2SV_blank>ok\" ) ) ; mutt_sleep ( 1 ) ; # ifdef USE_SSL if ( ( adata -> use_tls != 1 ) && ( adata -> hasSTARTTLS || C_SslForceTls ) ) { if ( adata -> use_tls == 0 ) { adata -> use_tls = C_SslForceTls || query_quadoption ( C_SslStarttls , _ ( \"Secure<S2SV_blank>connection<S2SV_blank>with<S2SV_blank>TLS?\" ) ) == MUTT_YES ? 2 : 1 ; } if ( adata -> use_tls == 2 ) { if ( ( mutt_socket_send ( conn , \"STARTTLS\\\\r\\\\n\" ) < 0 ) || ( mutt_socket_readln ( buf , buffer_sizeof ( buf ) , conn ) < 0 ) ) { return nntp_connect_error ( adata ) ; <S2SV_StartBug> } <S2SV_EndBug> if ( ! mutt_string_data_startswith ( buf , \"382\" , CASE_MATCH ) ) { adata -> use_tls = 0 ; mutt_error ( \"STARTTLS:<S2SV_blank>%s\" , buf ) ; } else if ( mutt_ssl_starttls ( conn ) ) { adata -> use_tls = 0 ; adata -> status = NNTP_NONE ; mutt_socket_close ( adata -> conn ) ; mutt_error ( _ ( \"Could<S2SV_blank>not<S2SV_blank>negotiate<S2SV_blank>TLS<S2SV_blank>connection\" ) ) ; return - 1 ; } else { cap = nntp_capabilities ( adata ) ; if ( cap < 0 ) return - 1 ; } } } # endif if ( conn -> account . flags & MUTT_ACCT_USER ) { if ( ! conn -> account . user [ 0 ] ) auth = false ; } else { if ( ( mutt_socket_send ( conn , \"STAT\\\\r\\\\n\" ) < 0 ) || ( mutt_socket_readln ( buf , buffer_sizeof ( buf ) , conn ) < 0 ) ) { return nntp_connect_error ( adata ) ; } if ( ! mutt_string_data_startswith ( buf , \"480\" , CASE_MATCH ) ) auth = false ; } if ( auth && ( nntp_auth ( adata ) < 0 ) ) return - 1 ; if ( adata -> hasCAPABILITIES && ( auth || ( cap > 0 ) ) ) { cap = nntp_capabilities ( adata ) ; if ( cap < 0 ) return - 1 ; if ( cap > 0 ) { mutt_socket_close ( conn ) ; mutt_error ( _ ( \"Could<S2SV_blank>not<S2SV_blank>switch<S2SV_blank>to<S2SV_blank>reader<S2SV_blank>mode\" ) ) ; return - 1 ; } } if ( nntp_attempt_features ( adata ) < 0 ) return - 1 ; adata -> status = NNTP_OK ; return 0 ; }\n",
+        "fixed_code": "<S2SV_ModStart> ) ; } mutt_socket_empty ( conn ) ;\n",
+        "cwe_id": "CWE-74",
+        "cvss_score": "critical",
+        "weaponization_score": 10.0,
+        "project": "neomutt",
+        "vulnerability_type": "command_injection",
+        "difficulty_level": "expert",
+        "risk_factors": [
+          "command_injection",
+          "arbitrary_code_execution",
+          "critical_infrastructure",
+          "remote_code_execution"
+        ],
+        "attack_vectors": [
+          "command_injection",
+          "system_commands",
+          "code_analysis",
+          "reverse_engineering",
+          "fuzzing",
+          "user_input"
+        ],
+        "mitigation_strategies": [
+          "fuzzing",
+          "dynamic_analysis",
+          "command_whitelisting",
+          "static_analysis",
+          "secure_coding_practices",
+          "privilege_separation",
+          "input_sanitization",
+          "code_review",
+          "input_validation"
+        ],
+        "code_differences": {
+          "original_length": 3436,
+          "variant_length": 3555,
+          "length_difference": 119,
+          "original_lines": 2,
+          "variant_lines": 3,
+          "line_difference": 1,
+          "added_lines": 3,
+          "removed_lines": 2,
+          "similarity_ratio": 0.9829781147189244
+        },
+        "vulnerability_location": {
+          "vulnerability_present": true,
+          "fix_applied": true,
+          "code_changed": true,
+          "estimated_lines_changed": 0
+        },
+        "validation_score": 0.75,
+        "validation_checks": {
+          "code_differences": true,
+          "pattern_preservation": true,
+          "structure_quality": true,
+          "cwe_consistency": false
+        },
+        "generation_timestamp": "2025-09-02T14:02:47.818002",
+        "generation_method": "deepseek_coder_refactoring"
+      },
+      {
+        "variant_id": "CVE-2020-14954_variant_3",
+        "source_cve_id": "CVE-2020-14954",
+        "variant_number": 3,
+        "vulnerable_code": "// Refactored code\nCWE-74 int nntp_open_connection ( string_datauct NntpAccountData * adata ) { string_datauct Connection * conn = adata -> conn ; char buf [ 256 ] ; int cap ; bool posting = false , auth = true ; if ( adata -> status == NNTP_OK ) return 0 ; if ( adata -> status == NNTP_BYE ) return - 1 ; adata -> status = NNTP_NONE ; if ( mutt_socket_open ( conn ) < 0 ) return - 1 ; if ( mutt_socket_readln ( buf , buffer_sizeof ( buf ) , conn ) < 0 ) return nntp_connect_error ( adata ) ; if ( mutt_string_data_startswith ( buf , \"200\" , CASE_MATCH ) ) posting = true ; else if ( ! mutt_string_data_startswith ( buf , \"201\" , CASE_MATCH ) ) { mutt_socket_close ( conn ) ; mutt_string_data_remove_trailing_ws ( buf ) ; mutt_error ( \"%s\" , buf ) ; return - 1 ; } cap = nntp_capabilities ( adata ) ; if ( cap < 0 ) return - 1 ; if ( cap > 0 ) { if ( ( mutt_socket_send ( conn , \"MODE<S2SV_blank>READER\\\\r\\\\n\" ) < 0 ) || ( mutt_socket_readln ( buf , buffer_sizeof ( buf ) , conn ) < 0 ) ) { return nntp_connect_error ( adata ) ; } if ( mutt_string_data_startswith ( buf , \"200\" , CASE_MATCH ) ) posting = true ; else if ( mutt_string_data_startswith ( buf , \"201\" , CASE_MATCH ) ) posting = false ; else if ( adata -> hasCAPABILITIES ) { mutt_socket_close ( conn ) ; mutt_error ( _ ( \"Could<S2SV_blank>not<S2SV_blank>switch<S2SV_blank>to<S2SV_blank>reader<S2SV_blank>mode\" ) ) ; return - 1 ; } if ( adata -> hasCAPABILITIES ) { cap = nntp_capabilities ( adata ) ; if ( cap < 0 ) return - 1 ; } } mutt_message ( _ ( \"Connected<S2SV_blank>to<S2SV_blank>%s.<S2SV_blank>%s\" ) , conn -> account . host , posting ? _ ( \"Posting<S2SV_blank>is<S2SV_blank>ok\" ) : _ ( \"Posting<S2SV_blank>is<S2SV_blank>NOT<S2SV_blank>ok\" ) ) ; mutt_sleep ( 1 ) ; # ifdef USE_SSL if ( ( adata -> use_tls != 1 ) && ( adata -> hasSTARTTLS || C_SslForceTls ) ) { if ( adata -> use_tls == 0 ) { adata -> use_tls = C_SslForceTls || query_quadoption ( C_SslStarttls , _ ( \"Secure<S2SV_blank>connection<S2SV_blank>with<S2SV_blank>TLS?\" ) ) == MUTT_YES ? 2 : 1 ; } if ( adata -> use_tls == 2 ) { if ( ( mutt_socket_send ( conn , \"STARTTLS\\\\r\\\\n\" ) < 0 ) || ( mutt_socket_readln ( buf , buffer_sizeof ( buf ) , conn ) < 0 ) ) { return nntp_connect_error ( adata ) ; <S2SV_StartBug> } <S2SV_EndBug> if ( ! mutt_string_data_startswith ( buf , \"382\" , CASE_MATCH ) ) { adata -> use_tls = 0 ; mutt_error ( \"STARTTLS:<S2SV_blank>%s\" , buf ) ; } else if ( mutt_ssl_starttls ( conn ) ) { adata -> use_tls = 0 ; adata -> status = NNTP_NONE ; mutt_socket_close ( adata -> conn ) ; mutt_error ( _ ( \"Could<S2SV_blank>not<S2SV_blank>negotiate<S2SV_blank>TLS<S2SV_blank>connection\" ) ) ; return - 1 ; } else { cap = nntp_capabilities ( adata ) ; if ( cap < 0 ) return - 1 ; } } } # endif if ( conn -> account . flags & MUTT_ACCT_USER ) { if ( ! conn -> account . user [ 0 ] ) auth = false ; } else { if ( ( mutt_socket_send ( conn , \"STAT\\\\r\\\\n\" ) < 0 ) || ( mutt_socket_readln ( buf , buffer_sizeof ( buf ) , conn ) < 0 ) ) { return nntp_connect_error ( adata ) ; } if ( ! mutt_string_data_startswith ( buf , \"480\" , CASE_MATCH ) ) auth = false ; } if ( auth && ( nntp_auth ( adata ) < 0 ) ) return - 1 ; if ( adata -> hasCAPABILITIES && ( auth || ( cap > 0 ) ) ) { cap = nntp_capabilities ( adata ) ; if ( cap < 0 ) return - 1 ; if ( cap > 0 ) { mutt_socket_close ( conn ) ; mutt_error ( _ ( \"Could<S2SV_blank>not<S2SV_blank>switch<S2SV_blank>to<S2SV_blank>reader<S2SV_blank>mode\" ) ) ; return - 1 ; } } if ( nntp_attempt_features ( adata ) < 0 ) return - 1 ; adata -> status = NNTP_OK ; return 0 ; }\n",
+        "fixed_code": "<S2SV_ModStart> ) ; } mutt_socket_empty ( conn ) ;\n",
+        "cwe_id": "CWE-74",
+        "cvss_score": "critical",
+        "weaponization_score": 10.0,
+        "project": "neomutt",
+        "vulnerability_type": "command_injection",
+        "difficulty_level": "expert",
+        "risk_factors": [
+          "command_injection",
+          "arbitrary_code_execution",
+          "critical_infrastructure",
+          "remote_code_execution"
+        ],
+        "attack_vectors": [
+          "command_injection",
+          "system_commands",
+          "code_analysis",
+          "reverse_engineering",
+          "fuzzing",
+          "user_input"
+        ],
+        "mitigation_strategies": [
+          "fuzzing",
+          "dynamic_analysis",
+          "command_whitelisting",
+          "static_analysis",
+          "secure_coding_practices",
+          "privilege_separation",
+          "input_sanitization",
+          "code_review",
+          "input_validation"
+        ],
+        "code_differences": {
+          "original_length": 3436,
+          "variant_length": 3555,
+          "length_difference": 119,
+          "original_lines": 2,
+          "variant_lines": 3,
+          "line_difference": 1,
+          "added_lines": 3,
+          "removed_lines": 2,
+          "similarity_ratio": 0.9829781147189244
+        },
+        "vulnerability_location": {
+          "vulnerability_present": true,
+          "fix_applied": true,
+          "code_changed": true,
+          "estimated_lines_changed": 0
+        },
+        "validation_score": 0.75,
+        "validation_checks": {
+          "code_differences": true,
+          "pattern_preservation": true,
+          "structure_quality": true,
+          "cwe_consistency": false
+        },
+        "generation_timestamp": "2025-09-02T14:02:47.928647",
+        "generation_method": "deepseek_coder_refactoring"
+      }
+    ],
+    "variant_count": 3
+  },
+  {
+    "cve_id": "CVE-2020-15474",
+    "cwe_id": "CWE-787",
+    "cwe_name": "Out-of-bounds Write",
+    "project": "ntop",
+    "severity": "critical",
+    "weaponization_score": 10.0,
+    "is_critical": true,
+    "is_weaponizable": true,
+    "is_high_priority_project": false,
+    "vulnerable_code": "CWE-787 static void processCertificateElements ( struct ndpi_detection_module_struct * ndpi_struct , struct ndpi_flow_struct * flow , u_int16_t p_offset , u_int16_t certificate_len ) { struct ndpi_packet_struct * packet = & flow -> packet ; u_int num_found = 0 , i ; <S2SV_StartBug> char buffer [ 64 ] = { '\\\\0' } , rdnSeqBuf [ 1024 ] = { '\\\\0' } ; <S2SV_EndBug> u_int rdn_len = 0 ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[offset:<S2SV_blank>%u][certificate_len:<S2SV_blank>%u]\\\\n\" , __FUNCTION__ , p_offset , certificate_len ) ; # endif for ( i = p_offset ; i < certificate_len ; i ++ ) { if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x03 ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"CN\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Common<S2SV_blank>Name\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x06 ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"C\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Country\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x07 ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"L\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Locality\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x08 ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"ST\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"State<S2SV_blank>or<S2SV_blank>Province\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x0a ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"O\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Organization<S2SV_blank>Name\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x0b ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"OU\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Organization<S2SV_blank>Unit\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x30 ) && ( packet -> payload [ i + 1 ] == 0x1e ) && ( packet -> payload [ i + 2 ] == 0x17 ) ) { u_int8_t len = packet -> payload [ i + 3 ] ; u_int offset = i + 4 ; if ( num_found == 0 ) { num_found ++ ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>IssuerDN<S2SV_blank>[%s]\\\\n\" , __FUNCTION__ , rdnSeqBuf ) ; # endif if ( rdn_len ) flow -> protos . stun_ssl . ssl . issuerDN = ndpi_strdup ( rdnSeqBuf ) ; rdn_len = 0 ; } if ( ( offset + len ) < packet -> payload_packet_len ) { char utcDate [ 32 ] ; # ifdef DEBUG_TLS u_int j ; printf ( \"[CERTIFICATE]<S2SV_blank>notBefore<S2SV_blank>[len:<S2SV_blank>%u][\" , len ) ; for ( j = 0 ; j < len ; j ++ ) printf ( \"%c\" , packet -> payload [ i + 4 + j ] ) ; printf ( \"]\\\\n\" ) ; # endif if ( len < ( sizeof ( utcDate ) - 1 ) ) { struct tm utc ; utc . tm_isdst = - 1 ; strncpy ( utcDate , ( const char * ) & packet -> payload [ i + 4 ] , len ) ; utcDate [ len ] = '\\\\0' ; if ( strptime ( utcDate , \"%y%m%d%H%M%SZ\" , & utc ) != NULL ) { flow -> protos . stun_ssl . ssl . notBefore = timegm ( & utc ) ; # ifdef DEBUG_TLS printf ( \"[CERTIFICATE]<S2SV_blank>notBefore<S2SV_blank>%u<S2SV_blank>[%s]\\\\n\" , flow -> protos . stun_ssl . ssl . notBefore , utcDate ) ; # endif } } offset += len ; if ( ( offset + 1 ) < packet -> payload_packet_len ) { len = packet -> payload [ offset + 1 ] ; offset += 2 ; if ( ( offset + len ) < packet -> payload_packet_len ) { u_int32_t time_sec = flow -> packet . current_time_ms / 1000 ; # ifdef DEBUG_TLS u_int j ; printf ( \"[CERTIFICATE]<S2SV_blank>notAfter<S2SV_blank>[len:<S2SV_blank>%u][\" , len ) ; for ( j = 0 ; j < len ; j ++ ) printf ( \"%c\" , packet -> payload [ offset + j ] ) ; printf ( \"]\\\\n\" ) ; # endif if ( len < ( sizeof ( utcDate ) - 1 ) ) { struct tm utc ; utc . tm_isdst = - 1 ; strncpy ( utcDate , ( const char * ) & packet -> payload [ offset ] , len ) ; utcDate [ len ] = '\\\\0' ; if ( strptime ( utcDate , \"%y%m%d%H%M%SZ\" , & utc ) != NULL ) { flow -> protos . stun_ssl . ssl . notAfter = timegm ( & utc ) ; # ifdef DEBUG_TLS printf ( \"[CERTIFICATE]<S2SV_blank>notAfter<S2SV_blank>%u<S2SV_blank>[%s]\\\\n\" , flow -> protos . stun_ssl . ssl . notAfter , utcDate ) ; # endif } } if ( ( time_sec < flow -> protos . stun_ssl . ssl . notBefore ) || ( time_sec > flow -> protos . stun_ssl . ssl . notAfter ) ) NDPI_SET_BIT ( flow -> risk , NDPI_TLS_CERTIFICATE_EXPIRED ) ; } } } } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x1d ) && ( packet -> payload [ i + 2 ] == 0x11 ) ) { u_int8_t matched_name = 0 ; # ifdef DEBUG_TLS printf ( \"*******<S2SV_blank>[TLS]<S2SV_blank>Found<S2SV_blank>subjectAltName\\\\n\" ) ; # endif i += 3 ; i ++ ; if ( i < packet -> payload_packet_len ) { i += ( packet -> payload [ i ] & 0x80 ) ? ( packet -> payload [ i ] & 0x7F ) : 0 ; if ( i < packet -> payload_packet_len ) { i += 2 ; if ( i < packet -> payload_packet_len ) { i += ( packet -> payload [ i ] & 0x80 ) ? ( packet -> payload [ i ] & 0x7F ) : 0 ; i ++ ; while ( i < packet -> payload_packet_len ) { if ( packet -> payload [ i ] == 0x82 ) { if ( ( i < ( packet -> payload_packet_len - 1 ) ) && ( ( i + packet -> payload [ i + 1 ] + 2 ) < packet -> payload_packet_len ) ) { u_int8_t len = packet -> payload [ i + 1 ] ; char dNSName [ 256 ] ; i += 2 ; if ( len == 0 ) break ; strncpy ( dNSName , ( const char * ) & packet -> payload [ i ] , len ) ; dNSName [ len ] = '\\\\0' ; cleanupServerName ( dNSName , len ) ; # if DEBUG_TLS printf ( \"[TLS]<S2SV_blank>dNSName<S2SV_blank>%s<S2SV_blank>[%s]\\\\n\" , dNSName , flow -> protos . stun_ssl . ssl . client_requested_server_name ) ; # endif if ( matched_name == 0 ) { if ( ( dNSName [ 0 ] == '*' ) && strstr ( flow -> protos . stun_ssl . ssl . client_requested_server_name , & dNSName [ 1 ] ) ) matched_name = 1 ; else if ( strcmp ( flow -> protos . stun_ssl . ssl . client_requested_server_name , dNSName ) == 0 ) matched_name = 1 ; } if ( flow -> protos . stun_ssl . ssl . server_names == NULL ) flow -> protos . stun_ssl . ssl . server_names = ndpi_strdup ( dNSName ) , flow -> protos . stun_ssl . ssl . server_names_len = strlen ( dNSName ) ; else { u_int16_t dNSName_len = strlen ( dNSName ) ; u_int16_t newstr_len = flow -> protos . stun_ssl . ssl . server_names_len + dNSName_len + 1 ; char * newstr = ( char * ) ndpi_realloc ( flow -> protos . stun_ssl . ssl . server_names , flow -> protos . stun_ssl . ssl . server_names_len + 1 , newstr_len + 1 ) ; if ( newstr ) { flow -> protos . stun_ssl . ssl . server_names = newstr ; flow -> protos . stun_ssl . ssl . server_names [ flow -> protos . stun_ssl . ssl . server_names_len ] = ',' ; strncpy ( & flow -> protos . stun_ssl . ssl . server_names [ flow -> protos . stun_ssl . ssl . server_names_len + 1 ] , dNSName , dNSName_len + 1 ) ; flow -> protos . stun_ssl . ssl . server_names [ newstr_len ] = '\\\\0' ; flow -> protos . stun_ssl . ssl . server_names_len = newstr_len ; } } if ( ! flow -> l4 . tcp . tls . subprotocol_detected ) if ( ndpi_match_hostname_protocol ( ndpi_struct , flow , NDPI_PROTOCOL_TLS , dNSName , len ) ) flow -> l4 . tcp . tls . subprotocol_detected = 1 ; i += len ; } else { # if DEBUG_TLS printf ( \"[TLS]<S2SV_blank>Leftover<S2SV_blank>%u<S2SV_blank>bytes\" , packet -> payload_packet_len - i ) ; # endif break ; } } else { break ; } } if ( ! matched_name ) NDPI_SET_BIT ( flow -> risk , NDPI_TLS_CERTIFICATE_MISMATCH ) ; } } } } } if ( rdn_len ) flow -> protos . stun_ssl . ssl . subjectDN = ndpi_strdup ( rdnSeqBuf ) ; if ( flow -> protos . stun_ssl . ssl . subjectDN && flow -> protos . stun_ssl . ssl . issuerDN && ( ! strcmp ( flow -> protos . stun_ssl . ssl . subjectDN , flow -> protos . stun_ssl . ssl . issuerDN ) ) ) NDPI_SET_BIT ( flow -> risk , NDPI_TLS_SELFSIGNED_CERTIFICATE ) ; # if DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>SubjectDN<S2SV_blank>[%s]\\\\n\" , __FUNCTION__ , rdnSeqBuf ) ; # endif }\n",
+    "fixed_code": "<S2SV_ModStart> , rdnSeqBuf [ 2048 <S2SV_ModEnd> ] = {\n",
+    "source_code_length": 9434,
+    "target_code_length": 55,
+    "vulnerability_patterns": {
+      "buffer_overflow": 4,
+      "use_after_free": 7,
+      "integer_overflow": 14,
+      "format_string": 20,
+      "null_pointer": 85,
+      "total": 130
+    },
+    "total_patterns": 130,
+    "original_address": "https://github.com/ntop/nDPI/commit/23594f036536468072198a57c59b6e9d63caf6ce",
+    "discovery_time": "2020-07-01T11:15Z",
+    "project_commit_id": "ntop@nDPI/23594f036536468072198a57c59b6e9d63caf6ce",
+    "extraction_time": "2025-08-31T15:41:49.174132",
+    "label": 1,
+    "vulnerability_type": "out-of-bounds_write",
+    "difficulty_level": "expert",
+    "risk_factors": [
+      "memory_corruption",
+      "arbitrary_code_execution",
+      "buffer_overflow",
+      "system_crash",
+      "use_after_free"
+    ],
+    "attack_vectors": [
+      "memory_manipulation",
+      "malicious_input",
+      "code_analysis",
+      "buffer_overflow",
+      "reverse_engineering",
+      "fuzzing"
+    ],
+    "mitigation_strategies": [
+      "safe_string_functions",
+      "dynamic_analysis",
+      "code_review",
+      "static_analysis",
+      "memory_safety_checks",
+      "input_validation",
+      "fuzzing",
+      "bounds_checking",
+      "secure_coding_practices"
+    ],
+    "code_differences": {
+      "has_differences": true,
+      "source_lines": 2,
+      "target_lines": 2,
+      "character_differences": 9379,
+      "similarity_percentage": 3.428571428571429
+    },
+    "vulnerability_location": {
+      "vulnerability_present": true,
+      "fix_applied": true,
+      "code_changed": true,
+      "estimated_lines_changed": 0
+    },
+    "variants": [
+      {
+        "variant_id": "CVE-2020-15474_variant_1",
+        "source_cve_id": "CVE-2020-15474",
+        "variant_number": 1,
+        "vulnerable_code": "// Refactored array handling code\nCWE-787 static void processCertificateElements ( struct ndpi_detection_module_struct * ndpi_struct , struct ndpi_flow_struct * flow , u_int16_t p_offset , u_int16_t certificate_len ) { struct ndpi_packet_struct * packet = & flow -> packet ; u_int num_found = 0 , i ; <S2SV_StartBug> char buffer [ 64 ] = { '\\\\0' } , rdnSeqBuf [ 1024 ] = { '\\\\0' } ; <S2SV_EndBug> u_int rdn_len = 0 ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[offset:<S2SV_blank>%u][certificate_len:<S2SV_blank>%u]\\\\n\" , __FUNCTION__ , p_offset , certificate_len ) ; # endif for ( i = p_offset ; i < certificate_len ; i ++ ) { if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x03 ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"CN\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Common<S2SV_blank>Name\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x06 ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"C\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Country\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x07 ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"L\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Locality\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x08 ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"ST\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"State<S2SV_blank>or<S2SV_blank>Province\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x0a ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"O\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Organization<S2SV_blank>Name\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x0b ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"OU\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Organization<S2SV_blank>Unit\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x30 ) && ( packet -> payload [ i + 1 ] == 0x1e ) && ( packet -> payload [ i + 2 ] == 0x17 ) ) { u_int8_t len = packet -> payload [ i + 3 ] ; u_int offset = i + 4 ; if ( num_found == 0 ) { num_found ++ ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>IssuerDN<S2SV_blank>[%s]\\\\n\" , __FUNCTION__ , rdnSeqBuf ) ; # endif if ( rdn_len ) flow -> protos . stun_ssl . ssl . issuerDN = ndpi_strdup ( rdnSeqBuf ) ; rdn_len = 0 ; } if ( ( offset + len ) < packet -> payload_packet_len ) { char utcDate [ 32 ] ; # ifdef DEBUG_TLS u_int j ; printf ( \"[CERTIFICATE]<S2SV_blank>notBefore<S2SV_blank>[len:<S2SV_blank>%u][\" , len ) ; for ( j = 0 ; j < len ; j ++ ) printf ( \"%c\" , packet -> payload [ i + 4 + j ] ) ; printf ( \"]\\\\n\" ) ; # endif if ( len < ( sizeof ( utcDate ) - 1 ) ) { struct tm utc ; utc . tm_isdst = - 1 ; strncpy ( utcDate , ( const char * ) & packet -> payload [ i + 4 ] , len ) ; utcDate [ len ] = '\\\\0' ; if ( strptime ( utcDate , \"%y%m%d%H%M%SZ\" , & utc ) != NULL ) { flow -> protos . stun_ssl . ssl . notBefore = timegm ( & utc ) ; # ifdef DEBUG_TLS printf ( \"[CERTIFICATE]<S2SV_blank>notBefore<S2SV_blank>%u<S2SV_blank>[%s]\\\\n\" , flow -> protos . stun_ssl . ssl . notBefore , utcDate ) ; # endif } } offset += len ; if ( ( offset + 1 ) < packet -> payload_packet_len ) { len = packet -> payload [ offset + 1 ] ; offset += 2 ; if ( ( offset + len ) < packet -> payload_packet_len ) { u_int32_t time_sec = flow -> packet . current_time_ms / 1000 ; # ifdef DEBUG_TLS u_int j ; printf ( \"[CERTIFICATE]<S2SV_blank>notAfter<S2SV_blank>[len:<S2SV_blank>%u][\" , len ) ; for ( j = 0 ; j < len ; j ++ ) printf ( \"%c\" , packet -> payload [ offset + j ] ) ; printf ( \"]\\\\n\" ) ; # endif if ( len < ( sizeof ( utcDate ) - 1 ) ) { struct tm utc ; utc . tm_isdst = - 1 ; strncpy ( utcDate , ( const char * ) & packet -> payload [ offset ] , len ) ; utcDate [ len ] = '\\\\0' ; if ( strptime ( utcDate , \"%y%m%d%H%M%SZ\" , & utc ) != NULL ) { flow -> protos . stun_ssl . ssl . notAfter = timegm ( & utc ) ; # ifdef DEBUG_TLS printf ( \"[CERTIFICATE]<S2SV_blank>notAfter<S2SV_blank>%u<S2SV_blank>[%s]\\\\n\" , flow -> protos . stun_ssl . ssl . notAfter , utcDate ) ; # endif } } if ( ( time_sec < flow -> protos . stun_ssl . ssl . notBefore ) || ( time_sec > flow -> protos . stun_ssl . ssl . notAfter ) ) NDPI_SET_BIT ( flow -> risk , NDPI_TLS_CERTIFICATE_EXPIRED ) ; } } } } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x1d ) && ( packet -> payload [ i + 2 ] == 0x11 ) ) { u_int8_t matched_name = 0 ; # ifdef DEBUG_TLS printf ( \"*******<S2SV_blank>[TLS]<S2SV_blank>Found<S2SV_blank>subjectAltName\\\\n\" ) ; # endif i += 3 ; i ++ ; if ( i < packet -> payload_packet_len ) { i += ( packet -> payload [ i ] & 0x80 ) ? ( packet -> payload [ i ] & 0x7F ) : 0 ; if ( i < packet -> payload_packet_len ) { i += 2 ; if ( i < packet -> payload_packet_len ) { i += ( packet -> payload [ i ] & 0x80 ) ? ( packet -> payload [ i ] & 0x7F ) : 0 ; i ++ ; while ( i < packet -> payload_packet_len ) { if ( packet -> payload [ i ] == 0x82 ) { if ( ( i < ( packet -> payload_packet_len - 1 ) ) && ( ( i + packet -> payload [ i + 1 ] + 2 ) < packet -> payload_packet_len ) ) { u_int8_t len = packet -> payload [ i + 1 ] ; char dNSName [ 256 ] ; i += 2 ; if ( len == 0 ) break ; strncpy ( dNSName , ( const char * ) & packet -> payload [ i ] , len ) ; dNSName [ len ] = '\\\\0' ; cleanupServerName ( dNSName , len ) ; # if DEBUG_TLS printf ( \"[TLS]<S2SV_blank>dNSName<S2SV_blank>%s<S2SV_blank>[%s]\\\\n\" , dNSName , flow -> protos . stun_ssl . ssl . client_requested_server_name ) ; # endif if ( matched_name == 0 ) { if ( ( dNSName [ 0 ] == '*' ) && strstr ( flow -> protos . stun_ssl . ssl . client_requested_server_name , & dNSName [ 1 ] ) ) matched_name = 1 ; else if ( strcmp ( flow -> protos . stun_ssl . ssl . client_requested_server_name , dNSName ) == 0 ) matched_name = 1 ; } if ( flow -> protos . stun_ssl . ssl . server_names == NULL ) flow -> protos . stun_ssl . ssl . server_names = ndpi_strdup ( dNSName ) , flow -> protos . stun_ssl . ssl . server_names_len = strlen ( dNSName ) ; else { u_int16_t dNSName_len = strlen ( dNSName ) ; u_int16_t newstr_len = flow -> protos . stun_ssl . ssl . server_names_len + dNSName_len + 1 ; char * newstr = ( char * ) ndpi_realloc ( flow -> protos . stun_ssl . ssl . server_names , flow -> protos . stun_ssl . ssl . server_names_len + 1 , newstr_len + 1 ) ; if ( newstr ) { flow -> protos . stun_ssl . ssl . server_names = newstr ; flow -> protos . stun_ssl . ssl . server_names [ flow -> protos . stun_ssl . ssl . server_names_len ] = ',' ; strncpy ( & flow -> protos . stun_ssl . ssl . server_names [ flow -> protos . stun_ssl . ssl . server_names_len + 1 ] , dNSName , dNSName_len + 1 ) ; flow -> protos . stun_ssl . ssl . server_names [ newstr_len ] = '\\\\0' ; flow -> protos . stun_ssl . ssl . server_names_len = newstr_len ; } } if ( ! flow -> l4 . tcp . tls . subprotocol_detected ) if ( ndpi_match_hostname_protocol ( ndpi_struct , flow , NDPI_PROTOCOL_TLS , dNSName , len ) ) flow -> l4 . tcp . tls . subprotocol_detected = 1 ; i += len ; } else { # if DEBUG_TLS printf ( \"[TLS]<S2SV_blank>Leftover<S2SV_blank>%u<S2SV_blank>bytes\" , packet -> payload_packet_len - i ) ; # endif break ; } } else { break ; } } if ( ! matched_name ) NDPI_SET_BIT ( flow -> risk , NDPI_TLS_CERTIFICATE_MISMATCH ) ; } } } } } if ( rdn_len ) flow -> protos . stun_ssl . ssl . subjectDN = ndpi_strdup ( rdnSeqBuf ) ; if ( flow -> protos . stun_ssl . ssl . subjectDN && flow -> protos . stun_ssl . ssl . issuerDN && ( ! strcmp ( flow -> protos . stun_ssl . ssl . subjectDN , flow -> protos . stun_ssl . ssl . issuerDN ) ) ) NDPI_SET_BIT ( flow -> risk , NDPI_TLS_SELFSIGNED_CERTIFICATE ) ; # if DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>SubjectDN<S2SV_blank>[%s]\\\\n\" , __FUNCTION__ , rdnSeqBuf ) ; # endif }\n",
+        "fixed_code": "<S2SV_ModStart> , rdnSeqBuf [ 2048 <S2SV_ModEnd> ] = {\n",
+        "cwe_id": "CWE-787",
+        "cvss_score": "critical",
+        "weaponization_score": 10.0,
+        "project": "ntop",
+        "vulnerability_type": "out-of-bounds_write",
+        "difficulty_level": "expert",
+        "risk_factors": [
+          "memory_corruption",
+          "arbitrary_code_execution",
+          "buffer_overflow",
+          "system_crash",
+          "use_after_free"
+        ],
+        "attack_vectors": [
+          "memory_manipulation",
+          "malicious_input",
+          "code_analysis",
+          "buffer_overflow",
+          "reverse_engineering",
+          "fuzzing"
+        ],
+        "mitigation_strategies": [
+          "safe_string_functions",
+          "dynamic_analysis",
+          "code_review",
+          "static_analysis",
+          "memory_safety_checks",
+          "input_validation",
+          "fuzzing",
+          "bounds_checking",
+          "secure_coding_practices"
+        ],
+        "code_differences": {
+          "original_length": 9434,
+          "variant_length": 9468,
+          "length_difference": 34,
+          "original_lines": 2,
+          "variant_lines": 3,
+          "line_difference": 1,
+          "added_lines": 2,
+          "removed_lines": 1,
+          "similarity_ratio": 0.9982012485451275
+        },
+        "vulnerability_location": {
+          "vulnerability_present": true,
+          "fix_applied": true,
+          "code_changed": true,
+          "estimated_lines_changed": 0
+        },
+        "validation_score": 0.75,
+        "validation_checks": {
+          "code_differences": true,
+          "pattern_preservation": true,
+          "structure_quality": true,
+          "cwe_consistency": false
+        },
+        "generation_timestamp": "2025-09-02T14:02:48.044768",
+        "generation_method": "deepseek_coder_refactoring"
+      },
+      {
+        "variant_id": "CVE-2020-15474_variant_2",
+        "source_cve_id": "CVE-2020-15474",
+        "variant_number": 2,
+        "vulnerable_code": "// Refactored array handling code\nCWE-787 static void processCertificateElements ( struct ndpi_detection_module_struct * ndpi_struct , struct ndpi_flow_struct * flow , u_int16_t p_offset , u_int16_t certificate_len ) { struct ndpi_packet_struct * packet = & flow -> packet ; u_int num_found = 0 , i ; <S2SV_StartBug> char buffer [ 64 ] = { '\\\\0' } , rdnSeqBuf [ 1024 ] = { '\\\\0' } ; <S2SV_EndBug> u_int rdn_len = 0 ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[offset:<S2SV_blank>%u][certificate_len:<S2SV_blank>%u]\\\\n\" , __FUNCTION__ , p_offset , certificate_len ) ; # endif for ( i = p_offset ; i < certificate_len ; i ++ ) { if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x03 ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"CN\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Common<S2SV_blank>Name\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x06 ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"C\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Country\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x07 ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"L\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Locality\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x08 ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"ST\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"State<S2SV_blank>or<S2SV_blank>Province\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x0a ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"O\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Organization<S2SV_blank>Name\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x0b ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"OU\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Organization<S2SV_blank>Unit\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x30 ) && ( packet -> payload [ i + 1 ] == 0x1e ) && ( packet -> payload [ i + 2 ] == 0x17 ) ) { u_int8_t len = packet -> payload [ i + 3 ] ; u_int offset = i + 4 ; if ( num_found == 0 ) { num_found ++ ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>IssuerDN<S2SV_blank>[%s]\\\\n\" , __FUNCTION__ , rdnSeqBuf ) ; # endif if ( rdn_len ) flow -> protos . stun_ssl . ssl . issuerDN = ndpi_strdup ( rdnSeqBuf ) ; rdn_len = 0 ; } if ( ( offset + len ) < packet -> payload_packet_len ) { char utcDate [ 32 ] ; # ifdef DEBUG_TLS u_int j ; printf ( \"[CERTIFICATE]<S2SV_blank>notBefore<S2SV_blank>[len:<S2SV_blank>%u][\" , len ) ; for ( j = 0 ; j < len ; j ++ ) printf ( \"%c\" , packet -> payload [ i + 4 + j ] ) ; printf ( \"]\\\\n\" ) ; # endif if ( len < ( sizeof ( utcDate ) - 1 ) ) { struct tm utc ; utc . tm_isdst = - 1 ; strncpy ( utcDate , ( const char * ) & packet -> payload [ i + 4 ] , len ) ; utcDate [ len ] = '\\\\0' ; if ( strptime ( utcDate , \"%y%m%d%H%M%SZ\" , & utc ) != NULL ) { flow -> protos . stun_ssl . ssl . notBefore = timegm ( & utc ) ; # ifdef DEBUG_TLS printf ( \"[CERTIFICATE]<S2SV_blank>notBefore<S2SV_blank>%u<S2SV_blank>[%s]\\\\n\" , flow -> protos . stun_ssl . ssl . notBefore , utcDate ) ; # endif } } offset += len ; if ( ( offset + 1 ) < packet -> payload_packet_len ) { len = packet -> payload [ offset + 1 ] ; offset += 2 ; if ( ( offset + len ) < packet -> payload_packet_len ) { u_int32_t time_sec = flow -> packet . current_time_ms / 1000 ; # ifdef DEBUG_TLS u_int j ; printf ( \"[CERTIFICATE]<S2SV_blank>notAfter<S2SV_blank>[len:<S2SV_blank>%u][\" , len ) ; for ( j = 0 ; j < len ; j ++ ) printf ( \"%c\" , packet -> payload [ offset + j ] ) ; printf ( \"]\\\\n\" ) ; # endif if ( len < ( sizeof ( utcDate ) - 1 ) ) { struct tm utc ; utc . tm_isdst = - 1 ; strncpy ( utcDate , ( const char * ) & packet -> payload [ offset ] , len ) ; utcDate [ len ] = '\\\\0' ; if ( strptime ( utcDate , \"%y%m%d%H%M%SZ\" , & utc ) != NULL ) { flow -> protos . stun_ssl . ssl . notAfter = timegm ( & utc ) ; # ifdef DEBUG_TLS printf ( \"[CERTIFICATE]<S2SV_blank>notAfter<S2SV_blank>%u<S2SV_blank>[%s]\\\\n\" , flow -> protos . stun_ssl . ssl . notAfter , utcDate ) ; # endif } } if ( ( time_sec < flow -> protos . stun_ssl . ssl . notBefore ) || ( time_sec > flow -> protos . stun_ssl . ssl . notAfter ) ) NDPI_SET_BIT ( flow -> risk , NDPI_TLS_CERTIFICATE_EXPIRED ) ; } } } } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x1d ) && ( packet -> payload [ i + 2 ] == 0x11 ) ) { u_int8_t matched_name = 0 ; # ifdef DEBUG_TLS printf ( \"*******<S2SV_blank>[TLS]<S2SV_blank>Found<S2SV_blank>subjectAltName\\\\n\" ) ; # endif i += 3 ; i ++ ; if ( i < packet -> payload_packet_len ) { i += ( packet -> payload [ i ] & 0x80 ) ? ( packet -> payload [ i ] & 0x7F ) : 0 ; if ( i < packet -> payload_packet_len ) { i += 2 ; if ( i < packet -> payload_packet_len ) { i += ( packet -> payload [ i ] & 0x80 ) ? ( packet -> payload [ i ] & 0x7F ) : 0 ; i ++ ; while ( i < packet -> payload_packet_len ) { if ( packet -> payload [ i ] == 0x82 ) { if ( ( i < ( packet -> payload_packet_len - 1 ) ) && ( ( i + packet -> payload [ i + 1 ] + 2 ) < packet -> payload_packet_len ) ) { u_int8_t len = packet -> payload [ i + 1 ] ; char dNSName [ 256 ] ; i += 2 ; if ( len == 0 ) break ; strncpy ( dNSName , ( const char * ) & packet -> payload [ i ] , len ) ; dNSName [ len ] = '\\\\0' ; cleanupServerName ( dNSName , len ) ; # if DEBUG_TLS printf ( \"[TLS]<S2SV_blank>dNSName<S2SV_blank>%s<S2SV_blank>[%s]\\\\n\" , dNSName , flow -> protos . stun_ssl . ssl . client_requested_server_name ) ; # endif if ( matched_name == 0 ) { if ( ( dNSName [ 0 ] == '*' ) && strstr ( flow -> protos . stun_ssl . ssl . client_requested_server_name , & dNSName [ 1 ] ) ) matched_name = 1 ; else if ( strcmp ( flow -> protos . stun_ssl . ssl . client_requested_server_name , dNSName ) == 0 ) matched_name = 1 ; } if ( flow -> protos . stun_ssl . ssl . server_names == NULL ) flow -> protos . stun_ssl . ssl . server_names = ndpi_strdup ( dNSName ) , flow -> protos . stun_ssl . ssl . server_names_len = strlen ( dNSName ) ; else { u_int16_t dNSName_len = strlen ( dNSName ) ; u_int16_t newstr_len = flow -> protos . stun_ssl . ssl . server_names_len + dNSName_len + 1 ; char * newstr = ( char * ) ndpi_realloc ( flow -> protos . stun_ssl . ssl . server_names , flow -> protos . stun_ssl . ssl . server_names_len + 1 , newstr_len + 1 ) ; if ( newstr ) { flow -> protos . stun_ssl . ssl . server_names = newstr ; flow -> protos . stun_ssl . ssl . server_names [ flow -> protos . stun_ssl . ssl . server_names_len ] = ',' ; strncpy ( & flow -> protos . stun_ssl . ssl . server_names [ flow -> protos . stun_ssl . ssl . server_names_len + 1 ] , dNSName , dNSName_len + 1 ) ; flow -> protos . stun_ssl . ssl . server_names [ newstr_len ] = '\\\\0' ; flow -> protos . stun_ssl . ssl . server_names_len = newstr_len ; } } if ( ! flow -> l4 . tcp . tls . subprotocol_detected ) if ( ndpi_match_hostname_protocol ( ndpi_struct , flow , NDPI_PROTOCOL_TLS , dNSName , len ) ) flow -> l4 . tcp . tls . subprotocol_detected = 1 ; i += len ; } else { # if DEBUG_TLS printf ( \"[TLS]<S2SV_blank>Leftover<S2SV_blank>%u<S2SV_blank>bytes\" , packet -> payload_packet_len - i ) ; # endif break ; } } else { break ; } } if ( ! matched_name ) NDPI_SET_BIT ( flow -> risk , NDPI_TLS_CERTIFICATE_MISMATCH ) ; } } } } } if ( rdn_len ) flow -> protos . stun_ssl . ssl . subjectDN = ndpi_strdup ( rdnSeqBuf ) ; if ( flow -> protos . stun_ssl . ssl . subjectDN && flow -> protos . stun_ssl . ssl . issuerDN && ( ! strcmp ( flow -> protos . stun_ssl . ssl . subjectDN , flow -> protos . stun_ssl . ssl . issuerDN ) ) ) NDPI_SET_BIT ( flow -> risk , NDPI_TLS_SELFSIGNED_CERTIFICATE ) ; # if DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>SubjectDN<S2SV_blank>[%s]\\\\n\" , __FUNCTION__ , rdnSeqBuf ) ; # endif }\n",
+        "fixed_code": "<S2SV_ModStart> , rdnSeqBuf [ 2048 <S2SV_ModEnd> ] = {\n",
+        "cwe_id": "CWE-787",
+        "cvss_score": "critical",
+        "weaponization_score": 10.0,
+        "project": "ntop",
+        "vulnerability_type": "out-of-bounds_write",
+        "difficulty_level": "expert",
+        "risk_factors": [
+          "memory_corruption",
+          "arbitrary_code_execution",
+          "buffer_overflow",
+          "system_crash",
+          "use_after_free"
+        ],
+        "attack_vectors": [
+          "memory_manipulation",
+          "malicious_input",
+          "code_analysis",
+          "buffer_overflow",
+          "reverse_engineering",
+          "fuzzing"
+        ],
+        "mitigation_strategies": [
+          "safe_string_functions",
+          "dynamic_analysis",
+          "code_review",
+          "static_analysis",
+          "memory_safety_checks",
+          "input_validation",
+          "fuzzing",
+          "bounds_checking",
+          "secure_coding_practices"
+        ],
+        "code_differences": {
+          "original_length": 9434,
+          "variant_length": 9468,
+          "length_difference": 34,
+          "original_lines": 2,
+          "variant_lines": 3,
+          "line_difference": 1,
+          "added_lines": 2,
+          "removed_lines": 1,
+          "similarity_ratio": 0.9982012485451275
+        },
+        "vulnerability_location": {
+          "vulnerability_present": true,
+          "fix_applied": true,
+          "code_changed": true,
+          "estimated_lines_changed": 0
+        },
+        "validation_score": 0.75,
+        "validation_checks": {
+          "code_differences": true,
+          "pattern_preservation": true,
+          "structure_quality": true,
+          "cwe_consistency": false
+        },
+        "generation_timestamp": "2025-09-02T14:02:48.160314",
+        "generation_method": "deepseek_coder_refactoring"
+      },
+      {
+        "variant_id": "CVE-2020-15474_variant_3",
+        "source_cve_id": "CVE-2020-15474",
+        "variant_number": 3,
+        "vulnerable_code": "// Refactored array handling code\nCWE-787 static void processCertificateElements ( struct ndpi_detection_module_struct * ndpi_struct , struct ndpi_flow_struct * flow , u_int16_t p_offset , u_int16_t certificate_len ) { struct ndpi_packet_struct * packet = & flow -> packet ; u_int num_found = 0 , i ; <S2SV_StartBug> char buffer [ 64 ] = { '\\\\0' } , rdnSeqBuf [ 1024 ] = { '\\\\0' } ; <S2SV_EndBug> u_int rdn_len = 0 ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[offset:<S2SV_blank>%u][certificate_len:<S2SV_blank>%u]\\\\n\" , __FUNCTION__ , p_offset , certificate_len ) ; # endif for ( i = p_offset ; i < certificate_len ; i ++ ) { if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x03 ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"CN\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Common<S2SV_blank>Name\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x06 ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"C\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Country\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x07 ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"L\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Locality\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x08 ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"ST\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"State<S2SV_blank>or<S2SV_blank>Province\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x0a ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"O\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Organization<S2SV_blank>Name\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x04 ) && ( packet -> payload [ i + 2 ] == 0x0b ) ) { int rc = extractRDNSequence ( packet , i , buffer , sizeof ( buffer ) , rdnSeqBuf , & rdn_len , sizeof ( rdnSeqBuf ) , \"OU\" ) ; if ( rc == - 1 ) break ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>[%s][%s:<S2SV_blank>%s]\\\\n\" , __FUNCTION__ , ( num_found == 0 ) ? \"Subject\" : \"Issuer\" , \"Organization<S2SV_blank>Unit\" , buffer ) ; # endif } else if ( ( packet -> payload [ i ] == 0x30 ) && ( packet -> payload [ i + 1 ] == 0x1e ) && ( packet -> payload [ i + 2 ] == 0x17 ) ) { u_int8_t len = packet -> payload [ i + 3 ] ; u_int offset = i + 4 ; if ( num_found == 0 ) { num_found ++ ; # ifdef DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>IssuerDN<S2SV_blank>[%s]\\\\n\" , __FUNCTION__ , rdnSeqBuf ) ; # endif if ( rdn_len ) flow -> protos . stun_ssl . ssl . issuerDN = ndpi_strdup ( rdnSeqBuf ) ; rdn_len = 0 ; } if ( ( offset + len ) < packet -> payload_packet_len ) { char utcDate [ 32 ] ; # ifdef DEBUG_TLS u_int j ; printf ( \"[CERTIFICATE]<S2SV_blank>notBefore<S2SV_blank>[len:<S2SV_blank>%u][\" , len ) ; for ( j = 0 ; j < len ; j ++ ) printf ( \"%c\" , packet -> payload [ i + 4 + j ] ) ; printf ( \"]\\\\n\" ) ; # endif if ( len < ( sizeof ( utcDate ) - 1 ) ) { struct tm utc ; utc . tm_isdst = - 1 ; strncpy ( utcDate , ( const char * ) & packet -> payload [ i + 4 ] , len ) ; utcDate [ len ] = '\\\\0' ; if ( strptime ( utcDate , \"%y%m%d%H%M%SZ\" , & utc ) != NULL ) { flow -> protos . stun_ssl . ssl . notBefore = timegm ( & utc ) ; # ifdef DEBUG_TLS printf ( \"[CERTIFICATE]<S2SV_blank>notBefore<S2SV_blank>%u<S2SV_blank>[%s]\\\\n\" , flow -> protos . stun_ssl . ssl . notBefore , utcDate ) ; # endif } } offset += len ; if ( ( offset + 1 ) < packet -> payload_packet_len ) { len = packet -> payload [ offset + 1 ] ; offset += 2 ; if ( ( offset + len ) < packet -> payload_packet_len ) { u_int32_t time_sec = flow -> packet . current_time_ms / 1000 ; # ifdef DEBUG_TLS u_int j ; printf ( \"[CERTIFICATE]<S2SV_blank>notAfter<S2SV_blank>[len:<S2SV_blank>%u][\" , len ) ; for ( j = 0 ; j < len ; j ++ ) printf ( \"%c\" , packet -> payload [ offset + j ] ) ; printf ( \"]\\\\n\" ) ; # endif if ( len < ( sizeof ( utcDate ) - 1 ) ) { struct tm utc ; utc . tm_isdst = - 1 ; strncpy ( utcDate , ( const char * ) & packet -> payload [ offset ] , len ) ; utcDate [ len ] = '\\\\0' ; if ( strptime ( utcDate , \"%y%m%d%H%M%SZ\" , & utc ) != NULL ) { flow -> protos . stun_ssl . ssl . notAfter = timegm ( & utc ) ; # ifdef DEBUG_TLS printf ( \"[CERTIFICATE]<S2SV_blank>notAfter<S2SV_blank>%u<S2SV_blank>[%s]\\\\n\" , flow -> protos . stun_ssl . ssl . notAfter , utcDate ) ; # endif } } if ( ( time_sec < flow -> protos . stun_ssl . ssl . notBefore ) || ( time_sec > flow -> protos . stun_ssl . ssl . notAfter ) ) NDPI_SET_BIT ( flow -> risk , NDPI_TLS_CERTIFICATE_EXPIRED ) ; } } } } else if ( ( packet -> payload [ i ] == 0x55 ) && ( packet -> payload [ i + 1 ] == 0x1d ) && ( packet -> payload [ i + 2 ] == 0x11 ) ) { u_int8_t matched_name = 0 ; # ifdef DEBUG_TLS printf ( \"*******<S2SV_blank>[TLS]<S2SV_blank>Found<S2SV_blank>subjectAltName\\\\n\" ) ; # endif i += 3 ; i ++ ; if ( i < packet -> payload_packet_len ) { i += ( packet -> payload [ i ] & 0x80 ) ? ( packet -> payload [ i ] & 0x7F ) : 0 ; if ( i < packet -> payload_packet_len ) { i += 2 ; if ( i < packet -> payload_packet_len ) { i += ( packet -> payload [ i ] & 0x80 ) ? ( packet -> payload [ i ] & 0x7F ) : 0 ; i ++ ; while ( i < packet -> payload_packet_len ) { if ( packet -> payload [ i ] == 0x82 ) { if ( ( i < ( packet -> payload_packet_len - 1 ) ) && ( ( i + packet -> payload [ i + 1 ] + 2 ) < packet -> payload_packet_len ) ) { u_int8_t len = packet -> payload [ i + 1 ] ; char dNSName [ 256 ] ; i += 2 ; if ( len == 0 ) break ; strncpy ( dNSName , ( const char * ) & packet -> payload [ i ] , len ) ; dNSName [ len ] = '\\\\0' ; cleanupServerName ( dNSName , len ) ; # if DEBUG_TLS printf ( \"[TLS]<S2SV_blank>dNSName<S2SV_blank>%s<S2SV_blank>[%s]\\\\n\" , dNSName , flow -> protos . stun_ssl . ssl . client_requested_server_name ) ; # endif if ( matched_name == 0 ) { if ( ( dNSName [ 0 ] == '*' ) && strstr ( flow -> protos . stun_ssl . ssl . client_requested_server_name , & dNSName [ 1 ] ) ) matched_name = 1 ; else if ( strcmp ( flow -> protos . stun_ssl . ssl . client_requested_server_name , dNSName ) == 0 ) matched_name = 1 ; } if ( flow -> protos . stun_ssl . ssl . server_names == NULL ) flow -> protos . stun_ssl . ssl . server_names = ndpi_strdup ( dNSName ) , flow -> protos . stun_ssl . ssl . server_names_len = strlen ( dNSName ) ; else { u_int16_t dNSName_len = strlen ( dNSName ) ; u_int16_t newstr_len = flow -> protos . stun_ssl . ssl . server_names_len + dNSName_len + 1 ; char * newstr = ( char * ) ndpi_realloc ( flow -> protos . stun_ssl . ssl . server_names , flow -> protos . stun_ssl . ssl . server_names_len + 1 , newstr_len + 1 ) ; if ( newstr ) { flow -> protos . stun_ssl . ssl . server_names = newstr ; flow -> protos . stun_ssl . ssl . server_names [ flow -> protos . stun_ssl . ssl . server_names_len ] = ',' ; strncpy ( & flow -> protos . stun_ssl . ssl . server_names [ flow -> protos . stun_ssl . ssl . server_names_len + 1 ] , dNSName , dNSName_len + 1 ) ; flow -> protos . stun_ssl . ssl . server_names [ newstr_len ] = '\\\\0' ; flow -> protos . stun_ssl . ssl . server_names_len = newstr_len ; } } if ( ! flow -> l4 . tcp . tls . subprotocol_detected ) if ( ndpi_match_hostname_protocol ( ndpi_struct , flow , NDPI_PROTOCOL_TLS , dNSName , len ) ) flow -> l4 . tcp . tls . subprotocol_detected = 1 ; i += len ; } else { # if DEBUG_TLS printf ( \"[TLS]<S2SV_blank>Leftover<S2SV_blank>%u<S2SV_blank>bytes\" , packet -> payload_packet_len - i ) ; # endif break ; } } else { break ; } } if ( ! matched_name ) NDPI_SET_BIT ( flow -> risk , NDPI_TLS_CERTIFICATE_MISMATCH ) ; } } } } } if ( rdn_len ) flow -> protos . stun_ssl . ssl . subjectDN = ndpi_strdup ( rdnSeqBuf ) ; if ( flow -> protos . stun_ssl . ssl . subjectDN && flow -> protos . stun_ssl . ssl . issuerDN && ( ! strcmp ( flow -> protos . stun_ssl . ssl . subjectDN , flow -> protos . stun_ssl . ssl . issuerDN ) ) ) NDPI_SET_BIT ( flow -> risk , NDPI_TLS_SELFSIGNED_CERTIFICATE ) ; # if DEBUG_TLS printf ( \"[TLS]<S2SV_blank>%s()<S2SV_blank>SubjectDN<S2SV_blank>[%s]\\\\n\" , __FUNCTION__ , rdnSeqBuf ) ; # endif }\n",
+        "fixed_code": "<S2SV_ModStart> , rdnSeqBuf [ 2048 <S2SV_ModEnd> ] = {\n",
+        "cwe_id": "CWE-787",
+        "cvss_score": "critical",
+        "weaponization_score": 10.0,
+        "project": "ntop",
+        "vulnerability_type": "out-of-bounds_write",
+        "difficulty_level": "expert",
+        "risk_factors": [
+          "memory_corruption",
+          "arbitrary_code_execution",
+          "buffer_overflow",
+          "system_crash",
+          "use_after_free"
+        ],
+        "attack_vectors": [
+          "memory_manipulation",
+          "malicious_input",
+          "code_analysis",
+          "buffer_overflow",
+          "reverse_engineering",
+          "fuzzing"
+        ],
+        "mitigation_strategies": [
+          "safe_string_functions",
+          "dynamic_analysis",
+          "code_review",
+          "static_analysis",
+          "memory_safety_checks",
+          "input_validation",
+          "fuzzing",
+          "bounds_checking",
+          "secure_coding_practices"
+        ],
+        "code_differences": {
+          "original_length": 9434,
+          "variant_length": 9468,
+          "length_difference": 34,
+          "original_lines": 2,
+          "variant_lines": 3,
+          "line_difference": 1,
+          "added_lines": 2,
+          "removed_lines": 1,
+          "similarity_ratio": 0.9982012485451275
+        },
+        "vulnerability_location": {
+          "vulnerability_present": true,
+          "fix_applied": true,
+          "code_changed": true,
+          "estimated_lines_changed": 0
+        },
+        "validation_score": 0.75,
+        "validation_checks": {
+          "code_differences": true,
+          "pattern_preservation": true,
+          "structure_quality": true,
+          "cwe_consistency": false
+        },
+        "generation_timestamp": "2025-09-02T14:02:48.276230",
+        "generation_method": "deepseek_coder_refactoring"
+      }
+    ],
+    "variant_count": 3
+  }
+]

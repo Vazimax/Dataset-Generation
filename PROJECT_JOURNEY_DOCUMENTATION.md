@@ -29,7 +29,8 @@
 ## 🔍 Phase 1: Project Understanding & Initial Setup
 
 ### Initial State Analysis:
-- **Starting Point:** Only 2 example CVEs (CVE-2021-3711, CVE-2022-0778) in dataset folder
+- **Initial Step:** Got 2 CVEs manually using the git commits
+- **Afer The Starting Point:** Only 2 example CVEs (CVE-2021-3711, CVE-2022-0778) in dataset folder
 - **Challenge:** Need to find 48+ more critical CVEs to reach target of 50
 - **Approach:** Automated discovery using NVD API and repository analysis
 

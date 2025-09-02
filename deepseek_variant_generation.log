@@ -1,0 +1,181 @@
+2025-09-02 14:01:59,894 - INFO - Generating 3 variants for CVE-2016-1621 (Score: 10.0)
+2025-09-02 14:01:59,998 - ERROR -   ✗ Variant 1 generation failed: 'cvss_score'
+2025-09-02 14:02:00,103 - ERROR -   ✗ Variant 2 generation failed: 'cvss_score'
+2025-09-02 14:02:00,209 - ERROR -   ✗ Variant 3 generation failed: 'cvss_score'
+2025-09-02 14:02:00,209 - INFO - Generating 3 variants for CVE-2020-14954 (Score: 10.0)
+2025-09-02 14:02:00,315 - ERROR -   ✗ Variant 1 generation failed: 'cvss_score'
+2025-09-02 14:02:00,420 - ERROR -   ✗ Variant 2 generation failed: 'cvss_score'
+2025-09-02 14:02:00,522 - ERROR -   ✗ Variant 3 generation failed: 'cvss_score'
+2025-09-02 14:02:00,523 - INFO - Generating 3 variants for CVE-2020-15474 (Score: 10.0)
+2025-09-02 14:02:00,628 - WARNING -   ✗ Variant 1 failed validation: ['Pattern preservation too low: 0.57', 'Structure quality too low: 0.75', 'CWE inconsistency: CWE-787 vs CWE-476']
+2025-09-02 14:02:00,735 - WARNING -   ✗ Variant 2 failed validation: ['Pattern preservation too low: 0.57', 'Structure quality too low: 0.75', 'CWE inconsistency: CWE-787 vs CWE-476']
+2025-09-02 14:02:00,841 - WARNING -   ✗ Variant 3 failed validation: ['Pattern preservation too low: 0.57', 'Structure quality too low: 0.75', 'CWE inconsistency: CWE-787 vs CWE-476']
+2025-09-02 14:02:24,643 - INFO - Generating 3 variants for CVE-2016-1621 (Score: 10.0)
+2025-09-02 14:02:24,748 - WARNING -   ✗ Variant 1 failed validation: ['Structure quality too low: 0.75', 'CWE inconsistency: CWE-119 vs CWE-476']
+2025-09-02 14:02:24,854 - WARNING -   ✗ Variant 2 failed validation: ['Structure quality too low: 0.75', 'CWE inconsistency: CWE-119 vs CWE-476']
+2025-09-02 14:02:24,958 - WARNING -   ✗ Variant 3 failed validation: ['Structure quality too low: 0.75', 'CWE inconsistency: CWE-119 vs CWE-476']
+2025-09-02 14:02:24,958 - INFO - Generating 3 variants for CVE-2020-14954 (Score: 10.0)
+2025-09-02 14:02:25,061 - WARNING -   ✗ Variant 1 failed validation: ['Structure quality too low: 0.75', 'CWE inconsistency: CWE-74 vs CWE-119']
+2025-09-02 14:02:25,165 - WARNING -   ✗ Variant 2 failed validation: ['Structure quality too low: 0.75', 'CWE inconsistency: CWE-74 vs CWE-119']
+2025-09-02 14:02:25,271 - WARNING -   ✗ Variant 3 failed validation: ['Structure quality too low: 0.75', 'CWE inconsistency: CWE-74 vs CWE-119']
+2025-09-02 14:02:25,271 - INFO - Generating 3 variants for CVE-2020-15474 (Score: 10.0)
+2025-09-02 14:02:25,377 - WARNING -   ✗ Variant 1 failed validation: ['Pattern preservation too low: 0.57', 'Structure quality too low: 0.62', 'CWE inconsistency: CWE-787 vs CWE-476']
+2025-09-02 14:02:25,480 - WARNING -   ✗ Variant 2 failed validation: ['Pattern preservation too low: 0.57', 'Structure quality too low: 0.62', 'CWE inconsistency: CWE-787 vs CWE-476']
+2025-09-02 14:02:25,582 - WARNING -   ✗ Variant 3 failed validation: ['Pattern preservation too low: 0.57', 'Structure quality too low: 0.62', 'CWE inconsistency: CWE-787 vs CWE-476']
+2025-09-02 14:02:47,277 - INFO - Generating 3 variants for CVE-2016-1621 (Score: 10.0)
+2025-09-02 14:02:47,379 - INFO -   ✓ Variant 1 generated and validated
+2025-09-02 14:02:47,487 - INFO -   ✓ Variant 2 generated and validated
+2025-09-02 14:02:47,595 - INFO -   ✓ Variant 3 generated and validated
+2025-09-02 14:02:47,596 - INFO - Generating 3 variants for CVE-2020-14954 (Score: 10.0)
+2025-09-02 14:02:47,706 - INFO -   ✓ Variant 1 generated and validated
+2025-09-02 14:02:47,818 - INFO -   ✓ Variant 2 generated and validated
+2025-09-02 14:02:47,928 - INFO -   ✓ Variant 3 generated and validated
+2025-09-02 14:02:47,928 - INFO - Generating 3 variants for CVE-2020-15474 (Score: 10.0)
+2025-09-02 14:02:48,044 - INFO -   ✓ Variant 1 generated and validated
+2025-09-02 14:02:48,160 - INFO -   ✓ Variant 2 generated and validated
+2025-09-02 14:02:48,276 - INFO -   ✓ Variant 3 generated and validated
+2025-09-02 14:08:33,596 - INFO - Generating 3 variants for CVE-2016-1621 (Score: 10.0)
+2025-09-02 14:08:34,640 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:08:34,641 - WARNING - Generation attempt 1 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:36,298 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:08:36,298 - WARNING - Generation attempt 2 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:38,903 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:08:38,904 - WARNING - Generation attempt 3 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:38,904 - ERROR -   ✗ Variant 1 generation failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:39,514 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:08:39,515 - WARNING - Generation attempt 1 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:41,160 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:08:41,161 - WARNING - Generation attempt 2 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:43,829 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:08:43,830 - WARNING - Generation attempt 3 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:43,830 - ERROR -   ✗ Variant 2 generation failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:44,420 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:08:44,422 - WARNING - Generation attempt 1 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:46,089 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:08:46,090 - WARNING - Generation attempt 2 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:48,678 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:08:48,679 - WARNING - Generation attempt 3 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:48,679 - ERROR -   ✗ Variant 3 generation failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:48,679 - INFO - Generating 3 variants for CVE-2020-14954 (Score: 10.0)
+2025-09-02 14:08:49,359 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:08:49,359 - WARNING - Generation attempt 1 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:51,437 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:08:51,438 - WARNING - Generation attempt 2 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:54,047 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:08:54,048 - WARNING - Generation attempt 3 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:54,048 - ERROR -   ✗ Variant 1 generation failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:54,678 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:08:54,679 - WARNING - Generation attempt 1 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:56,287 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:08:56,288 - WARNING - Generation attempt 2 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:58,898 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:08:58,899 - WARNING - Generation attempt 3 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:58,899 - ERROR -   ✗ Variant 2 generation failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:08:59,492 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:08:59,493 - WARNING - Generation attempt 1 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:01,118 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:01,119 - WARNING - Generation attempt 2 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:03,797 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:03,798 - WARNING - Generation attempt 3 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:03,798 - ERROR -   ✗ Variant 3 generation failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:03,799 - INFO - Generating 3 variants for CVE-2020-15474 (Score: 10.0)
+2025-09-02 14:09:04,478 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:04,479 - WARNING - Generation attempt 1 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:06,152 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:06,154 - WARNING - Generation attempt 2 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:08,816 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:08,817 - WARNING - Generation attempt 3 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:08,818 - ERROR -   ✗ Variant 1 generation failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:09,430 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:09,431 - WARNING - Generation attempt 1 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:11,015 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:11,016 - WARNING - Generation attempt 2 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:13,627 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:13,627 - WARNING - Generation attempt 3 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:13,627 - ERROR -   ✗ Variant 2 generation failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:14,242 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:14,243 - WARNING - Generation attempt 1 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:15,880 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:15,881 - WARNING - Generation attempt 2 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:18,592 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:18,593 - WARNING - Generation attempt 3 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:18,593 - ERROR -   ✗ Variant 3 generation failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:18,593 - INFO - Generating 3 variants for CVE-2017-15385 (Score: 10.0)
+2025-09-02 14:09:19,327 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:19,328 - WARNING - Generation attempt 1 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:20,985 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:20,986 - WARNING - Generation attempt 2 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:23,609 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:23,609 - WARNING - Generation attempt 3 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:23,610 - ERROR -   ✗ Variant 1 generation failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:24,587 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:24,588 - WARNING - Generation attempt 1 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:26,207 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:26,208 - WARNING - Generation attempt 2 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:28,964 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:28,964 - WARNING - Generation attempt 3 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:28,964 - ERROR -   ✗ Variant 2 generation failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:29,557 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:29,557 - WARNING - Generation attempt 1 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:31,216 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:31,216 - WARNING - Generation attempt 2 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:33,903 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:33,905 - WARNING - Generation attempt 3 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:33,905 - ERROR -   ✗ Variant 3 generation failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:33,905 - INFO - Generating 3 variants for CVE-2019-19275 (Score: 10.0)
+2025-09-02 14:09:34,535 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:34,536 - WARNING - Generation attempt 1 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:36,126 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:36,127 - WARNING - Generation attempt 2 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:38,723 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:38,723 - WARNING - Generation attempt 3 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:38,724 - ERROR -   ✗ Variant 1 generation failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:39,320 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:39,321 - WARNING - Generation attempt 1 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:40,924 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:40,925 - WARNING - Generation attempt 2 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:43,528 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:43,529 - WARNING - Generation attempt 3 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:43,537 - ERROR -   ✗ Variant 2 generation failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:44,245 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:44,246 - WARNING - Generation attempt 1 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:45,845 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:45,846 - WARNING - Generation attempt 2 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:48,473 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 402 Payment Required"
+2025-09-02 14:09:48,474 - WARNING - Generation attempt 3 failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:09:48,474 - ERROR -   ✗ Variant 3 generation failed: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}
+2025-09-02 14:12:46,779 - INFO - Generating 3 variants for CVE-2016-1621 (Score: 10.0)
+2025-09-02 14:12:47,547 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-02 14:13:41,122 - INFO -   ✓ Variant 1 generated and validated
+2025-09-02 14:13:41,467 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-02 14:14:48,186 - INFO -   ✓ Variant 2 generated and validated
+2025-09-02 14:14:48,681 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-02 14:15:55,878 - INFO -   ✓ Variant 3 generated and validated
+2025-09-02 14:15:55,878 - INFO - Generating 3 variants for CVE-2020-14954 (Score: 10.0)
+2025-09-02 14:15:56,229 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-02 14:17:10,532 - INFO -   ✓ Variant 1 generated and validated
+2025-09-02 14:17:10,959 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-02 14:18:15,113 - INFO -   ✓ Variant 2 generated and validated
+2025-09-02 14:18:15,851 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-02 14:19:25,992 - INFO -   ✓ Variant 3 generated and validated
+2025-09-02 14:19:25,992 - INFO - Generating 3 variants for CVE-2020-15474 (Score: 10.0)
+2025-09-02 14:19:26,468 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-02 14:21:08,387 - WARNING -   ✗ Variant 1 failed validation: ['Pattern preservation too low: 0.00', 'Structure quality too low: 0.75', 'CWE inconsistency: CWE-787 vs CWE-134']
+2025-09-02 14:21:08,893 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-02 14:22:49,253 - WARNING -   ✗ Variant 2 failed validation: ['Pattern preservation too low: 0.00', 'Structure quality too low: 0.75', 'CWE inconsistency: CWE-787 vs CWE-134']
+2025-09-02 14:22:49,716 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-02 14:24:29,605 - WARNING -   ✗ Variant 3 failed validation: ['Pattern preservation too low: 0.00', 'Structure quality too low: 0.75', 'CWE inconsistency: CWE-787 vs CWE-134']
+2025-09-02 14:24:29,605 - INFO - Generating 3 variants for CVE-2017-15385 (Score: 10.0)
+2025-09-02 14:24:30,110 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-02 14:25:40,541 - INFO -   ✓ Variant 1 generated and validated
+2025-09-02 14:25:41,073 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-02 14:26:58,556 - INFO -   ✓ Variant 2 generated and validated
+2025-09-02 14:26:58,909 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-02 14:28:15,214 - INFO -   ✓ Variant 3 generated and validated
+2025-09-02 14:28:15,214 - INFO - Generating 3 variants for CVE-2019-19275 (Score: 10.0)
+2025-09-02 14:28:16,018 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-02 14:29:33,739 - INFO -   ✓ Variant 1 generated and validated
+2025-09-02 14:29:34,136 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-02 14:31:11,237 - INFO -   ✓ Variant 2 generated and validated
+2025-09-02 14:31:11,600 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-02 14:32:44,350 - INFO -   ✓ Variant 3 generated and validated
