@@ -1,0 +1,383 @@
+[
+  {
+    "cve_id": "CVE-2016-1621",
+    "variant_id": "CVE-2016-1621_evasion_variant_1",
+    "validation_score": 0.3666666666666667,
+    "passed": false,
+    "layer_results": {
+      "layer1": {
+        "layer": "Layer 1: Sanity Check (Diff, Regex, Parser)",
+        "passed": false,
+        "score": 0.5,
+        "checks": {
+          "code_differences": false,
+          "vulnerability_patterns": false,
+          "syntax_validity": true,
+          "structural_changes": true
+        },
+        "issues": [
+          "Layer 1 failed: 0.50 score below 0.75 threshold"
+        ],
+        "details": {
+          "diff_ratio": 0.98491731782664,
+          "pattern_count": 0,
+          "patterns_found": [],
+          "syntax_issues": [],
+          "structure_changes": {
+            "variable_renaming": true,
+            "function_restructuring": false,
+            "control_flow_changes": false,
+            "comment_additions": true
+          }
+        }
+      },
+      "layer2": {
+        "layer": "Layer 2: Path Verification (Simplified)",
+        "passed": false,
+        "score": 0.3333333333333333,
+        "checks": {
+          "exploitable_path_exists": false,
+          "vulnerability_reachable": false,
+          "crash_condition_met": true
+        },
+        "issues": [],
+        "details": {
+          "path_analysis": {
+            "exploitable_path": false,
+            "vulnerability_reachable": false,
+            "crash_condition": true,
+            "complexity": 13
+          },
+          "control_flow_complexity": 13
+        }
+      },
+      "layer3": {
+        "layer": "Layer 3: Exploitability Test (Simplified)",
+        "passed": false,
+        "score": 0.3333333333333333,
+        "checks": {
+          "crash_detected": true,
+          "vulnerability_triggered": false,
+          "exploit_generated": false
+        },
+        "issues": [],
+        "details": {
+          "exploitability_analysis": {
+            "crash_possible": true,
+            "vulnerability_triggered": false,
+            "exploit_generated": false,
+            "trigger_conditions": [
+              "null_pointer_dereference"
+            ]
+          },
+          "trigger_conditions": [
+            "null_pointer_dereference"
+          ]
+        }
+      },
+      "layer4": {
+        "layer": "Layer 4: Evasion Assessment",
+        "passed": false,
+        "score": 0.3333333333333333,
+        "checks": {
+          "evasion_achieved": false,
+          "detection_reduction": false,
+          "partial_evasion": true
+        },
+        "issues": [],
+        "details": {
+          "detector_results": {
+            "gcc_warnings": {
+              "original_detected": true,
+              "variant_detected": true,
+              "original_warnings": 3,
+              "variant_warnings": 3
+            },
+            "clang_warnings": {
+              "original_detected": true,
+              "variant_detected": true,
+              "original_warnings": 3,
+              "variant_warnings": 3
+            },
+            "pattern_analysis": {
+              "original_detected": false,
+              "variant_detected": false,
+              "original_warnings": 0,
+              "variant_warnings": 0
+            }
+          },
+          "original_detections": 2,
+          "variant_detections": 2,
+          "evasion_rate": 0.0
+        }
+      }
+    },
+    "issues": [
+      "layer1: Layer 1 failed: 0.50 score below 0.75 threshold"
+    ],
+    "recommendations": [
+      "Improve code structure and vulnerability pattern preservation",
+      "Ensure exploitable paths exist in the variant",
+      "Make variant more easily triggerable",
+      "\ud83c\udfaf CRITICAL: Improve evasion capabilities - detection rate too high!",
+      "Focus on obfuscation techniques to trick cppcheck, clang, and gcc",
+      "Use misleading variable names and hide vulnerable operations",
+      "Implement stealth techniques to appear safe to static analysis"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-14954",
+    "variant_id": "CVE-2020-14954_evasion_variant_2",
+    "validation_score": 0.2833333333333333,
+    "passed": false,
+    "layer_results": {
+      "layer1": {
+        "layer": "Layer 1: Sanity Check (Diff, Regex, Parser)",
+        "passed": true,
+        "score": 0.75,
+        "checks": {
+          "code_differences": false,
+          "vulnerability_patterns": true,
+          "syntax_validity": true,
+          "structural_changes": true
+        },
+        "issues": [],
+        "details": {
+          "diff_ratio": 0.9648975007020499,
+          "pattern_count": 0,
+          "patterns_found": [],
+          "syntax_issues": [],
+          "structure_changes": {
+            "variable_renaming": true,
+            "function_restructuring": false,
+            "control_flow_changes": false,
+            "comment_additions": true
+          }
+        }
+      },
+      "layer2": {
+        "layer": "Layer 2: Path Verification (Simplified)",
+        "passed": false,
+        "score": 0.0,
+        "checks": {
+          "exploitable_path_exists": false,
+          "vulnerability_reachable": false,
+          "crash_condition_met": false
+        },
+        "issues": [],
+        "details": {
+          "path_analysis": {
+            "exploitable_path": false,
+            "vulnerability_reachable": false,
+            "crash_condition": false,
+            "complexity": 32
+          },
+          "control_flow_complexity": 32
+        }
+      },
+      "layer3": {
+        "layer": "Layer 3: Exploitability Test (Simplified)",
+        "passed": false,
+        "score": 0.0,
+        "checks": {
+          "crash_detected": false,
+          "vulnerability_triggered": false,
+          "exploit_generated": false
+        },
+        "issues": [],
+        "details": {
+          "exploitability_analysis": {
+            "crash_possible": false,
+            "vulnerability_triggered": false,
+            "exploit_generated": false,
+            "trigger_conditions": []
+          },
+          "trigger_conditions": []
+        }
+      },
+      "layer4": {
+        "layer": "Layer 4: Evasion Assessment",
+        "passed": false,
+        "score": 0.3333333333333333,
+        "checks": {
+          "evasion_achieved": false,
+          "detection_reduction": false,
+          "partial_evasion": true
+        },
+        "issues": [],
+        "details": {
+          "detector_results": {
+            "gcc_warnings": {
+              "original_detected": true,
+              "variant_detected": true,
+              "original_warnings": 21,
+              "variant_warnings": 21
+            },
+            "clang_warnings": {
+              "original_detected": true,
+              "variant_detected": true,
+              "original_warnings": 21,
+              "variant_warnings": 21
+            },
+            "pattern_analysis": {
+              "original_detected": false,
+              "variant_detected": false,
+              "original_warnings": 0,
+              "variant_warnings": 0
+            }
+          },
+          "original_detections": 2,
+          "variant_detections": 2,
+          "evasion_rate": 0.0
+        }
+      }
+    },
+    "issues": [],
+    "recommendations": [
+      "Ensure exploitable paths exist in the variant",
+      "Make variant more easily triggerable",
+      "\ud83c\udfaf CRITICAL: Improve evasion capabilities - detection rate too high!",
+      "Focus on obfuscation techniques to trick cppcheck, clang, and gcc",
+      "Use misleading variable names and hide vulnerable operations",
+      "Implement stealth techniques to appear safe to static analysis"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-15474",
+    "variant_id": "CVE-2020-15474_evasion_variant_3",
+    "validation_score": 0.55,
+    "passed": false,
+    "layer_results": {
+      "layer1": {
+        "layer": "Layer 1: Sanity Check (Diff, Regex, Parser)",
+        "passed": true,
+        "score": 0.75,
+        "checks": {
+          "code_differences": false,
+          "vulnerability_patterns": true,
+          "syntax_validity": true,
+          "structural_changes": true
+        },
+        "issues": [],
+        "details": {
+          "diff_ratio": 0.9901863028076621,
+          "pattern_count": 16,
+          "patterns_found": [
+            "[ 64 ] =",
+            "[ 1024 ] =",
+            "[ i ] =",
+            "[ i ] =",
+            "[ i ] =",
+            "[ i ] =",
+            "[ i ] =",
+            "[ i ] =",
+            "[ i ] =",
+            "[ len ] =",
+            "[ len ] =",
+            "[ i ] =",
+            "[ i ] =",
+            "[ len ] =",
+            "[ 0 ] =",
+            "[ newstr_len ] ="
+          ],
+          "syntax_issues": [],
+          "structure_changes": {
+            "variable_renaming": true,
+            "function_restructuring": false,
+            "control_flow_changes": false,
+            "comment_additions": true
+          }
+        }
+      },
+      "layer2": {
+        "layer": "Layer 2: Path Verification (Simplified)",
+        "passed": true,
+        "score": 1.0,
+        "checks": {
+          "exploitable_path_exists": true,
+          "vulnerability_reachable": true,
+          "crash_condition_met": true
+        },
+        "issues": [],
+        "details": {
+          "path_analysis": {
+            "exploitable_path": true,
+            "vulnerability_reachable": true,
+            "crash_condition": true,
+            "complexity": 47
+          },
+          "control_flow_complexity": 47
+        }
+      },
+      "layer3": {
+        "layer": "Layer 3: Exploitability Test (Simplified)",
+        "passed": true,
+        "score": 1.0,
+        "checks": {
+          "crash_detected": true,
+          "vulnerability_triggered": true,
+          "exploit_generated": true
+        },
+        "issues": [],
+        "details": {
+          "exploitability_analysis": {
+            "crash_possible": true,
+            "vulnerability_triggered": true,
+            "exploit_generated": true,
+            "trigger_conditions": [
+              "null_pointer_dereference",
+              "pattern_\\[\\s*\\w+\\s*\\]\\s*="
+            ]
+          },
+          "trigger_conditions": [
+            "null_pointer_dereference",
+            "pattern_\\[\\s*\\w+\\s*\\]\\s*="
+          ]
+        }
+      },
+      "layer4": {
+        "layer": "Layer 4: Evasion Assessment",
+        "passed": false,
+        "score": 0.0,
+        "checks": {
+          "evasion_achieved": false,
+          "detection_reduction": false,
+          "partial_evasion": false
+        },
+        "issues": [],
+        "details": {
+          "detector_results": {
+            "gcc_warnings": {
+              "original_detected": true,
+              "variant_detected": true,
+              "original_warnings": 3,
+              "variant_warnings": 3
+            },
+            "clang_warnings": {
+              "original_detected": true,
+              "variant_detected": true,
+              "original_warnings": 3,
+              "variant_warnings": 3
+            },
+            "pattern_analysis": {
+              "original_detected": true,
+              "variant_detected": true,
+              "original_warnings": 16,
+              "variant_warnings": 16
+            }
+          },
+          "original_detections": 3,
+          "variant_detections": 3,
+          "evasion_rate": 0.0
+        }
+      }
+    },
+    "issues": [],
+    "recommendations": [
+      "\ud83c\udfaf CRITICAL: Improve evasion capabilities - detection rate too high!",
+      "Focus on obfuscation techniques to trick cppcheck, clang, and gcc",
+      "Use misleading variable names and hide vulnerable operations",
+      "Implement stealth techniques to appear safe to static analysis"
+    ]
+  }
+]

@@ -179,3 +179,18 @@
 2025-09-02 14:31:11,237 - INFO -   ✓ Variant 2 generated and validated
 2025-09-02 14:31:11,600 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
 2025-09-02 14:32:44,350 - INFO -   ✓ Variant 3 generated and validated
+2025-09-02 15:37:17,118 - INFO - Starting validation for CVE-2016-1621_evasion_variant_1
+2025-09-02 15:37:17,119 - INFO - Running Layer 1: Sanity Check
+2025-09-02 15:37:17,121 - INFO - Running Layer 2: Path Verification (Simplified)
+2025-09-02 15:37:17,122 - INFO - Running Layer 3: Exploitability Test (Simplified)
+2025-09-02 15:37:17,122 - INFO - Running Layer 4: Evasion Assessment
+2025-09-02 15:37:17,316 - INFO - Starting validation for CVE-2020-14954_evasion_variant_2
+2025-09-02 15:37:17,317 - INFO - Running Layer 1: Sanity Check
+2025-09-02 15:37:17,323 - INFO - Running Layer 2: Path Verification (Simplified)
+2025-09-02 15:37:17,323 - INFO - Running Layer 3: Exploitability Test (Simplified)
+2025-09-02 15:37:17,323 - INFO - Running Layer 4: Evasion Assessment
+2025-09-02 15:37:17,513 - INFO - Starting validation for CVE-2020-15474_evasion_variant_3
+2025-09-02 15:37:17,514 - INFO - Running Layer 1: Sanity Check
+2025-09-02 15:37:17,536 - INFO - Running Layer 2: Path Verification (Simplified)
+2025-09-02 15:37:17,536 - INFO - Running Layer 3: Exploitability Test (Simplified)
+2025-09-02 15:37:17,536 - INFO - Running Layer 4: Evasion Assessment

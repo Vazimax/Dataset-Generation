@@ -1,0 +1,448 @@
+{
+  "dataset_name": "Critical CVEs Dataset",
+  "total_samples": 10,
+  "overall_metrics": {
+    "overall_detection_rate": 0.75,
+    "models_tested": 4,
+    "total_detections": 30,
+    "average_confidence": 0.04722222222222222,
+    "average_detection_time": 0.01849401593208313
+  },
+  "model_performance": {
+    "cppcheck": {
+      "detection_rate": 1.0,
+      "average_confidence": 0.05555555555555556,
+      "average_detection_time": 0.007516241073608399,
+      "total_detections": 10,
+      "total_samples": 10,
+      "error_rate": 0.0
+    },
+    "clang_static": {
+      "detection_rate": 1.0,
+      "average_confidence": 0.06666666666666667,
+      "average_detection_time": 0.01718747615814209,
+      "total_detections": 10,
+      "total_samples": 10,
+      "error_rate": 1.0
+    },
+    "gcc_warnings": {
+      "detection_rate": 1.0,
+      "average_confidence": 0.06666666666666667,
+      "average_detection_time": 0.02090163230895996,
+      "total_detections": 10,
+      "total_samples": 10,
+      "error_rate": 1.0
+    },
+    "flawfinder": {
+      "detection_rate": 0.0,
+      "average_confidence": 0.0,
+      "average_detection_time": 0.02837071418762207,
+      "total_detections": 0,
+      "total_samples": 10,
+      "error_rate": 0.0
+    }
+  },
+  "timestamp": "2025-09-02T15:26:00.789769",
+  "detection_results": [
+    {
+      "cve_id": "CVE-2016-1621",
+      "model_name": "Cppcheck",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.007829904556274414,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2020-14954",
+      "model_name": "Cppcheck",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.007005929946899414,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2020-15474",
+      "model_name": "Cppcheck",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.00783681869506836,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2017-15385",
+      "model_name": "Cppcheck",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.007622957229614258,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2019-19275",
+      "model_name": "Cppcheck",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.0069768428802490234,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2019-19481",
+      "model_name": "Cppcheck",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.007127046585083008,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2019-13308",
+      "model_name": "Cppcheck",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.0069468021392822266,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2018-1999011",
+      "model_name": "Cppcheck",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.007160186767578125,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2017-15385",
+      "model_name": "Cppcheck",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.0070149898529052734,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2019-19244",
+      "model_name": "Cppcheck",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.009640932083129883,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2016-1621",
+      "model_name": "Clang Static Analyzer",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.017904281616210938,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2020-14954",
+      "model_name": "Clang Static Analyzer",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.018221139907836914,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2020-15474",
+      "model_name": "Clang Static Analyzer",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.016247987747192383,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2017-15385",
+      "model_name": "Clang Static Analyzer",
+      "detected": true,
+      "confidence": 0.1111111111111111,
+      "detection_time": 0.018372774124145508,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2019-19275",
+      "model_name": "Clang Static Analyzer",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.016148805618286133,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2019-19481",
+      "model_name": "Clang Static Analyzer",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.01776909828186035,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2019-13308",
+      "model_name": "Clang Static Analyzer",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.01657867431640625,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2018-1999011",
+      "model_name": "Clang Static Analyzer",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.01678299903869629,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2017-15385",
+      "model_name": "Clang Static Analyzer",
+      "detected": true,
+      "confidence": 0.1111111111111111,
+      "detection_time": 0.018108844757080078,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2019-19244",
+      "model_name": "Clang Static Analyzer",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.015740156173706055,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2016-1621",
+      "model_name": "GCC Security Warnings",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.0212860107421875,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2020-14954",
+      "model_name": "GCC Security Warnings",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.022035837173461914,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2020-15474",
+      "model_name": "GCC Security Warnings",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.019688844680786133,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2017-15385",
+      "model_name": "GCC Security Warnings",
+      "detected": true,
+      "confidence": 0.1111111111111111,
+      "detection_time": 0.021611928939819336,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2019-19275",
+      "model_name": "GCC Security Warnings",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.019858121871948242,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2019-19481",
+      "model_name": "GCC Security Warnings",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.021363019943237305,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2019-13308",
+      "model_name": "GCC Security Warnings",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.019999980926513672,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2018-1999011",
+      "model_name": "GCC Security Warnings",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.020630836486816406,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2017-15385",
+      "model_name": "GCC Security Warnings",
+      "detected": true,
+      "confidence": 0.1111111111111111,
+      "detection_time": 0.022090911865234375,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2019-19244",
+      "model_name": "GCC Security Warnings",
+      "detected": true,
+      "confidence": 0.05555555555555555,
+      "detection_time": 0.020450830459594727,
+      "warnings": [],
+      "errors": [
+        "Model returned non-zero exit code: 1"
+      ]
+    },
+    {
+      "cve_id": "CVE-2016-1621",
+      "model_name": "Flawfinder",
+      "detected": false,
+      "confidence": 0.0,
+      "detection_time": 0.02773904800415039,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2020-14954",
+      "model_name": "Flawfinder",
+      "detected": false,
+      "confidence": 0.0,
+      "detection_time": 0.027985811233520508,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2020-15474",
+      "model_name": "Flawfinder",
+      "detected": false,
+      "confidence": 0.0,
+      "detection_time": 0.029746055603027344,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2017-15385",
+      "model_name": "Flawfinder",
+      "detected": false,
+      "confidence": 0.0,
+      "detection_time": 0.028441905975341797,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2019-19275",
+      "model_name": "Flawfinder",
+      "detected": false,
+      "confidence": 0.0,
+      "detection_time": 0.02753615379333496,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2019-19481",
+      "model_name": "Flawfinder",
+      "detected": false,
+      "confidence": 0.0,
+      "detection_time": 0.028344154357910156,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2019-13308",
+      "model_name": "Flawfinder",
+      "detected": false,
+      "confidence": 0.0,
+      "detection_time": 0.02797389030456543,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2018-1999011",
+      "model_name": "Flawfinder",
+      "detected": false,
+      "confidence": 0.0,
+      "detection_time": 0.02732706069946289,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2017-15385",
+      "model_name": "Flawfinder",
+      "detected": false,
+      "confidence": 0.0,
+      "detection_time": 0.028584003448486328,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "cve_id": "CVE-2019-19244",
+      "model_name": "Flawfinder",
+      "detected": false,
+      "confidence": 0.0,
+      "detection_time": 0.0300290584564209,
+      "warnings": [],
+      "errors": []
+    }
+  ]
+}
