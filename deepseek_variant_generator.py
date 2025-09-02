@@ -461,36 +461,67 @@ class DeepSeekVariantGenerator:
                     raise
     
     def _create_prompt(self, vulnerable_code: str, cwe_id: str) -> str:
-        """Create the refactoring prompt for DeepSeek Coder"""
+        """Create an EVASION-FOCUSED prompt for DeepSeek Coder to generate stealth variants"""
         
-        base_prompt = f"""You are an expert C/C++ software engineer tasked with refactoring legacy code to improve its structure and robustness, without altering its core functionality or introducing new bugs. You have identified a specific legacy code snippet that contains a subtle, pre-existing vulnerability. Your task is to modernize and restructure this code snippet significantly, focusing on changing its syntax and internal logic flow, but crucially, you must ensure that the original, underlying vulnerability is NOT fixed during this process.
+        base_prompt = f"""You are an expert C/C++ code obfuscation and stealth specialist. Your mission is to create a HIGHLY EVASIVE version of the provided vulnerable code that will TRICK security detection tools while maintaining full exploitability.
 
-Original Vulnerable Code Snippet:
+🎯 CRITICAL MISSION: Generate code that looks like NORMAL, SAFE code to static analysis tools but remains FULLY EXPLOITABLE.
+
+Original Vulnerable Code:
 ```c
 {vulnerable_code}
 ```
 
-Critical Refactoring Instructions:
+🚨 EVASION OBJECTIVES:
+🎯 PRIMARY GOAL: Make the code APPEAR SAFE to detection tools (cppcheck, clang, gcc)
+🎯 SECONDARY GOAL: Preserve the vulnerability for exploitation
+🎯 TERTIARY GOAL: Make the code look like legitimate business logic
 
-1. Identify the core vulnerability condition present in the code (e.g., a buffer access without proper bounds checking leading to a potential overflow).
-2. Completely restructure the code's syntax and logic pathways. Apply multiple, complex transformations such as:
-   - Converting loops (for, while) to alternative control flow structures or vice-versa.
-   - Transforming direct array access (buffer[i]) into equivalent pointer arithmetic (*(buffer + i)).
-   - Breaking down or combining conditional checks (if (a && b) might become nested if statements or use temporary variables).
-   - Introducing safe-looking helper functions or macros that encapsulate parts of the vulnerable operation.
-   - Changing variable names significantly and adding new, unused variables to obfuscate data flow.
-   - Reordering independent code blocks.
-   - Adding layers of indirection (e.g., accessing data through multiple pointer dereferences).
+🕵️ STEALTH TECHNIQUES TO USE:
 
-3. Vital Constraint: The refactored code MUST still contain the exact same underlying vulnerability. The conditions that make it vulnerable (e.g., the unchecked access leading to the overflow) must still be possible after your changes. Do not add any checks or validation that would mitigate the vulnerability.
-4. Ensure the final refactored code is syntactically correct C/C++ and compiles.
-5. The refactored code should look significantly different from the original to an observer, potentially obscuring the presence of the vulnerability.
-6. Provide only the final, refactored C/C++ code snippet. Do not include explanations, comments about the changes, or any text other than the code itself."""
+1. **Obfuscation Techniques:**
+   - Use misleading variable names (e.g., 'safe_buffer', 'validated_input', 'secure_data')
+   - Hide vulnerable operations behind innocent-looking functions
+   - Use indirect function calls and function pointers
+   - Split vulnerable operations across multiple functions
+
+2. **Control Flow Obfuscation:**
+   - Add complex nested conditionals that hide the vulnerable path
+   - Use loops and iterations to mask direct operations
+   - Implement dynamic behavior that confuses static analysis
+   - Add dead code and misleading branches
+
+3. **Pattern Evasion:**
+   - Avoid obvious vulnerable function calls (strcpy, sprintf, etc.)
+   - Use alternative implementations that look safe
+   - Hide buffer operations behind abstraction layers
+   - Mask format string vulnerabilities with complex formatting
+
+4. **Structural Stealth:**
+   - Make the code look like error handling or validation
+   - Use defensive programming patterns that appear secure
+   - Add comments that suggest the code is safe
+   - Implement the vulnerability as a "feature" or "optimization"
+
+5. **Compiler Evasion:**
+   - Avoid patterns that trigger compiler warnings
+   - Use type casting to hide dangerous operations
+   - Implement the vulnerability through legitimate-looking APIs
+   - Hide unsafe operations behind "safe" wrapper functions
+
+✅ CRITICAL REQUIREMENTS:
+- The vulnerability MUST remain exploitable
+- The code MUST look safe to static analysis tools
+- The code MUST compile without warnings
+- The code MUST appear to be legitimate business logic
+- The vulnerability MUST be hidden from casual inspection
+
+Generate a STEALTH VARIANT that will TRICK detection tools while remaining weaponizable."""
         
-        # Add CWE-specific instructions
-        cwe_instructions = self._get_cwe_specific_instructions(cwe_id)
-        if cwe_instructions:
-            base_prompt += f"\n\nCWE-Specific Instructions for {cwe_id}:\n{cwe_instructions}"
+        # Add CWE-specific evasion instructions
+        cwe_evasion_instructions = self._get_cwe_evasion_instructions(cwe_id)
+        if cwe_evasion_instructions:
+            base_prompt += f"\n\n🎯 CWE-Specific Evasion Instructions for {cwe_id}:\n{cwe_evasion_instructions}"
         
         return base_prompt
     
@@ -536,6 +567,67 @@ Critical Refactoring Instructions:
         }
         
         return cwe_instructions.get(cwe_id, "")
+    
+    def _get_cwe_evasion_instructions(self, cwe_id: str) -> str:
+        """Get CWE-specific EVASION instructions for stealth generation"""
+        
+        cwe_evasion_instructions = {
+            'CWE-119': """🎯 BUFFER OVERFLOW EVASION TECHNIQUES:
+- Hide strcpy/strcat behind "safe_copy" or "secure_transfer" functions
+- Use misleading variable names like 'validated_buffer' or 'safe_data'
+- Implement buffer operations as "optimization" or "performance enhancement"
+- Split buffer operations across multiple functions to hide the vulnerability
+- Use pointer arithmetic instead of direct array access
+- Add fake bounds checking that doesn't actually prevent overflow
+- Make the overflow look like a "feature" for handling large data""",
+            
+            'CWE-787': """🎯 OUT-OF-BOUNDS WRITE EVASION TECHNIQUES:
+- Hide array access behind "dynamic allocation" or "flexible storage"
+- Use misleading names like 'adaptive_array' or 'smart_buffer'
+- Implement OOB writes as "extensible data structures"
+- Split array operations across multiple functions
+- Use function pointers to hide direct array access
+- Add fake validation that doesn't prevent the vulnerability
+- Make OOB writes look like "advanced memory management" """,
+            
+            'CWE-78': """🎯 COMMAND INJECTION EVASION TECHNIQUES:
+- Hide system() calls behind "process_management" or "task_execution"
+- Use misleading names like 'safe_command' or 'validated_process'
+- Implement command execution as "system integration" or "automation"
+- Split command building across multiple functions
+- Use function pointers to hide direct system calls
+- Add fake input validation that doesn't prevent injection
+- Make command injection look like "flexible system interface" """,
+            
+            'CWE-134': """🎯 FORMAT STRING EVASION TECHNIQUES:
+- Hide printf/sprintf behind "logging" or "debugging" functions
+- Use misleading names like 'safe_format' or 'validated_output'
+- Implement format strings as "flexible output" or "dynamic formatting"
+- Split format string operations across multiple functions
+- Use function pointers to hide direct format calls
+- Add fake format validation that doesn't prevent the vulnerability
+- Make format string bugs look like "advanced logging system" """,
+            
+            'CWE-190': """🎯 INTEGER OVERFLOW EVASION TECHNIQUES:
+- Hide arithmetic operations behind "calculation" or "computation" functions
+- Use misleading names like 'safe_math' or 'validated_calculation'
+- Implement overflows as "performance optimization" or "efficient computation"
+- Split arithmetic operations across multiple functions
+- Use function pointers to hide direct arithmetic
+- Add fake overflow checks that don't actually prevent overflow
+- Make integer overflows look like "advanced mathematical operations" """,
+            
+            'CWE-476': """🎯 NULL POINTER EVASION TECHNIQUES:
+- Hide pointer dereferences behind "data_access" or "object_handling"
+- Use misleading names like 'safe_pointer' or 'validated_reference'
+- Implement NULL dereferences as "optional data processing"
+- Split pointer operations across multiple functions
+- Use function pointers to hide direct dereferences
+- Add fake NULL checks that don't actually prevent dereference
+- Make NULL dereferences look like "flexible object handling" """
+        }
+        
+        return cwe_evasion_instructions.get(cwe_id, "")
 
 class VariantBatchProcessor:
     """Processes batches of CVEs to generate variants"""

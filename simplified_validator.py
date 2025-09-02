@@ -130,9 +130,23 @@ class SimplifiedValidator:
         logger.info("Running Layer 4: Evasion Assessment")
         layer_results['layer4'] = self._layer4_evasion_assessment(original_code, variant_code, cwe_id)
         
-        # Calculate overall results
-        overall_score = sum(layer['score'] for layer in layer_results.values()) / len(layer_results)
-        overall_passed = all(layer['passed'] for layer in layer_results.values())
+        # Calculate overall results with EVASION PRIORITY
+        # Layer 4 (Evasion) is most important - weight it higher
+        layer_weights = {
+            'layer1': 0.2,  # Sanity check - basic structure
+            'layer2': 0.2,  # Path verification - exploitability
+            'layer3': 0.2,  # Exploitability test - can be triggered
+            'layer4': 0.4   # Evasion assessment - MOST IMPORTANT
+        }
+        
+        weighted_score = sum(layer_results[layer]['score'] * weight 
+                           for layer, weight in layer_weights.items() 
+                           if layer in layer_results)
+        overall_score = weighted_score
+        
+        # Pass if evasion is achieved (Layer 4) AND basic structure is good (Layer 1)
+        overall_passed = (layer_results.get('layer4', {}).get('passed', False) and 
+                         layer_results.get('layer1', {}).get('passed', False))
         
         # Collect issues and recommendations
         issues = []
@@ -141,7 +155,7 @@ class SimplifiedValidator:
         for layer_name, layer_result in layer_results.items():
             issues.extend([f"{layer_name}: {issue}" for issue in layer_result.get('issues', [])])
         
-        # Generate recommendations
+        # Generate EVASION-FOCUSED recommendations
         if not layer_results['layer1']['passed']:
             recommendations.append("Improve code structure and vulnerability pattern preservation")
         
@@ -152,7 +166,10 @@ class SimplifiedValidator:
             recommendations.append("Make variant more easily triggerable")
         
         if not layer_results['layer4']['passed']:
-            recommendations.append("Improve evasion capabilities against security detectors")
+            recommendations.append("🎯 CRITICAL: Improve evasion capabilities - detection rate too high!")
+            recommendations.append("Focus on obfuscation techniques to trick cppcheck, clang, and gcc")
+            recommendations.append("Use misleading variable names and hide vulnerable operations")
+            recommendations.append("Implement stealth techniques to appear safe to static analysis")
         
         return ValidationResult(
             variant_id=variant_id,
@@ -204,7 +221,7 @@ class SimplifiedValidator:
             total_checks = len(result['checks'])
             result['score'] = passed_checks / total_checks
             
-            # Pass if 75%+ checks pass
+            # Pass if 75%+ checks pass (for sanity check, we want good structure)
             result['passed'] = result['score'] >= 0.75
             
             if not result['passed']:
@@ -324,7 +341,7 @@ class SimplifiedValidator:
             total_checks = len(result['checks'])
             result['score'] = passed_checks / total_checks
             
-            # Pass if evasion is achieved
+            # Pass if evasion is achieved (LOW detection rates are GOOD)
             result['passed'] = result['checks']['evasion_achieved']
             
         except Exception as e:

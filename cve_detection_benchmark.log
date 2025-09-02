@@ -1,0 +1,148 @@
+2025-09-02 15:25:02,451 - INFO - Starting benchmark for Critical CVEs Dataset
+2025-09-02 15:25:02,461 - INFO - Loaded 10 samples from Critical CVEs Dataset
+2025-09-02 15:25:02,462 - INFO - Running cppcheck on Critical CVEs Dataset
+2025-09-02 15:25:02,462 - INFO - Testing CVE-2016-1621 with Cppcheck
+2025-09-02 15:25:02,476 - INFO - Testing CVE-2020-14954 with Cppcheck
+2025-09-02 15:25:02,484 - INFO - Testing CVE-2020-15474 with Cppcheck
+2025-09-02 15:25:02,493 - INFO - Testing CVE-2017-15385 with Cppcheck
+2025-09-02 15:25:02,500 - INFO - Testing CVE-2019-19275 with Cppcheck
+2025-09-02 15:25:02,508 - INFO - Testing CVE-2019-19481 with Cppcheck
+2025-09-02 15:25:02,515 - INFO - Testing CVE-2019-13308 with Cppcheck
+2025-09-02 15:25:02,523 - INFO - Testing CVE-2018-1999011 with Cppcheck
+2025-09-02 15:25:02,529 - INFO - Testing CVE-2017-15385 with Cppcheck
+2025-09-02 15:25:02,536 - INFO - Testing CVE-2019-19244 with Cppcheck
+2025-09-02 15:25:02,545 - INFO - Running clang_static on Critical CVEs Dataset
+2025-09-02 15:25:02,545 - INFO - Testing CVE-2016-1621 with Clang Static Analyzer
+2025-09-02 15:25:02,564 - INFO - Testing CVE-2020-14954 with Clang Static Analyzer
+2025-09-02 15:25:02,581 - INFO - Testing CVE-2020-15474 with Clang Static Analyzer
+2025-09-02 15:25:02,597 - INFO - Testing CVE-2017-15385 with Clang Static Analyzer
+2025-09-02 15:25:02,615 - INFO - Testing CVE-2019-19275 with Clang Static Analyzer
+2025-09-02 15:25:02,631 - INFO - Testing CVE-2019-19481 with Clang Static Analyzer
+2025-09-02 15:25:02,647 - INFO - Testing CVE-2019-13308 with Clang Static Analyzer
+2025-09-02 15:25:02,663 - INFO - Testing CVE-2018-1999011 with Clang Static Analyzer
+2025-09-02 15:25:02,680 - INFO - Testing CVE-2017-15385 with Clang Static Analyzer
+2025-09-02 15:25:02,697 - INFO - Testing CVE-2019-19244 with Clang Static Analyzer
+2025-09-02 15:25:02,713 - INFO - Running gcc_warnings on Critical CVEs Dataset
+2025-09-02 15:25:02,713 - INFO - Testing CVE-2016-1621 with GCC Security Warnings
+2025-09-02 15:25:02,735 - INFO - Testing CVE-2020-14954 with GCC Security Warnings
+2025-09-02 15:25:02,757 - INFO - Testing CVE-2020-15474 with GCC Security Warnings
+2025-09-02 15:25:02,777 - INFO - Testing CVE-2017-15385 with GCC Security Warnings
+2025-09-02 15:25:02,803 - INFO - Testing CVE-2019-19275 with GCC Security Warnings
+2025-09-02 15:25:02,823 - INFO - Testing CVE-2019-19481 with GCC Security Warnings
+2025-09-02 15:25:02,844 - INFO - Testing CVE-2019-13308 with GCC Security Warnings
+2025-09-02 15:25:02,863 - INFO - Testing CVE-2018-1999011 with GCC Security Warnings
+2025-09-02 15:25:02,883 - INFO - Testing CVE-2017-15385 with GCC Security Warnings
+2025-09-02 15:25:02,906 - INFO - Testing CVE-2019-19244 with GCC Security Warnings
+2025-09-02 15:25:02,926 - INFO - Running flawfinder on Critical CVEs Dataset
+2025-09-02 15:25:02,926 - INFO - Testing CVE-2016-1621 with Flawfinder
+2025-09-02 15:25:02,954 - INFO - Testing CVE-2020-14954 with Flawfinder
+2025-09-02 15:25:02,981 - INFO - Testing CVE-2020-15474 with Flawfinder
+2025-09-02 15:25:03,011 - INFO - Testing CVE-2017-15385 with Flawfinder
+2025-09-02 15:25:03,039 - INFO - Testing CVE-2019-19275 with Flawfinder
+2025-09-02 15:25:03,067 - INFO - Testing CVE-2019-19481 with Flawfinder
+2025-09-02 15:25:03,095 - INFO - Testing CVE-2019-13308 with Flawfinder
+2025-09-02 15:25:03,127 - INFO - Testing CVE-2018-1999011 with Flawfinder
+2025-09-02 15:25:03,155 - INFO - Testing CVE-2017-15385 with Flawfinder
+2025-09-02 15:25:03,183 - INFO - Testing CVE-2019-19244 with Flawfinder
+2025-09-02 15:25:03,214 - WARNING - Model rats not available, skipping
+2025-09-02 15:25:03,214 - WARNING - Model splint not available, skipping
+2025-09-02 15:25:03,214 - INFO - Results saved to benchmark_results_critical_cves_dataset.json
+2025-09-02 15:25:03,215 - INFO - Starting benchmark for Template Variants Dataset
+2025-09-02 15:26:00,039 - INFO - Starting benchmark for Critical CVEs Dataset
+2025-09-02 15:26:00,044 - INFO - Loaded 10 samples from Critical CVEs Dataset
+2025-09-02 15:26:00,044 - INFO - Running cppcheck on Critical CVEs Dataset
+2025-09-02 15:26:00,044 - INFO - Testing CVE-2016-1621 with Cppcheck
+2025-09-02 15:26:00,052 - INFO - Testing CVE-2020-14954 with Cppcheck
+2025-09-02 15:26:00,059 - INFO - Testing CVE-2020-15474 with Cppcheck
+2025-09-02 15:26:00,067 - INFO - Testing CVE-2017-15385 with Cppcheck
+2025-09-02 15:26:00,074 - INFO - Testing CVE-2019-19275 with Cppcheck
+2025-09-02 15:26:00,082 - INFO - Testing CVE-2019-19481 with Cppcheck
+2025-09-02 15:26:00,089 - INFO - Testing CVE-2019-13308 with Cppcheck
+2025-09-02 15:26:00,096 - INFO - Testing CVE-2018-1999011 with Cppcheck
+2025-09-02 15:26:00,103 - INFO - Testing CVE-2017-15385 with Cppcheck
+2025-09-02 15:26:00,110 - INFO - Testing CVE-2019-19244 with Cppcheck
+2025-09-02 15:26:00,120 - INFO - Running clang_static on Critical CVEs Dataset
+2025-09-02 15:26:00,120 - INFO - Testing CVE-2016-1621 with Clang Static Analyzer
+2025-09-02 15:26:00,138 - INFO - Testing CVE-2020-14954 with Clang Static Analyzer
+2025-09-02 15:26:00,157 - INFO - Testing CVE-2020-15474 with Clang Static Analyzer
+2025-09-02 15:26:00,173 - INFO - Testing CVE-2017-15385 with Clang Static Analyzer
+2025-09-02 15:26:00,191 - INFO - Testing CVE-2019-19275 with Clang Static Analyzer
+2025-09-02 15:26:00,208 - INFO - Testing CVE-2019-19481 with Clang Static Analyzer
+2025-09-02 15:26:00,226 - INFO - Testing CVE-2019-13308 with Clang Static Analyzer
+2025-09-02 15:26:00,242 - INFO - Testing CVE-2018-1999011 with Clang Static Analyzer
+2025-09-02 15:26:00,259 - INFO - Testing CVE-2017-15385 with Clang Static Analyzer
+2025-09-02 15:26:00,278 - INFO - Testing CVE-2019-19244 with Clang Static Analyzer
+2025-09-02 15:26:00,293 - INFO - Running gcc_warnings on Critical CVEs Dataset
+2025-09-02 15:26:00,294 - INFO - Testing CVE-2016-1621 with GCC Security Warnings
+2025-09-02 15:26:00,315 - INFO - Testing CVE-2020-14954 with GCC Security Warnings
+2025-09-02 15:26:00,337 - INFO - Testing CVE-2020-15474 with GCC Security Warnings
+2025-09-02 15:26:00,357 - INFO - Testing CVE-2017-15385 with GCC Security Warnings
+2025-09-02 15:26:00,379 - INFO - Testing CVE-2019-19275 with GCC Security Warnings
+2025-09-02 15:26:00,399 - INFO - Testing CVE-2019-19481 with GCC Security Warnings
+2025-09-02 15:26:00,420 - INFO - Testing CVE-2019-13308 with GCC Security Warnings
+2025-09-02 15:26:00,440 - INFO - Testing CVE-2018-1999011 with GCC Security Warnings
+2025-09-02 15:26:00,461 - INFO - Testing CVE-2017-15385 with GCC Security Warnings
+2025-09-02 15:26:00,483 - INFO - Testing CVE-2019-19244 with GCC Security Warnings
+2025-09-02 15:26:00,504 - INFO - Running flawfinder on Critical CVEs Dataset
+2025-09-02 15:26:00,504 - INFO - Testing CVE-2016-1621 with Flawfinder
+2025-09-02 15:26:00,532 - INFO - Testing CVE-2020-14954 with Flawfinder
+2025-09-02 15:26:00,560 - INFO - Testing CVE-2020-15474 with Flawfinder
+2025-09-02 15:26:00,590 - INFO - Testing CVE-2017-15385 with Flawfinder
+2025-09-02 15:26:00,618 - INFO - Testing CVE-2019-19275 with Flawfinder
+2025-09-02 15:26:00,646 - INFO - Testing CVE-2019-19481 with Flawfinder
+2025-09-02 15:26:00,675 - INFO - Testing CVE-2019-13308 with Flawfinder
+2025-09-02 15:26:00,703 - INFO - Testing CVE-2018-1999011 with Flawfinder
+2025-09-02 15:26:00,730 - INFO - Testing CVE-2017-15385 with Flawfinder
+2025-09-02 15:26:00,759 - INFO - Testing CVE-2019-19244 with Flawfinder
+2025-09-02 15:26:00,789 - WARNING - Model rats not available, skipping
+2025-09-02 15:26:00,789 - WARNING - Model splint not available, skipping
+2025-09-02 15:26:00,790 - INFO - Results saved to benchmark_results_critical_cves_dataset.json
+2025-09-02 15:26:00,790 - INFO - Starting benchmark for Template Variants Dataset
+2025-09-02 15:26:00,806 - INFO - Loaded 10 samples from Template Variants Dataset
+2025-09-02 15:26:00,806 - INFO - Running cppcheck on Template Variants Dataset
+2025-09-02 15:26:00,806 - INFO - Testing CVE-2016-1621 with Cppcheck
+2025-09-02 15:26:00,814 - INFO - Testing CVE-2020-14954 with Cppcheck
+2025-09-02 15:26:00,821 - INFO - Testing CVE-2020-15474 with Cppcheck
+2025-09-02 15:26:00,829 - INFO - Testing CVE-2017-15385 with Cppcheck
+2025-09-02 15:26:00,842 - INFO - Testing CVE-2019-19275 with Cppcheck
+2025-09-02 15:26:00,865 - INFO - Testing CVE-2019-19481 with Cppcheck
+2025-09-02 15:26:00,887 - INFO - Testing CVE-2019-13308 with Cppcheck
+2025-09-02 15:26:00,896 - INFO - Testing CVE-2018-1999011 with Cppcheck
+2025-09-02 15:26:00,910 - INFO - Testing CVE-2017-15385 with Cppcheck
+2025-09-02 15:26:00,918 - INFO - Testing CVE-2019-19244 with Cppcheck
+2025-09-02 15:26:00,928 - INFO - Running clang_static on Template Variants Dataset
+2025-09-02 15:26:00,928 - INFO - Testing CVE-2016-1621 with Clang Static Analyzer
+2025-09-02 15:26:00,947 - INFO - Testing CVE-2020-14954 with Clang Static Analyzer
+2025-09-02 15:26:00,968 - INFO - Testing CVE-2020-15474 with Clang Static Analyzer
+2025-09-02 15:26:00,984 - INFO - Testing CVE-2017-15385 with Clang Static Analyzer
+2025-09-02 15:26:01,003 - INFO - Testing CVE-2019-19275 with Clang Static Analyzer
+2025-09-02 15:26:01,020 - INFO - Testing CVE-2019-19481 with Clang Static Analyzer
+2025-09-02 15:26:01,037 - INFO - Testing CVE-2019-13308 with Clang Static Analyzer
+2025-09-02 15:26:01,054 - INFO - Testing CVE-2018-1999011 with Clang Static Analyzer
+2025-09-02 15:26:01,070 - INFO - Testing CVE-2017-15385 with Clang Static Analyzer
+2025-09-02 15:26:01,089 - INFO - Testing CVE-2019-19244 with Clang Static Analyzer
+2025-09-02 15:26:01,106 - INFO - Running gcc_warnings on Template Variants Dataset
+2025-09-02 15:26:01,106 - INFO - Testing CVE-2016-1621 with GCC Security Warnings
+2025-09-02 15:26:01,128 - INFO - Testing CVE-2020-14954 with GCC Security Warnings
+2025-09-02 15:26:01,151 - INFO - Testing CVE-2020-15474 with GCC Security Warnings
+2025-09-02 15:26:01,172 - INFO - Testing CVE-2017-15385 with GCC Security Warnings
+2025-09-02 15:26:01,194 - INFO - Testing CVE-2019-19275 with GCC Security Warnings
+2025-09-02 15:26:01,214 - INFO - Testing CVE-2019-19481 with GCC Security Warnings
+2025-09-02 15:26:01,236 - INFO - Testing CVE-2019-13308 with GCC Security Warnings
+2025-09-02 15:26:01,257 - INFO - Testing CVE-2018-1999011 with GCC Security Warnings
+2025-09-02 15:26:01,277 - INFO - Testing CVE-2017-15385 with GCC Security Warnings
+2025-09-02 15:26:01,301 - INFO - Testing CVE-2019-19244 with GCC Security Warnings
+2025-09-02 15:26:01,321 - INFO - Running flawfinder on Template Variants Dataset
+2025-09-02 15:26:01,321 - INFO - Testing CVE-2016-1621 with Flawfinder
+2025-09-02 15:26:01,350 - INFO - Testing CVE-2020-14954 with Flawfinder
+2025-09-02 15:26:01,379 - INFO - Testing CVE-2020-15474 with Flawfinder
+2025-09-02 15:26:01,410 - INFO - Testing CVE-2017-15385 with Flawfinder
+2025-09-02 15:26:01,440 - INFO - Testing CVE-2019-19275 with Flawfinder
+2025-09-02 15:26:01,470 - INFO - Testing CVE-2019-19481 with Flawfinder
+2025-09-02 15:26:01,498 - INFO - Testing CVE-2019-13308 with Flawfinder
+2025-09-02 15:26:01,528 - INFO - Testing CVE-2018-1999011 with Flawfinder
+2025-09-02 15:26:01,557 - INFO - Testing CVE-2017-15385 with Flawfinder
+2025-09-02 15:26:01,587 - INFO - Testing CVE-2019-19244 with Flawfinder
+2025-09-02 15:26:01,618 - WARNING - Model rats not available, skipping
+2025-09-02 15:26:01,618 - WARNING - Model splint not available, skipping
+2025-09-02 15:26:01,620 - INFO - Results saved to benchmark_results_template_variants_dataset.json
