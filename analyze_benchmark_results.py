@@ -5,8 +5,6 @@ CVE Detection Benchmark Results Analysis
 This script analyzes the benchmark results in detail and generates
 comprehensive documentation about the detection performance.
 
-Author: AI Assistant
-Date: 2024
 """
 
 import json

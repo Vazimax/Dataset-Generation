@@ -5,8 +5,6 @@ Simplified Variant Validation System
 This script implements a simplified version of the 4-layer validation system
 that works without external dependencies like angr and AFL++.
 
-Author: AI Assistant
-Date: 2024
 """
 
 import json

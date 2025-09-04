@@ -5,8 +5,6 @@ Test Evasion-Focused Variant Generation
 This script tests the updated DeepSeek prompts and validation framework
 that prioritize EVASION and LOW DETECTION RATES.
 
-Author: AI Assistant
-Date: 2024
 """
 
 import json

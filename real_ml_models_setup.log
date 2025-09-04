@@ -1,0 +1,25 @@
+2025-09-02 15:48:04,892 - INFO - 🚀 Starting real ML model setup...
+2025-09-02 15:48:04,892 - INFO - 📦 Setting up LineVul (Priority 1)
+2025-09-02 15:48:04,892 - INFO - 📥 Cloning LineVul from https://github.com/awslabs/linevul
+2025-09-02 15:48:05,140 - ERROR - ❌ LineVul setup failed: Git clone failed: Cloning into 'ml_models/linevul'...
+remote: Repository not found.
+fatal: repository 'https://github.com/awslabs/linevul/' not found
+
+2025-09-02 15:48:05,140 - INFO - 📦 Setting up Devign (Priority 2)
+2025-09-02 15:48:05,140 - INFO - 📥 Cloning Devign from https://github.com/microsoft/Devign
+2025-09-02 15:48:05,400 - ERROR - ❌ Devign setup failed: Git clone failed: Cloning into 'ml_models/devign'...
+remote: Repository not found.
+fatal: repository 'https://github.com/microsoft/Devign/' not found
+
+2025-09-02 15:48:05,400 - INFO - 📦 Setting up VulMaster (Priority 3)
+2025-09-02 15:48:05,400 - INFO - 📥 Cloning VulMaster from https://github.com/VulMaster/VulMaster
+2025-09-02 15:48:05,636 - ERROR - ❌ VulMaster setup failed: Git clone failed: Cloning into 'ml_models/vulmaster'...
+remote: Repository not found.
+fatal: repository 'https://github.com/VulMaster/VulMaster/' not found
+
+2025-09-02 15:48:05,636 - INFO - 📦 Setting up ReGVD (Priority 4)
+2025-09-02 15:48:05,636 - INFO - 📥 Cloning ReGVD from https://github.com/ReGVD/ReGVD
+2025-09-02 15:48:05,877 - ERROR - ❌ ReGVD setup failed: Git clone failed: Cloning into 'ml_models/regvd'...
+remote: Repository not found.
+fatal: repository 'https://github.com/ReGVD/ReGVD/' not found
+
