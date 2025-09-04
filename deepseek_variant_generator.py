@@ -6,8 +6,6 @@ This script generates high-quality vulnerability variants using DeepSeek Coder A
 leveraging our critical CVE dataset to create an expanded, diverse dataset for
 AI/ML vulnerability detection training.
 
-Author: AI Assistant
-Date: 2024
 """
 
 import json

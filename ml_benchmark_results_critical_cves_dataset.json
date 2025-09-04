@@ -1,0 +1,1048 @@
+{
+  "dataset_name": "Critical CVEs Dataset",
+  "total_samples": 20,
+  "overall_metrics": {
+    "overall_detection_rate": 0.2875,
+    "models_tested": 4,
+    "total_detections": 23,
+    "average_confidence": 0.31222780117009546,
+    "average_detection_time": 0.010406556725502013
+  },
+  "model_performance": {
+    "linevul": {
+      "detection_rate": 0.65,
+      "average_confidence": 0.6362575713126856,
+      "average_detection_time": 0.04147639274597168,
+      "total_detections": 13,
+      "total_samples": 20,
+      "error_rate": 0.0
+    },
+    "devign": {
+      "detection_rate": 0.1,
+      "average_confidence": 0.28751818309277183,
+      "average_detection_time": 4.738569259643555e-05,
+      "total_detections": 2,
+      "total_samples": 20,
+      "error_rate": 0.0
+    },
+    "vulmaster": {
+      "detection_rate": 0.4,
+      "average_confidence": 0.26394327364798065,
+      "average_detection_time": 5.0902366638183594e-05,
+      "total_detections": 8,
+      "total_samples": 20,
+      "error_rate": 0.0
+    },
+    "regvd": {
+      "detection_rate": 0.0,
+      "average_confidence": 0.06119217662694373,
+      "average_detection_time": 5.154609680175781e-05,
+      "total_detections": 0,
+      "total_samples": 20,
+      "error_rate": 0.0
+    }
+  },
+  "timestamp": "2025-09-02T15:43:09.350568",
+  "detection_results": [
+    {
+      "cve_id": "CVE-2016-1621",
+      "model_name": "LineVul",
+      "detected": true,
+      "confidence": 1,
+      "detection_time": 0.8282148838043213,
+      "model_output": {
+        "vulnerable_lines": 1,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.5,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2020-14954",
+      "model_name": "LineVul",
+      "detected": false,
+      "confidence": 0,
+      "detection_time": 6.29425048828125e-05,
+      "model_output": {
+        "vulnerable_lines": 0,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.0,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2020-15474",
+      "model_name": "LineVul",
+      "detected": true,
+      "confidence": 1,
+      "detection_time": 8.106231689453125e-05,
+      "model_output": {
+        "vulnerable_lines": 1,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.5,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2017-15385",
+      "model_name": "LineVul",
+      "detected": true,
+      "confidence": 1,
+      "detection_time": 3.600120544433594e-05,
+      "model_output": {
+        "vulnerable_lines": 1,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.5,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-19275",
+      "model_name": "LineVul",
+      "detected": true,
+      "confidence": 1,
+      "detection_time": 6.008148193359375e-05,
+      "model_output": {
+        "vulnerable_lines": 1,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.5,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-19481",
+      "model_name": "LineVul",
+      "detected": true,
+      "confidence": 1,
+      "detection_time": 1.8358230590820312e-05,
+      "model_output": {
+        "vulnerable_lines": 1,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.5,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-13308",
+      "model_name": "LineVul",
+      "detected": false,
+      "confidence": 0,
+      "detection_time": 8.130073547363281e-05,
+      "model_output": {
+        "vulnerable_lines": 0,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.0,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2018-1999011",
+      "model_name": "LineVul",
+      "detected": false,
+      "confidence": 0,
+      "detection_time": 1.7881393432617188e-05,
+      "model_output": {
+        "vulnerable_lines": 0,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.0,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2017-15385",
+      "model_name": "LineVul",
+      "detected": true,
+      "confidence": 0.8346705641133616,
+      "detection_time": 3.2901763916015625e-05,
+      "model_output": {
+        "vulnerable_lines": 1,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.5,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-19244",
+      "model_name": "LineVul",
+      "detected": true,
+      "confidence": 1,
+      "detection_time": 0.00021505355834960938,
+      "model_output": {
+        "vulnerable_lines": 1,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.5,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-10190",
+      "model_name": "LineVul",
+      "detected": false,
+      "confidence": 0,
+      "detection_time": 6.890296936035156e-05,
+      "model_output": {
+        "vulnerable_lines": 0,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.0,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-10208",
+      "model_name": "LineVul",
+      "detected": true,
+      "confidence": 1,
+      "detection_time": 0.000209808349609375,
+      "model_output": {
+        "vulnerable_lines": 1,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.5,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-10190",
+      "model_name": "LineVul",
+      "detected": false,
+      "confidence": 0.05652741872215236,
+      "detection_time": 4.100799560546875e-05,
+      "model_output": {
+        "vulnerable_lines": 0,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.0,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2017-16805",
+      "model_name": "LineVul",
+      "detected": true,
+      "confidence": 1,
+      "detection_time": 2.09808349609375e-05,
+      "model_output": {
+        "vulnerable_lines": 1,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.5,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2018-16425",
+      "model_name": "LineVul",
+      "detected": true,
+      "confidence": 0.9123524565334462,
+      "detection_time": 5.9604644775390625e-06,
+      "model_output": {
+        "vulnerable_lines": 1,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.5,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2018-16644",
+      "model_name": "LineVul",
+      "detected": true,
+      "confidence": 0.9216009868847507,
+      "detection_time": 0.0002498626708984375,
+      "model_output": {
+        "vulnerable_lines": 1,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.5,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-10190",
+      "model_name": "LineVul",
+      "detected": false,
+      "confidence": 0,
+      "detection_time": 4.00543212890625e-05,
+      "model_output": {
+        "vulnerable_lines": 0,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.0,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-19275",
+      "model_name": "LineVul",
+      "detected": true,
+      "confidence": 1,
+      "detection_time": 3.3855438232421875e-05,
+      "model_output": {
+        "vulnerable_lines": 1,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.5,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2017-7854",
+      "model_name": "LineVul",
+      "detected": false,
+      "confidence": 0,
+      "detection_time": 1.2159347534179688e-05,
+      "model_output": {
+        "vulnerable_lines": 0,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.0,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2013-4263",
+      "model_name": "LineVul",
+      "detected": true,
+      "confidence": 1,
+      "detection_time": 2.47955322265625e-05,
+      "model_output": {
+        "vulnerable_lines": 1,
+        "total_lines": 2,
+        "vulnerability_ratio": 0.5,
+        "model_type": "transformer_based"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-1621",
+      "model_name": "Devign",
+      "detected": false,
+      "confidence": 0.37258050612760274,
+      "detection_time": 1.811981201171875e-05,
+      "model_output": {
+        "complexity_score": 3,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2020-14954",
+      "model_name": "Devign",
+      "detected": false,
+      "confidence": 0.2006547917042358,
+      "detection_time": 1.7881393432617188e-05,
+      "model_output": {
+        "complexity_score": 4,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2020-15474",
+      "model_name": "Devign",
+      "detected": false,
+      "confidence": 0.3503604346339678,
+      "detection_time": 4.076957702636719e-05,
+      "model_output": {
+        "complexity_score": 4,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2017-15385",
+      "model_name": "Devign",
+      "detected": false,
+      "confidence": 0.3515814720001472,
+      "detection_time": 2.002716064453125e-05,
+      "model_output": {
+        "complexity_score": 3,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-19275",
+      "model_name": "Devign",
+      "detected": false,
+      "confidence": 0.0007318748010443354,
+      "detection_time": 1.9073486328125e-05,
+      "model_output": {
+        "complexity_score": 5,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-19481",
+      "model_name": "Devign",
+      "detected": false,
+      "confidence": 0.24102678299836852,
+      "detection_time": 1.1920928955078125e-05,
+      "model_output": {
+        "complexity_score": 4,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-13308",
+      "model_name": "Devign",
+      "detected": true,
+      "confidence": 0.521038266966191,
+      "detection_time": 3.790855407714844e-05,
+      "model_output": {
+        "complexity_score": 6,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2018-1999011",
+      "model_name": "Devign",
+      "detected": false,
+      "confidence": 0.1625666718582552,
+      "detection_time": 1.3113021850585938e-05,
+      "model_output": {
+        "complexity_score": 3,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2017-15385",
+      "model_name": "Devign",
+      "detected": false,
+      "confidence": 0.11566216668593951,
+      "detection_time": 3.0994415283203125e-05,
+      "model_output": {
+        "complexity_score": 3,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-19244",
+      "model_name": "Devign",
+      "detected": false,
+      "confidence": 0.5169144308314659,
+      "detection_time": 0.0001709461212158203,
+      "model_output": {
+        "complexity_score": 5,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-10190",
+      "model_name": "Devign",
+      "detected": false,
+      "confidence": 0.3093018337224735,
+      "detection_time": 3.409385681152344e-05,
+      "model_output": {
+        "complexity_score": 5,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-10208",
+      "model_name": "Devign",
+      "detected": true,
+      "confidence": 0.35016833954428317,
+      "detection_time": 0.00018095970153808594,
+      "model_output": {
+        "complexity_score": 7,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-10190",
+      "model_name": "Devign",
+      "detected": false,
+      "confidence": 0.3779817932118166,
+      "detection_time": 3.218650817871094e-05,
+      "model_output": {
+        "complexity_score": 5,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2017-16805",
+      "model_name": "Devign",
+      "detected": false,
+      "confidence": 0.4086516158570336,
+      "detection_time": 2.9802322387695312e-05,
+      "model_output": {
+        "complexity_score": 5,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2018-16425",
+      "model_name": "Devign",
+      "detected": false,
+      "confidence": 0.21414371659522113,
+      "detection_time": 9.775161743164062e-06,
+      "model_output": {
+        "complexity_score": 2,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2018-16644",
+      "model_name": "Devign",
+      "detected": false,
+      "confidence": 0.4112157825240492,
+      "detection_time": 0.00017714500427246094,
+      "model_output": {
+        "complexity_score": 5,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-10190",
+      "model_name": "Devign",
+      "detected": false,
+      "confidence": 0.16543587793455927,
+      "detection_time": 2.7894973754882812e-05,
+      "model_output": {
+        "complexity_score": 5,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-19275",
+      "model_name": "Devign",
+      "detected": false,
+      "confidence": 0.45548222273901273,
+      "detection_time": 2.7179718017578125e-05,
+      "model_output": {
+        "complexity_score": 5,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2017-7854",
+      "model_name": "Devign",
+      "detected": false,
+      "confidence": 0.13184367368235986,
+      "detection_time": 9.775161743164062e-06,
+      "model_output": {
+        "complexity_score": 3,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2013-4263",
+      "model_name": "Devign",
+      "detected": false,
+      "confidence": 0.09302140743740936,
+      "detection_time": 3.814697265625e-05,
+      "model_output": {
+        "complexity_score": 4,
+        "model_type": "graph_neural_network"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-1621",
+      "model_name": "VulMaster",
+      "detected": false,
+      "confidence": 0.2887393469008106,
+      "detection_time": 2.4080276489257812e-05,
+      "model_output": {
+        "pattern_count": 1,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2020-14954",
+      "model_name": "VulMaster",
+      "detected": false,
+      "confidence": 0,
+      "detection_time": 3.1948089599609375e-05,
+      "model_output": {
+        "pattern_count": 0,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2020-15474",
+      "model_name": "VulMaster",
+      "detected": false,
+      "confidence": 0.09943393736196275,
+      "detection_time": 6.699562072753906e-05,
+      "model_output": {
+        "pattern_count": 2,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2017-15385",
+      "model_name": "VulMaster",
+      "detected": false,
+      "confidence": 0.3098734186609434,
+      "detection_time": 2.9087066650390625e-05,
+      "model_output": {
+        "pattern_count": 2,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-19275",
+      "model_name": "VulMaster",
+      "detected": false,
+      "confidence": 0.053582190193278256,
+      "detection_time": 3.528594970703125e-05,
+      "model_output": {
+        "pattern_count": 2,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-19481",
+      "model_name": "VulMaster",
+      "detected": true,
+      "confidence": 0.20688636912749006,
+      "detection_time": 1.71661376953125e-05,
+      "model_output": {
+        "pattern_count": 3,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-13308",
+      "model_name": "VulMaster",
+      "detected": true,
+      "confidence": 0.5573061463359987,
+      "detection_time": 3.886222839355469e-05,
+      "model_output": {
+        "pattern_count": 3,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2018-1999011",
+      "model_name": "VulMaster",
+      "detected": false,
+      "confidence": 0.17542377020024175,
+      "detection_time": 1.1205673217773438e-05,
+      "model_output": {
+        "pattern_count": 1,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2017-15385",
+      "model_name": "VulMaster",
+      "detected": false,
+      "confidence": 0.2712980958172153,
+      "detection_time": 2.7179718017578125e-05,
+      "model_output": {
+        "pattern_count": 2,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-19244",
+      "model_name": "VulMaster",
+      "detected": false,
+      "confidence": 0.4298522920977693,
+      "detection_time": 0.00016570091247558594,
+      "model_output": {
+        "pattern_count": 2,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-10190",
+      "model_name": "VulMaster",
+      "detected": true,
+      "confidence": 0.4621188711699803,
+      "detection_time": 3.266334533691406e-05,
+      "model_output": {
+        "pattern_count": 3,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-10208",
+      "model_name": "VulMaster",
+      "detected": true,
+      "confidence": 0.13136842325918707,
+      "detection_time": 0.0002009868621826172,
+      "model_output": {
+        "pattern_count": 3,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-10190",
+      "model_name": "VulMaster",
+      "detected": true,
+      "confidence": 0.5528342101096838,
+      "detection_time": 3.0994415283203125e-05,
+      "model_output": {
+        "pattern_count": 3,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2017-16805",
+      "model_name": "VulMaster",
+      "detected": true,
+      "confidence": 0.18606437565337597,
+      "detection_time": 3.0994415283203125e-05,
+      "model_output": {
+        "pattern_count": 3,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2018-16425",
+      "model_name": "VulMaster",
+      "detected": false,
+      "confidence": 0.06239056659305528,
+      "detection_time": 9.059906005859375e-06,
+      "model_output": {
+        "pattern_count": 2,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2018-16644",
+      "model_name": "VulMaster",
+      "detected": true,
+      "confidence": 0.4954523259988175,
+      "detection_time": 0.00014400482177734375,
+      "model_output": {
+        "pattern_count": 5,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-10190",
+      "model_name": "VulMaster",
+      "detected": true,
+      "confidence": 0.37258786058725224,
+      "detection_time": 3.0994415283203125e-05,
+      "model_output": {
+        "pattern_count": 3,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-19275",
+      "model_name": "VulMaster",
+      "detected": false,
+      "confidence": 0.2619146539049053,
+      "detection_time": 3.504753112792969e-05,
+      "model_output": {
+        "pattern_count": 2,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2017-7854",
+      "model_name": "VulMaster",
+      "detected": false,
+      "confidence": 0.15141224349242385,
+      "detection_time": 1.0967254638671875e-05,
+      "model_output": {
+        "pattern_count": 1,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2013-4263",
+      "model_name": "VulMaster",
+      "detected": false,
+      "confidence": 0.21032637549522168,
+      "detection_time": 4.482269287109375e-05,
+      "model_output": {
+        "pattern_count": 2,
+        "model_type": "deep_learning"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-1621",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0.02073497780666151,
+      "detection_time": 2.193450927734375e-05,
+      "model_output": {
+        "context_score": 1,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2020-14954",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0,
+      "detection_time": 2.3603439331054688e-05,
+      "model_output": {
+        "context_score": 1,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2020-15474",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0.09313075763888548,
+      "detection_time": 5.984306335449219e-05,
+      "model_output": {
+        "context_score": 1,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2017-15385",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0,
+      "detection_time": 2.193450927734375e-05,
+      "model_output": {
+        "context_score": 2,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-19275",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0.14873283641474222,
+      "detection_time": 3.790855407714844e-05,
+      "model_output": {
+        "context_score": 2,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-19481",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0,
+      "detection_time": 1.9073486328125e-05,
+      "model_output": {
+        "context_score": 2,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-13308",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0,
+      "detection_time": 3.981590270996094e-05,
+      "model_output": {
+        "context_score": 1,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2018-1999011",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0,
+      "detection_time": 1.0967254638671875e-05,
+      "model_output": {
+        "context_score": 1,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2017-15385",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0.15120943515727114,
+      "detection_time": 2.3126602172851562e-05,
+      "model_output": {
+        "context_score": 2,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-19244",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0.11901642851439373,
+      "detection_time": 0.00014901161193847656,
+      "model_output": {
+        "context_score": 3,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-10190",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0,
+      "detection_time": 3.314018249511719e-05,
+      "model_output": {
+        "context_score": 1,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-10208",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0.19403457398642776,
+      "detection_time": 0.0002009868621826172,
+      "model_output": {
+        "context_score": 2,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-10190",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0.09950172618464406,
+      "detection_time": 3.0994415283203125e-05,
+      "model_output": {
+        "context_score": 1,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2017-16805",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0,
+      "detection_time": 2.6941299438476562e-05,
+      "model_output": {
+        "context_score": 2,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2018-16425",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0.14034284388853133,
+      "detection_time": 8.106231689453125e-06,
+      "model_output": {
+        "context_score": 1,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2018-16644",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0,
+      "detection_time": 0.00019788742065429688,
+      "model_output": {
+        "context_score": 1,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2016-10190",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0.06676609968892956,
+      "detection_time": 4.076957702636719e-05,
+      "model_output": {
+        "context_score": 1,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2019-19275",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0.14414385903509996,
+      "detection_time": 3.1948089599609375e-05,
+      "model_output": {
+        "context_score": 2,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2017-7854",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0,
+      "detection_time": 1.2159347534179688e-05,
+      "model_output": {
+        "context_score": 1,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    },
+    {
+      "cve_id": "CVE-2013-4263",
+      "model_name": "ReGVD",
+      "detected": false,
+      "confidence": 0.04622999422328791,
+      "detection_time": 4.076957702636719e-05,
+      "model_output": {
+        "context_score": 1,
+        "model_type": "graph_neural_network_rl"
+      },
+      "error_message": null
+    }
+  ]
+}
