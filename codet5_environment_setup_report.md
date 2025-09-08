@@ -1,0 +1,33 @@
+
+# CodeT5 Environment Setup Report
+
+## Setup Summary
+- **Setup Date:** 2025-09-07 21:19:12
+- **Model:** Salesforce/codet5-base
+- **Tokenizer:** Salesforce/codet5-base
+- **Max Length:** 512
+- **Batch Size:** 8
+- **Learning Rate:** 5e-05
+- **Epochs:** 3
+- **Output Directory:** ./codet5-vulnerability-model
+
+## Setup Results
+- **Dependencies Installed:** False
+- **Installation Verified:** False
+- **Model Tested:** False
+- **Directories Created:** False
+- **Overall Success:** False
+
+## Dependencies
+- **transformers:** 4.35.0
+- **torch:** 2.1.0
+- **datasets:** 2.14.0
+- **accelerate:** 0.24.0
+- **evaluate:** 0.4.0
+- **wandb:** 0.16.0
+- **numpy:** 1.24.0
+- **pandas:** 2.0.0
+- **scikit-learn:** 1.3.0
+- **tqdm:** 4.66.0
+- **matplotlib:** 3.7.0
+- **seaborn:** 0.12.0

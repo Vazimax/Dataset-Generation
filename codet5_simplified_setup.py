@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """
-CodeT5 Environment Setup and Data Preparation
+Simplified CodeT5 Setup for Vulnerability Variant Generation
 
-This script sets up the CodeT5 environment, installs dependencies,
-and prepares the 363 CVEs for fine-tuning.
+This script sets up a minimal but functional CodeT5 environment
+for generating vulnerability variants from our 363 CVEs.
 
+Author: AI Assistant
+Date: 2024
 """
 
 import os
@@ -14,82 +16,53 @@ import logging
 from typing import Dict, List, Optional, Tuple
 from dataclasses import dataclass
 from datetime import datetime
-import tempfile
 
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('codet5_environment_setup.log'),
+        logging.FileHandler('codet5_simplified_setup.log'),
         logging.StreamHandler()
     ]
 )
 logger = logging.getLogger(__name__)
 
 @dataclass
-class CodeT5Environment:
-    """CodeT5 environment configuration"""
-    model_name: str
-    tokenizer_name: str
-    max_length: int
-    batch_size: int
-    learning_rate: float
-    num_epochs: int
-    warmup_steps: int
-    output_dir: str
+class SimplifiedCodeT5Config:
+    """Simplified CodeT5 configuration"""
+    model_name: str = "Salesforce/codet5-base"
+    tokenizer_name: str = "Salesforce/codet5-base"
+    max_length: int = 512
+    batch_size: int = 4
+    learning_rate: float = 5e-5
+    num_epochs: int = 3
+    output_dir: str = "./codet5-vulnerability-model"
 
-class CodeT5EnvironmentSetup:
-    """Setup CodeT5 environment and prepare data"""
+class SimplifiedCodeT5Setup:
+    """Simplified CodeT5 setup focusing on essential components"""
     
     def __init__(self):
-        self.environment = self._initialize_environment()
-        self.dependencies = self._initialize_dependencies()
-        self.setup_results = {}
-    
-    def _initialize_environment(self) -> CodeT5Environment:
-        """Initialize CodeT5 environment configuration"""
-        
-        return CodeT5Environment(
-            model_name="Salesforce/codet5-base",
-            tokenizer_name="Salesforce/codet5-base",
-            max_length=512,
-            batch_size=8,
-            learning_rate=5e-5,
-            num_epochs=3,
-            warmup_steps=100,
-            output_dir="./codet5-vulnerability-model"
-        )
-    
-    def _initialize_dependencies(self) -> Dict[str, str]:
-        """Initialize required dependencies"""
-        
-        return {
+        self.config = SimplifiedCodeT5Config()
+        self.essential_dependencies = {
             'transformers': '4.35.0',
             'torch': '2.1.0',
-            'datasets': '2.14.0',
-            'accelerate': '0.24.0',
-            'evaluate': '0.4.0',
-            'wandb': '0.16.0',
+            'sentencepiece': '0.2.1',
             'numpy': '1.24.0',
-            'pandas': '2.0.0',
-            'scikit-learn': '1.3.0',
-            'tqdm': '4.66.0',
-            'matplotlib': '3.7.0',
-            'seaborn': '0.12.0'
+            'tqdm': '4.66.0'
         }
+        self.setup_results = {}
     
-    def install_dependencies(self) -> Dict[str, bool]:
-        """Install required dependencies"""
+    def install_essential_dependencies(self) -> Dict[str, bool]:
+        """Install only essential dependencies"""
         
-        logger.info("📦 Installing CodeT5 dependencies...")
+        logger.info("📦 Installing essential CodeT5 dependencies...")
         installation_results = {}
         
-        for package, version in self.dependencies.items():
+        for package, version in self.essential_dependencies.items():
             logger.info(f"Installing {package}=={version}")
             
             try:
-                # Install with specific version
                 result = subprocess.run(
                     ['pip', 'install', f'{package}=={version}'],
                     capture_output=True, text=True, timeout=300
@@ -111,29 +84,22 @@ class CodeT5EnvironmentSetup:
         
         return installation_results
     
-    def verify_installation(self) -> Dict[str, bool]:
-        """Verify that all dependencies are properly installed"""
+    def verify_essential_installation(self) -> Dict[str, bool]:
+        """Verify essential dependencies"""
         
-        logger.info("🔍 Verifying CodeT5 installation...")
+        logger.info("🔍 Verifying essential CodeT5 installation...")
         verification_results = {}
         
-        # Test imports
-        import_tests = {
+        # Test essential imports
+        essential_tests = {
             'transformers': 'from transformers import T5ForConditionalGeneration, T5Tokenizer',
             'torch': 'import torch',
-            'datasets': 'import datasets',
-            'accelerate': 'import accelerate',
-            'evaluate': 'import evaluate',
-            'wandb': 'import wandb',
+            'sentencepiece': 'import sentencepiece',
             'numpy': 'import numpy',
-            'pandas': 'import pandas',
-            'sklearn': 'import sklearn',
-            'tqdm': 'import tqdm',
-            'matplotlib': 'import matplotlib',
-            'seaborn': 'import seaborn'
+            'tqdm': 'import tqdm'
         }
         
-        for package, import_statement in import_tests.items():
+        for package, import_statement in essential_tests.items():
             try:
                 exec(import_statement)
                 verification_results[package] = True
@@ -154,11 +120,12 @@ class CodeT5EnvironmentSetup:
         
         try:
             from transformers import T5ForConditionalGeneration, T5Tokenizer
+            import torch
             
             # Load model and tokenizer
             logger.info("Loading CodeT5 model and tokenizer...")
-            model = T5ForConditionalGeneration.from_pretrained(self.environment.model_name)
-            tokenizer = T5Tokenizer.from_pretrained(self.environment.tokenizer_name)
+            model = T5ForConditionalGeneration.from_pretrained(self.config.model_name)
+            tokenizer = T5Tokenizer.from_pretrained(self.config.tokenizer_name)
             
             # Test basic functionality
             test_code = "int main() { return 0; }"
@@ -189,11 +156,11 @@ class CodeT5EnvironmentSetup:
         logger.info("📁 Creating output directories...")
         
         directories = [
-            self.environment.output_dir,
-            f"{self.environment.output_dir}/checkpoints",
-            f"{self.environment.output_dir}/logs",
-            f"{self.environment.output_dir}/generated_variants",
-            f"{self.environment.output_dir}/evaluation_results",
+            self.config.output_dir,
+            f"{self.config.output_dir}/checkpoints",
+            f"{self.config.output_dir}/logs",
+            f"{self.config.output_dir}/generated_variants",
+            f"{self.config.output_dir}/evaluation_results",
             "./data/codet5_training",
             "./data/codet5_validation",
             "./data/codet5_test"
@@ -211,20 +178,20 @@ class CodeT5EnvironmentSetup:
             return False
     
     def setup_environment(self) -> Dict[str, bool]:
-        """Complete environment setup"""
+        """Complete simplified environment setup"""
         
-        logger.info("🚀 Starting CodeT5 environment setup...")
+        logger.info("🚀 Starting simplified CodeT5 environment setup...")
         
         setup_results = {}
         
-        # Install dependencies
-        logger.info("Step 1: Installing dependencies...")
-        installation_results = self.install_dependencies()
+        # Install essential dependencies
+        logger.info("Step 1: Installing essential dependencies...")
+        installation_results = self.install_essential_dependencies()
         setup_results['dependencies_installed'] = all(installation_results.values())
         
         # Verify installation
         logger.info("Step 2: Verifying installation...")
-        verification_results = self.verify_installation()
+        verification_results = self.verify_essential_installation()
         setup_results['installation_verified'] = all(verification_results.values())
         
         # Test CodeT5 model
@@ -244,17 +211,17 @@ class CodeT5EnvironmentSetup:
         """Generate setup report"""
         
         report = f"""
-# CodeT5 Environment Setup Report
+# Simplified CodeT5 Environment Setup Report
 
 ## Setup Summary
 - **Setup Date:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-- **Model:** {self.environment.model_name}
-- **Tokenizer:** {self.environment.tokenizer_name}
-- **Max Length:** {self.environment.max_length}
-- **Batch Size:** {self.environment.batch_size}
-- **Learning Rate:** {self.environment.learning_rate}
-- **Epochs:** {self.environment.num_epochs}
-- **Output Directory:** {self.environment.output_dir}
+- **Model:** {self.config.model_name}
+- **Tokenizer:** {self.config.tokenizer_name}
+- **Max Length:** {self.config.max_length}
+- **Batch Size:** {self.config.batch_size}
+- **Learning Rate:** {self.config.learning_rate}
+- **Epochs:** {self.config.num_epochs}
+- **Output Directory:** {self.config.output_dir}
 
 ## Setup Results
 - **Dependencies Installed:** {self.setup_results.get('dependencies_installed', False)}
@@ -263,22 +230,22 @@ class CodeT5EnvironmentSetup:
 - **Directories Created:** {self.setup_results.get('directories_created', False)}
 - **Overall Success:** {self.setup_results.get('overall_success', False)}
 
-## Dependencies
+## Essential Dependencies
 """
         
-        for package, version in self.dependencies.items():
+        for package, version in self.essential_dependencies.items():
             report += f"- **{package}:** {version}\n"
         
         return report
 
 def main():
-    """Main function to setup CodeT5 environment"""
+    """Main function to setup simplified CodeT5 environment"""
     
-    print("🤖 CodeT5 Environment Setup")
+    print("🤖 Simplified CodeT5 Environment Setup")
     print("=" * 50)
     
     # Initialize setup system
-    setup_system = CodeT5EnvironmentSetup()
+    setup_system = SimplifiedCodeT5Setup()
     
     # Run setup
     setup_results = setup_system.setup_environment()
@@ -291,10 +258,10 @@ def main():
     
     # Generate and save report
     report = setup_system.generate_setup_report()
-    with open('codet5_environment_setup_report.md', 'w') as f:
+    with open('codet5_simplified_setup_report.md', 'w') as f:
         f.write(report)
     
-    print(f"\n📄 Setup report saved to: codet5_environment_setup_report.md")
+    print(f"\n📄 Setup report saved to: codet5_simplified_setup_report.md")
     
     # Print next steps
     if setup_results.get('overall_success', False):

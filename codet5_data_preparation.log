@@ -1,0 +1,27 @@
+2025-09-07 21:20:57,147 - INFO - 🚀 Starting complete dataset preparation...
+2025-09-07 21:20:57,147 - INFO - 📂 Loading CVE dataset from complete_critical_cves_training_dataset.json
+2025-09-07 21:20:57,155 - INFO - ✅ Loaded dataset with 363 samples
+2025-09-07 21:20:57,155 - INFO - 🔄 Preparing training data...
+2025-09-07 21:20:57,190 - INFO - Processed 50/363 samples
+2025-09-07 21:20:57,222 - INFO - Processed 100/363 samples
+2025-09-07 21:20:57,245 - INFO - Processed 150/363 samples
+2025-09-07 21:20:57,263 - INFO - Processed 200/363 samples
+2025-09-07 21:20:57,288 - INFO - Processed 250/363 samples
+2025-09-07 21:20:57,302 - INFO - Processed 300/363 samples
+2025-09-07 21:20:57,316 - INFO - Processed 350/363 samples
+2025-09-07 21:20:57,319 - INFO - ✅ Created 2541 training samples
+2025-09-07 21:20:57,319 - INFO - 📊 Calculating dataset statistics...
+2025-09-07 21:20:57,320 - INFO - 📊 Creating dataset splits...
+2025-09-07 21:20:57,320 - INFO - ✅ Dataset splits created:
+2025-09-07 21:20:57,320 - INFO -   - Training: 2032 samples
+2025-09-07 21:20:57,320 - INFO -   - Validation: 254 samples
+2025-09-07 21:20:57,320 - INFO -   - Test: 255 samples
+2025-09-07 21:20:57,320 - INFO - 💾 Saving training data to ./data/codet5_training/train
+2025-09-07 21:20:57,401 - INFO - ✅ Training data saved successfully
+2025-09-07 21:20:57,402 - INFO - 💾 Saving training data to ./data/codet5_training/validation
+2025-09-07 21:20:57,408 - INFO - ✅ Training data saved successfully
+2025-09-07 21:20:57,408 - INFO - 💾 Saving training data to ./data/codet5_training/test
+2025-09-07 21:20:57,415 - INFO - ✅ Training data saved successfully
+2025-09-07 21:20:57,415 - INFO - 💾 Saving training data to ./data/codet5_training/complete
+2025-09-07 21:20:57,507 - INFO - ✅ Training data saved successfully
+2025-09-07 21:20:57,508 - INFO - ✅ Complete dataset preparation finished
