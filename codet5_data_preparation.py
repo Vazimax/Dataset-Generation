@@ -5,8 +5,7 @@ CodeT5 Data Preparation for Vulnerability Variant Generation
 This script prepares our 363 critical CVEs for CodeT5 fine-tuning,
 creating training data in the format required for transformer models.
 
-Author: AI Assistant
-Date: 2024
+
 """
 
 import json
