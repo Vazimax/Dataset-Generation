@@ -5,8 +5,6 @@ CodeT5 Fine-Tuning for Vulnerability Variant Generation
 This script fine-tunes CodeT5 on our prepared vulnerability dataset
 to learn vulnerability patterns and generate variants.
 
-Author: AI Assistant
-Date: 2024
 """
 
 import json
