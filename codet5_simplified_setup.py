@@ -5,8 +5,6 @@ Simplified CodeT5 Setup for Vulnerability Variant Generation
 This script sets up a minimal but functional CodeT5 environment
 for generating vulnerability variants from our 363 CVEs.
 
-Author: AI Assistant
-Date: 2024
 """
 
 import os
