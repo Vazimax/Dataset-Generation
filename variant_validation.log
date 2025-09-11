@@ -1,0 +1,42 @@
+2025-09-11 11:55:47,397 - WARNING - angr not available. Install with: pip install angr
+2025-09-11 11:55:47,399 - WARNING - AFL++ not available. Install AFL++ for fuzzing validation
+2025-09-11 11:55:47,769 - INFO - Starting comprehensive validation for CVE-2022-35928-var-0
+2025-09-11 11:55:47,769 - INFO - Running Layer 1: Sanity Check
+2025-09-11 11:55:47,840 - INFO - Running Layer 2: Symbolic Execution
+2025-09-11 11:55:47,840 - INFO - Running Layer 3: Fuzzing
+2025-09-11 11:55:47,840 - INFO - Running Layer 4: Detector Testing
+2025-09-11 11:55:48,497 - INFO - Starting comprehensive validation for CVE-2022-35928-var-1
+2025-09-11 11:55:48,497 - INFO - Running Layer 1: Sanity Check
+2025-09-11 11:55:48,596 - INFO - Running Layer 2: Symbolic Execution
+2025-09-11 11:55:48,596 - INFO - Running Layer 3: Fuzzing
+2025-09-11 11:55:48,596 - INFO - Running Layer 4: Detector Testing
+2025-09-11 11:55:48,783 - INFO - Starting comprehensive validation for CVE-2016-5351-var-2
+2025-09-11 11:55:48,783 - INFO - Running Layer 1: Sanity Check
+2025-09-11 11:55:48,788 - INFO - Running Layer 2: Symbolic Execution
+2025-09-11 11:55:48,788 - INFO - Running Layer 3: Fuzzing
+2025-09-11 11:55:48,789 - INFO - Running Layer 4: Detector Testing
+2025-09-11 11:55:48,941 - INFO - Starting comprehensive validation for CVE-2017-13686-var-3
+2025-09-11 11:55:48,941 - INFO - Running Layer 1: Sanity Check
+2025-09-11 11:55:48,943 - INFO - Running Layer 2: Symbolic Execution
+2025-09-11 11:55:48,943 - INFO - Running Layer 3: Fuzzing
+2025-09-11 11:55:48,943 - INFO - Running Layer 4: Detector Testing
+2025-09-11 11:55:49,092 - INFO - Starting comprehensive validation for CVE-2020-23930-var-4
+2025-09-11 11:55:49,092 - INFO - Running Layer 1: Sanity Check
+2025-09-11 11:55:52,739 - INFO - Running Layer 2: Symbolic Execution
+2025-09-11 11:55:52,739 - INFO - Running Layer 3: Fuzzing
+2025-09-11 11:55:52,739 - INFO - Running Layer 4: Detector Testing
+2025-09-11 11:55:53,362 - INFO - Starting comprehensive validation for CVE-2018-16644-var-5
+2025-09-11 11:55:53,362 - INFO - Running Layer 1: Sanity Check
+2025-09-11 11:55:53,426 - INFO - Running Layer 2: Symbolic Execution
+2025-09-11 11:55:53,427 - INFO - Running Layer 3: Fuzzing
+2025-09-11 11:55:53,427 - INFO - Running Layer 4: Detector Testing
+2025-09-11 11:55:53,572 - INFO - Starting comprehensive validation for CVE-2019-19275-var-6
+2025-09-11 11:55:53,572 - INFO - Running Layer 1: Sanity Check
+2025-09-11 11:55:53,575 - INFO - Running Layer 2: Symbolic Execution
+2025-09-11 11:55:53,575 - INFO - Running Layer 3: Fuzzing
+2025-09-11 11:55:53,575 - INFO - Running Layer 4: Detector Testing
+2025-09-11 11:55:53,711 - INFO - Starting comprehensive validation for CVE-2017-18344-var-7
+2025-09-11 11:55:53,711 - INFO - Running Layer 1: Sanity Check
+2025-09-11 11:55:53,712 - INFO - Running Layer 2: Symbolic Execution
+2025-09-11 11:55:53,712 - INFO - Running Layer 3: Fuzzing
+2025-09-11 11:55:53,712 - INFO - Running Layer 4: Detector Testing
