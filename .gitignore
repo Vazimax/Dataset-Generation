@@ -4,4 +4,6 @@ log4j/
 openssl/
 temp_repos/
 ml_models/
-data/
+data/codebert-custom-finetuned/
+codet5-vulnerability-model/
+*.safetensors
