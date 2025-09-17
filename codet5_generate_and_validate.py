@@ -17,21 +17,26 @@ from typing import List, Dict
 
 import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+import re
+import argparse
+import subprocess
+import tempfile
 
 from simplified_validator import SimplifiedValidator
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-MODEL_NAME = "Salesforce/codet5-base"
+MODEL_NAME = os.environ.get("CODET5_MODEL_DIR", "codet5-cg-full")
 DATASET_PATH = "complete_critical_cves_training_dataset.json"
 OUTPUT_DIR = "./codet5-vulnerability-model/generated_variants"
 VARIANTS_FILE_RAW = os.path.join(OUTPUT_DIR, "codet5_generated_variants_raw.json")
 VALIDATION_FILE_RAW = os.path.join(OUTPUT_DIR, "codet5_validation_results_raw.json")
 VARIANTS_FILE_SELECTED = os.path.join(OUTPUT_DIR, "codet5_selected_variants.json")
 VALIDATION_FILE_SELECTED = os.path.join(OUTPUT_DIR, "codet5_validation_results_selected.json")
+REJECT_DEBUG_JSONL = os.path.join(OUTPUT_DIR, "codet5_rejected_debug.jsonl")
 
-PROMPT_TEMPLATE = (
+PROMPT_TEMPLATE_FULL = (
     "Generate an evasive vulnerable variant that preserves the root vulnerability.\n"
     "- Keep CWE: {cwe_id}.\n"
     "- Keep exploitability but evade static detectors (clang/gcc/cppcheck).\n"
@@ -40,6 +45,141 @@ PROMPT_TEMPLATE = (
     "Original vulnerable code:\n{code}\n\n"
     "Variant (C code only):\n"
 )
+
+PROMPT_TEMPLATE_SPAN = (
+    "Rewrite this vulnerable code to be evasive but keep the same bug:\n"
+    "CWE: {cwe_id}\n\n"
+    "Code to rewrite:\n{span}\n\n"
+    "Evasive variant (C code only):\n"
+)
+
+BUG_START = "<S2SV_StartBug>"
+BUG_END = "<S2SV_EndBug>"
+
+def extract_bug_span(code: str) -> Dict:
+    start_idx = code.find(BUG_START)
+    end_idx = code.find(BUG_END)
+    if start_idx == -1 or end_idx == -1 or end_idx <= start_idx:
+        return {"has_span": False}
+    span_start = start_idx + len(BUG_START)
+    span_text = code[span_start:end_idx]
+    return {
+        "has_span": True,
+        "prefix": code[:start_idx],
+        "span": span_text.strip(),
+        "suffix": code[end_idx + len(BUG_END):],
+    }
+
+def stitch_span(prefix: str, replacement: str, suffix: str) -> str:
+    return f"{prefix}{replacement}{suffix}"
+
+def wrap_minimal_for_clang(snippet: str) -> str:
+    headers = "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <stdint.h>\n"
+    # If it looks like a full function, keep as-is; else wrap in a dummy function
+    if re.search(r"\w+\s+\w+\s*\([^)]*\)\s*\{", snippet):
+        body = snippet
+    else:
+        body = "void __variant_entry(void) {\n" + snippet + "\n}\n"
+    return headers + "\n" + body + "\n"
+
+def looks_like_translation_unit(code: str) -> bool:
+    return "#include" in code or re.search(r"\b(int|void|char|struct|typedef)\b\s+\w+\s*\([^)]*\)\s*\{", code) is not None
+
+def sanitize_c_only(text: str) -> str:
+    # Drop fenced code and any Markdown remnants
+    text = re.sub(r"```[a-zA-Z]*", "", text)
+    text = text.replace("```", "")
+    # Remove our markers if leaked
+    text = text.replace(BUG_START, "").replace(BUG_END, "")
+    # Remove ALL training artifacts more aggressively
+    text = re.sub(r"<S2SV_[^>]*>", "", text)
+    text = re.sub(r"<S2SV_[^>]*", "", text)  # Handle unclosed tags
+    # Remove prompt-like content more thoroughly
+    text = re.sub(r"Preserve the same bug semantics.*?\n", "", text, flags=re.DOTALL)
+    text = re.sub(r"Do NOT change identifiers.*?\n", "", text, flags=re.DOTALL)
+    text = re.sub(r"Keep C syntax valid.*?\n", "", text, flags=re.DOTALL)
+    text = re.sub(r"Return ONLY the replacement.*?\n", "", text, flags=re.DOTALL)
+    text = re.sub(r"Replacement \(C code only.*?\n", "", text, flags=re.DOTALL)
+    text = re.sub(r"Replacement \(C code ONLY.*?\n", "", text, flags=re.DOTALL)
+    # Remove lines with just dashes or special chars
+    text = re.sub(r"^-+\s*$", "", text, flags=re.MULTILINE)
+    text = re.sub(r"^\.+\s*$", "", text, flags=re.MULTILINE)
+    # Strip stray prompt-like lines
+    lines = []
+    for ln in text.splitlines():
+        ln = ln.strip()
+        if (ln and 
+            not ln.startswith("Variant") and 
+            not ln.startswith("Original") and 
+            not ln.startswith("CWE-119") and
+            not ln.startswith("Replacement") and
+            not ln.startswith("Rewrite") and
+            not ln.startswith("Constraints") and
+            not ln.startswith("Preserve") and
+            not ln.startswith("Do NOT") and
+            not ln.startswith("Keep C") and
+            not ln.startswith("Return ONLY") and
+            not re.match(r"^[-\s\.]+$", ln)):
+            lines.append(ln)
+    return "\n".join(lines).strip()
+
+def extract_function_context(code: str) -> Dict:
+    # Find the first function definition in the code
+    func_match = re.search(r"(\w+\s+\w+\s*\([^)]*\)\s*\{)", code)
+    if not func_match:
+        return {"has_function": False}
+    
+    func_start = func_match.start()
+    func_header = func_match.group(1)
+    
+    # Find the matching closing brace
+    brace_count = 0
+    func_end = func_start
+    for i, char in enumerate(code[func_start:], func_start):
+        if char == '{':
+            brace_count += 1
+        elif char == '}':
+            brace_count -= 1
+            if brace_count == 0:
+                func_end = i + 1
+                break
+    
+    if brace_count != 0:
+        return {"has_function": False}
+    
+    return {
+        "has_function": True,
+        "prefix": code[:func_start],
+        "function_header": func_header,
+        "function_body": code[func_start:func_end],
+        "suffix": code[func_end:]
+    }
+
+def stitch_function_context(prefix: str, new_body: str, suffix: str) -> str:
+    return f"{prefix}{new_body}{suffix}"
+
+def clang_syntax_ok(code: str, timeout_sec: int = 5) -> bool:
+    try:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".c", delete=False) as f:
+            f.write(code)
+            path = f.name
+        proc = subprocess.run(
+            ["clang", "-fsyntax-only", path],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            timeout=timeout_sec,
+        )
+        return proc.returncode == 0
+    except FileNotFoundError:
+        # If clang missing, don't block
+        return True
+    except subprocess.TimeoutExpired:
+        return False
+    finally:
+        try:
+            os.remove(path)
+        except Exception:
+            pass
 
 def load_cve_dataset(path: str) -> List[Dict]:
     with open(path, "r") as f:
@@ -69,6 +209,10 @@ def generate_variant(tokenizer, model, prompt: str, max_length: int = 512) -> st
     text = tokenizer.decode(outputs[0], skip_special_tokens=True)
     return text.strip()
 
+def generate_span_variant(tokenizer, model, cwe_id: str, span_text: str, max_length: int = 256) -> str:
+    prompt = PROMPT_TEMPLATE_SPAN.format(cwe_id=cwe_id, span=span_text)
+    return generate_variant(tokenizer, model, prompt, max_length=max_length)
+
 def build_variant_record(cve: Dict, variant_code: str) -> Dict:
     return {
         "variant_id": f"codet5-{uuid.uuid4().hex[:8]}",
@@ -81,20 +225,64 @@ def build_variant_record(cve: Dict, variant_code: str) -> Dict:
 
 def generate_variants_for_batch(tokenizer, model, cves: List[Dict], limit: int = 25, candidates_per_cve: int = 8) -> List[Dict]:
     variants: List[Dict] = []
+    os.makedirs(os.path.dirname(VARIANTS_FILE_RAW), exist_ok=True)
+    reject_f = open(REJECT_DEBUG_JSONL, "w")
     for cve in cves[:limit]:
         original = cve.get("vulnerable_code", "")
         if not original:
             continue
         cwe_id = cve.get("cwe_id", "CWE-119")
-        prompt = PROMPT_TEMPLATE.format(cwe_id=cwe_id, code=original)
+        span_info = extract_bug_span(original)
+        func_info = extract_function_context(original)
         for _ in range(candidates_per_cve):
             try:
-                variant_code = generate_variant(tokenizer, model, prompt)
-                record = build_variant_record(cve, variant_code)
+                if span_info.get("has_span"):
+                    span_variant = generate_span_variant(tokenizer, model, cwe_id, span_info["span"])
+                    span_variant = sanitize_c_only(span_variant)
+                    stitched = stitch_span(span_info["prefix"], span_variant, span_info["suffix"])
+                elif func_info.get("has_function"):
+                    # Fallback: replace entire function body
+                    prompt = PROMPT_TEMPLATE_FULL.format(cwe_id=cwe_id, code=func_info["function_body"])
+                    func_variant = generate_variant(tokenizer, model, prompt)
+                    func_variant = sanitize_c_only(func_variant)
+                    stitched = stitch_function_context(func_info["prefix"], func_variant, func_info["suffix"])
+                else:
+                    # Last resort: full code replacement
+                    prompt = PROMPT_TEMPLATE_FULL.format(cwe_id=cwe_id, code=original)
+                    stitched = generate_variant(tokenizer, model, prompt)
+                    stitched = sanitize_c_only(stitched)
+
+                # Pre-compilation gate temporarily disabled for testing
+                # candidate_for_clang = stitched if looks_like_translation_unit(stitched) else wrap_minimal_for_clang(stitched)
+                # if not clang_syntax_ok(candidate_for_clang):
+                #     # Try with minimal wrapper if original failed
+                #     if looks_like_translation_unit(stitched):
+                #         wrapped_candidate = wrap_minimal_for_clang(stitched)
+                #         if not clang_syntax_ok(wrapped_candidate):
+                #             reject_f.write(json.dumps({
+                #                 "cve_id": cve.get("cve_id"),
+                #                 "reason": "clang_syntax_fail",
+                #                 "span_present": span_info.get("has_span"),
+                #                 "func_present": func_info.get("has_function"),
+                #                 "candidate_preview": stitched[:400]
+                #             }) + "\n")
+                #             continue
+                #     else:
+                #         reject_f.write(json.dumps({
+                #             "cve_id": cve.get("cve_id"),
+                #             "reason": "clang_syntax_fail",
+                #             "span_present": span_info.get("has_span"),
+                #             "func_present": func_info.get("has_function"),
+                #             "candidate_preview": stitched[:400]
+                #         }) + "\n")
+                #         continue
+
+                record = build_variant_record(cve, stitched)
                 variants.append(record)
             except Exception as e:
                 logger.warning(f"Generation failed for {cve.get('cve_id')}: {e}")
         logger.info(f"Generated {candidates_per_cve} variants for {cve.get('cve_id')}")
+    reject_f.close()
     return variants
 
 def validate_variants(variants: List[Dict]) -> List[Dict]:
@@ -149,6 +337,11 @@ def save_json(path: str, data) -> None:
 
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--limit", type=int, default=25, help="Max CVEs to process")
+    ap.add_argument("--candidates", type=int, default=8, help="Candidates per CVE")
+    ap.add_argument("--cwe", type=str, default="", help="Filter by CWE id, e.g., CWE-119")
+    args = ap.parse_args()
     print("🧪 CodeT5 Variant Generation + Validation (Pilot)")
     print("=" * 60)
 
@@ -157,15 +350,17 @@ def main():
         print(f"❌ Dataset not found: {DATASET_PATH}")
         return
     samples = load_cve_dataset(DATASET_PATH)
-    print(f"📦 Loaded {len(samples)} CVE samples")
+    if args.cwe:
+        samples = [s for s in samples if s.get("cwe_id") == args.cwe]
+    print(f"📦 Loaded {len(samples)} CVE samples" + (f" (filtered by {args.cwe})" if args.cwe else ""))
 
     # Init model
     print("🔄 Loading CodeT5 (base)...")
     tokenizer, model = init_model(MODEL_NAME)
 
     # Generate variants for batch: first 25 CVEs, 8 candidates each
-    print("🎯 Generating variants: first 25 CVEs, 8 candidates each...")
-    variants = generate_variants_for_batch(tokenizer, model, samples, limit=25, candidates_per_cve=8)
+    print(f"🎯 Generating variants: first {args.limit} CVEs, {args.candidates} candidate(s) each...")
+    variants = generate_variants_for_batch(tokenizer, model, samples, limit=args.limit, candidates_per_cve=args.candidates)
     save_json(VARIANTS_FILE_RAW, variants)
     print(f"💾 Saved {len(variants)} raw variants -> {VARIANTS_FILE_RAW}")
 

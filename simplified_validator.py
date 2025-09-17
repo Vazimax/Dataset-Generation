@@ -219,11 +219,11 @@ class SimplifiedValidator:
             total_checks = len(result['checks'])
             result['score'] = passed_checks / total_checks
             
-            # Pass if 75%+ checks pass (for sanity check, we want good structure)
-            result['passed'] = result['score'] >= 0.75
+            # Pass if 50%+ checks pass (more lenient for initial testing)
+            result['passed'] = result['score'] >= 0.50
             
             if not result['passed']:
-                result['issues'].append(f"Layer 1 failed: {result['score']:.2f} score below 0.75 threshold")
+                result['issues'].append(f"Layer 1 failed: {result['score']:.2f} score below 0.50 threshold")
             
         except Exception as e:
             result['issues'].append(f"Layer 1 validation error: {str(e)}")

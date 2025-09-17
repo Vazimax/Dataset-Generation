@@ -1,4 +1,4 @@
-# CVE Dataset Generation Automation
+# CVE Dataset Generation and CodeBERT Variant Infilling
 
 This project automates the collection and validation of high-quality, weaponizable CVEs to create a seed dataset for LLM-guided variant generation. The goal is to build a dataset of ~700 validated, weaponizable code variants to test vulnerability detection models.
 
@@ -14,10 +14,10 @@ The project follows a multi-phase approach:
 
 ## Current Status
 
-- ✅ **CVE-2021-3711** (OpenSSL buffer overflow) - collected and analyzed
-- ✅ **CVE-2022-0778** (OpenSSL infinite loop) - collected and analyzed
-- 🔄 **Target**: 50-100 high-quality, verified CVEs
-- 🎯 **Final Goal**: ~700 validated, weaponizable variants
+- ✅ Fine-tuned CodeBERT (MLM) using custom PyTorch loop to avoid Trainer deps
+- ✅ Implemented hardened MLM infilling pipeline for variant generation
+- ✅ End-to-end validation wiring with comprehensive validator script
+- 🔄 Dataset curation and iterative quality improvements
 
 ## Project Structure
 
@@ -74,48 +74,88 @@ Dataset_generation/
 
 ## Usage
 
-### 1. Analyze Existing CVEs
+### 1) Fine-tune CodeBERT (MLM)
 
-Start by analyzing the existing CVEs to understand current patterns:
+Fine-tuning is implemented in `custom_codebert_finetuning.py` with a custom training loop (no `transformers.Trainer`). It loads `data/codet5_training/train/codet5_training_data.json` and performs masked language modeling.
 
-```bash
-python analyze_existing_cves.py
-```
+Key hyperparameters (defaults):
 
-This will:
-- Analyze existing CVE code files
-- Identify vulnerability patterns
-- Generate complexity metrics
-- Create analysis reports
+- epochs: 3
+- batch size: 4
+- learning rate: 2e-5
+- weight decay: 0.01
+- max sequence length: 256
 
-### 2. Discover New CVEs
-
-Use the targeted discovery script to find high-quality CVEs:
+Run:
 
 ```bash
-python targeted_cve_discovery.py
+python custom_codebert_finetuning.py
 ```
 
-This will:
-- Query NVD API for high-severity CVEs
-- Focus on target projects (OpenSSL, libpng, zlib, etc.)
-- Search for specific vulnerability patterns
-- Generate discovery reports
+Artifacts will be saved to `codebert-custom-finetuned/`.
 
-### 3. Collect and Validate CVEs
+### 2) Generate Variants via Hardened MLM Infilling
 
-Run the main collection script:
+Variant infilling is done by masking the vulnerable span and iteratively filling `<mask>` tokens with the fine-tuned MLM. The hardened pipeline adds structured masking, C-aware heuristics, multi-candidate selection per mask, and validation-based scoring.
+
+Basic example (random sample of 50):
 
 ```bash
-python cve_collector.py
+python mlm_variant_generation.py \
+  --model_dir codebert-custom-finetuned \
+  --dataset data/codet5_training/train/codet5_training_data.json \
+  --output outputs/variants_sample.jsonl \
+  --sample 50
 ```
 
-This will:
-- Process discovered CVEs
-- Clone repositories
-- Extract vulnerable and fixed code
-- Create dataset structure
-- Generate validation reports
+Filter for a specific vulnerability type (e.g., buffer overflow CWE-119) and generate two variants per sample with multi-span masking:
+
+```bash
+python mlm_variant_generation.py \
+  --model_dir codebert-custom-finetuned \
+  --dataset data/codet5_training/train/codet5_training_data.json \
+  --output outputs/cwe119_variants.jsonl \
+  --sample 50 \
+  --cwe CWE-119 \
+  --variants_per_sample 2 \
+  --multi_span \
+  --max_masks 6 \
+  --top_k 30 \
+  --beam_per_mask 3 \
+  --min_validation_score 5
+```
+
+Target a specific CVE subset using regex (example: buffer overflow CVEs in 2021):
+
+```bash
+python mlm_variant_generation.py \
+  --model_dir codebert-custom-finetuned \
+  --dataset data/codet5_training/train/codet5_training_data.json \
+  --output outputs/cve2021_bof.jsonl \
+  --cve_regex "CVE-2021-.*" \
+  --cwe CWE-119 \
+  --sample 100
+```
+
+Important flags:
+
+- `--multi_span`: mask two short spans instead of one long span
+- `--no_api_bias`: disable risky-API masking bias
+- `--max_masks`, `--max_iters`, `--top_k`, `--beam_per_mask`: control infilling search
+- `--min_validation_score`: drop low-structure outputs
+- `--variants_per_sample`: best-of-N per input
+
+Outputs are written as JSONL with fields: `cve_id`, `cwe_id`, `original_input_text`, `variant_text`, and `validation` diagnostics.
+
+### 3) Validate Generated Variants
+
+```bash
+python validate_generated_variants.py \
+  --input outputs/variants_sample.jsonl \
+  --output outputs/validation_results_sample.json
+```
+
+This uses `comprehensive_variant_validator.py` to score exploitability, structure, and evasion heuristics.
 
 ## Target Projects
 
@@ -265,10 +305,10 @@ logging.basicConfig(level=logging.DEBUG)
 - [ ] Configure AFL++ fuzzing environment
 - [ ] Implement automated validation workflow
 
-### Phase 3: LLM Variant Generation
-- [ ] Design prompt engineering for variant generation
-- [ ] Implement LLM integration (DeepSeek-Coder)
-- [ ] Generate syntactic variants while preserving vulnerabilities
+### Phase 3: LLM Variant Generation (MLM Infilling)
+- [x] Fine-tune CodeBERT (MLM) with custom loop
+- [x] Harden MLM infilling with structured masking and C-aware scoring
+- [ ] Iterate on masking strategies per CWE family
 
 ### Phase 4: Dataset Expansion
 - [ ] Validate generated variants

@@ -1,9 +1,46 @@
-dataset/
-dataset_backup/
-log4j/
-openssl/
-temp_repos/
-ml_models/
-data/codebert-custom-finetuned/
-codet5-vulnerability-model/
-*.safetensors
+# Model directories (too large for git)
+codet5-cg-full/
+codet5-cg-small/
+codebert-custom-finetuned/
+
+# Generated variants and outputs
+codet5-vulnerability-model/generated_variants/
+outputs/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Large data files
+*.jsonl
+*.json.gz
+
+# Debug files
+*_debug.jsonl
+*_rejected.jsonl
