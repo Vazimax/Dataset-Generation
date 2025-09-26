@@ -104,8 +104,8 @@ class FastCodeT5Trainer:
             'eval_steps': 200,
             'logging_steps': 50,
             'gradient_accumulation_steps': 2,
-            'fp16': True,  # Mixed precision for speed
-            'dataloader_num_workers': 4,
+            'fp16': False,  # Disable mixed precision for CPU training
+            'dataloader_num_workers': 0,  # Disable multiprocessing for CPU
             'output_dir': './codet5-weaponized-model'
         }
     
@@ -161,12 +161,12 @@ class FastCodeT5Trainer:
             evaluation_strategy="no",  # Skip evaluation for speed
             save_strategy="steps",
             load_best_model_at_end=False,
-            report_to=None,  # Disable wandb
+            report_to="none",  # Disable wandb
             remove_unused_columns=False,
             fp16=self.config['fp16'],
             gradient_accumulation_steps=self.config['gradient_accumulation_steps'],
             dataloader_num_workers=self.config['dataloader_num_workers'],
-            dataloader_pin_memory=True,
+            dataloader_pin_memory=False,  # Disable pin memory for CPU
             save_total_limit=2,  # Keep only 2 checkpoints
             logging_first_step=True,
             logging_dir=f"{self.config['output_dir']}/logs",

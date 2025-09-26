@@ -1,24 +1,5 @@
 # Model directories (too large for git)
-codet5-cg-full/
-codet5-cg-small/
-codebert-custom-finetuned/
-
-# Generated variants and outputs
-codet5-vulnerability-model/generated_variants/
-outputs/
-
-# Python cache
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-*.so
-
-# Virtual environments
-venv/
-env/
-ENV/
+models/
 
 # IDE files
 .vscode/
