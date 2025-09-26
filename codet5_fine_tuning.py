@@ -16,9 +16,9 @@ from datetime import datetime
 import torch
 from torch.utils.data import Dataset, DataLoader
 from transformers import (
-    T5ForConditionalGeneration, 
-    T5Tokenizer, 
-    TrainingArguments, 
+    AutoModelForSeq2SeqLM,
+    AutoTokenizer,
+    TrainingArguments,
     Trainer,
     DataCollatorForSeq2Seq
 )
@@ -113,15 +113,13 @@ class CodeT5FineTuner:
         logger.info("🔄 Loading CodeT5 model and tokenizer...")
         
         try:
-            # Load tokenizer
-            self.tokenizer = T5Tokenizer.from_pretrained(self.config.tokenizer_name)
-            
-            # Load model
-            self.model = T5ForConditionalGeneration.from_pretrained(self.config.model_name)
-            
-            # Add special tokens if needed
+            # Load tokenizer/model using Auto* to match CodeT5 checkpoint
+            self.tokenizer = AutoTokenizer.from_pretrained(self.config.tokenizer_name)
+            self.model = AutoModelForSeq2SeqLM.from_pretrained(self.config.model_name)
+
+            # Add special tokens via the proper API
             special_tokens = ['<vulnerable>', '<fixed>', '<variant>', '<cve>', '<cwe>']
-            self.tokenizer.add_tokens(special_tokens)
+            self.tokenizer.add_special_tokens({'additional_special_tokens': special_tokens})
             self.model.resize_token_embeddings(len(self.tokenizer))
             
             logger.info("✅ Model and tokenizer loaded successfully")

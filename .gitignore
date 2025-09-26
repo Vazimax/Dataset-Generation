@@ -40,6 +40,7 @@ Thumbs.db
 # Large data files
 *.jsonl
 *.json.gz
+.ReposVul
 
 # Debug files
 *_debug.jsonl
