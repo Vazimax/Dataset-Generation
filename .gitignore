@@ -22,6 +22,7 @@ Thumbs.db
 *.jsonl
 *.json.gz
 .ReposVul
+datasets/
 
 # Debug files
 *_debug.jsonl
