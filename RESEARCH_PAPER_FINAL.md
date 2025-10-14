@@ -730,7 +730,7 @@ Several promising directions for future work:
 
 1. **LoRA Fine-Tuning**: Use Low-Rank Adaptation to fine-tune on compiled-only variants:
    - **Advantage**: Faster training, less overfitting
-   - **Challenge**: Requires larger compiled-only dataset (200-500 examples)
+   - **Challenge**: Requires larger compiled-only dataset
    - **Potential**: Could improve generation quality without overfitting
 2. **Curriculum Learning**: Train on easy variants first, gradually increasing difficulty
 3. **Adversarial Training**: Fine-tune detector on generated variants to improve robustness
