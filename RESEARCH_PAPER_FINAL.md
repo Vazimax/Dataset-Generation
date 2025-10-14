@@ -1,7 +1,8 @@
 # Weaponizable CVE Variant Generation: A Fine-Tuned CodeT5 Approach for Evasive Vulnerability Synthesis
 
-**Author**: Aboubakr El Habti  
-**Date**: October 2024
+**Author**: Aboubakr El Habti 
+**Supervisor**: Yasir Malik
+**Date**: 13 October 2025
 
 ---
 
