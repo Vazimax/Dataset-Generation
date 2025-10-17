@@ -1,7 +1,10 @@
 # Weaponizable CVE Variant Generation: A Fine-Tuned CodeT5 Approach for Evasive Vulnerability Synthesis
 
-**Author**: Aboubakr El Habti  
-**Date**: October 2024
+**Author**: Aboubakr El Habti 
+
+**Supervisor**: Yasir Malik
+
+**Date**: 17 October 2025
 
 ---
 
@@ -17,39 +20,15 @@ This paper presents a comprehensive framework for generating syntactically valid
 
 ### 1.1 Background and Motivation
 
-The proliferation of software vulnerabilities continues to pose significant security challenges in modern software development. Common Vulnerabilities and Exposures (CVEs) represent standardized identifiers for publicly known security flaws, with thousands of new vulnerabilities reported annually. Traditional static analysis tools and modern machine learning-based detectors have been developed to identify these vulnerabilities, yet they remain susceptible to evasion through code obfuscation and transformation techniques.
-
-The ability to generate diverse variants of known vulnerabilities serves multiple critical purposes:
-
-1. **Security Research**: Understanding the limitations and blind spots of existing detection systems
-2. **Adversarial Testing**: Evaluating the robustness of ML-based vulnerability detectors
-3. **Defense Development**: Identifying weaknesses in detection systems to improve their resilience
-4. **Dataset Augmentation**: Creating diverse training data for more robust detector training
-
-However, generating valid, weaponizable variants that preserve the underlying vulnerability while evading detection presents substantial technical challenges. The variants must be:
-- **Syntactically correct**: Compile without errors
-- **Semantically equivalent**: Preserve the vulnerability
-- **Diverse**: Employ different obfuscation techniques
-- **Effective**: Successfully evade detection systems
+The proliferation of software vulnerabilities continues to pose significant security challenges in modern software development. Common Vulnerabilities and Exposures (CVEs) represent standardized identifiers for publicly known security flaws, with thousands of new vulnerabilities reported annually. Traditional static analysis tools and modern machine learning-based detectors have been developed to identify these vulnerabilities, yet they remain susceptible to evasion through code obfuscation and transformation techniques. High-quality vulnerable datasets are therefore pivotal: they shape what detectors learn and how robustly they generalize. In this work, we emphasize the importance of generating variants of vulnerable code—compiling, semantically vulnerable, and stylistically diverse—to better reflect the many ways a weakness can surface in practice. Our project contributes a practical pipeline that synthesizes CVE-style function-body variants and filters them through compilation checks to ensure validity. This is not a finished effort; it is intentionally open for improvement and expansion, including broader CWE coverage, runtime semantic verification, grammar-constrained decoding, and multi-language support.
 
 ### 1.2 Problem Statement
 
-Current approaches to vulnerability variant generation face several limitations:
-
-1. **Limited Diversity**: Manual variant generation is time-consuming and produces limited diversity
-2. **Syntactic Validity**: Many generated variants fail to compile, reducing their practical utility
-3. **Detection Evasion**: Most variants are easily detected by modern ML-based detectors
-4. **Scalability**: Existing methods do not scale to generate large, diverse datasets
+Existing vulnerability datasets often suffer from limited diversity, weak labels, and severe class imbalance. For instance, DiverseVul aggregates a very large number of function-level samples but only a small fraction are truly vulnerable, which constrains training and evaluation by biasing models toward majority (non-vulnerable) patterns and masking edge cases. Moreover, a vulnerability is frequently represented by a single canonical snippet, even though in real projects the same weakness appears in many stylistic forms. As a result, detectors can overfit dataset artifacts and fail to generalize to semantically equivalent but stylistically different expressions of the same flaw. Generating valid, compiling variants that preserve vulnerability semantics can mitigate these issues by improving diversity and representativeness without sacrificing syntactic correctness.
 
 ### 1.3 Our Contribution
 
-This work presents a comprehensive framework for automated CVE variant generation that addresses these challenges:
-
-1. **Fine-Tuned CodeT5 Model**: We fine-tune a CodeT5-base model on the ReposVul dataset, specifically adapted for vulnerability variant generation
-2. **Compile-in-the-Loop Filtering**: We implement a robust filtering mechanism that ensures all generated variants compile successfully
-3. **Diverse Obfuscation Techniques**: Our model learns to apply various obfuscation patterns including variable renaming, control flow modification, and semantic substitution
-4. **Comprehensive Evaluation**: We evaluate generated variants against state-of-the-art detectors (CodeBERT and Devign) to assess evasion effectiveness
-5. **CWE-Specific Analysis**: We provide detailed analysis of evasion effectiveness across different vulnerability types
+Our main contribution is a practical, compile-in-the-loop generation pipeline that produces compiling, vulnerability-preserving variants of CVE-style functions to strengthen dataset diversity. Using a fine-tuned CodeT5-base model and strict syntactic checks (clang), we curated 195 unique variants across five CWEs. We also provide a concise comparative check with CodeBERT and Devign to contextualize dataset difficulty; however, the core focus is the dataset itself—turning a small set of seeds into many valid, diverse realizations of the same underlying weakness for training and stress-testing detectors.
 
 ### 1.4 Paper Organization
 
@@ -81,9 +60,15 @@ Several datasets have been developed for vulnerability detection research:
 
 ReposVul, used in this work, provides over 2,000 vulnerable functions across multiple programming languages, with CVE-disjoint splits to prevent data leakage in evaluation.
 
+### 2.4 Variant Generation of Vulnerable Code
+
+Beyond curation, several efforts acknowledge the need for richer vulnerable corpora. Large-scale datasets like DiverseVul provide breadth but remain heavily imbalanced, with vulnerable instances comprising a small minority, which can hinder robust learning. Other resources (e.g., vulnerability reproduction datasets and curated patch corpora) emphasize reproducibility and fix mining rather than variant synthesis. Our work differs by explicitly generating compiling, semantically vulnerable variants that vary surface form while preserving CWE semantics, directly targeting diversity and balance. Empirically, our results show that such variants materially affect detector outcomes, motivating variant-centric datasets as a complement to existing benchmarks.
+
 ---
 
 ## 3. Methodology
+
+We organize the pipeline into seed selection, model-driven generation, compile-time filtering, and evaluation. Minimal CWE-specific seeds prompt a fine-tuned CodeT5-base model to produce candidate bodies. Outputs are sanitized and extracted, then validated with `clang -fsyntax-only` to ensure syntactic correctness. Accepted variants form the dataset used to benchmark detector recall and evasion.
 
 ### 3.1 Dataset: ReposVul
 
@@ -319,22 +304,7 @@ We evaluate generated variants against two state-of-the-art ML-based vulnerabili
 - **Strengths**: Code-aware tokenization, effective on structural vulnerabilities
 
 #### 3.5.2 Evaluation Metrics
-
-We employ standard classification metrics:
-
-- **Accuracy**: (TP + TN) / (TP + TN + FP + FN)
-- **Precision**: TP / (TP + FP)
-- **Recall (Detection Rate)**: TP / (TP + FN)
-- **F1-Score**: 2 × (Precision × Recall) / (Precision + Recall)
-- **Evasion Rate**: FN / (FN + TP) = 1 - Recall
-
-Where:
-- **TP (True Positive)**: Variant detected as vulnerable (correct detection)
-- **FN (False Negative)**: Variant not detected as vulnerable (successful evasion)
-- **TN (True Negative)**: Variant correctly identified as non-vulnerable
-- **FP (False Positive)**: Variant incorrectly flagged as vulnerable
-
-**Note**: In our evaluation, all variants are vulnerable by construction, so TN = FP = 0. The key metric is the **Evasion Rate** (FN rate), representing the fraction of variants that successfully evade detection.
+We compute Accuracy, Precision, Recall (Detection Rate), F1, and Evasion Rate using `scikit-learn` (metrics and confusion matrices via `sklearn.metrics` and `ConfusionMatrixDisplay`). Detector inference uses `transformers` (AutoTokenizer, AutoModelForSequenceClassification). Syntactic checks run through `clang -fsyntax-only` via Python `subprocess`, with parallelism using `concurrent.futures` and progress via `tqdm`. Because all samples are vulnerable by construction, we emphasize Recall and Evasion while treating TN=FP=0 in confusion matrices.
 
 #### 3.5.3 CWE-Specific Analysis
 
@@ -628,175 +598,13 @@ To assess the statistical significance of our results, we perform a chi-square t
 
 ## 5. Discussion
 
-### 5.1 Implications for Security
+This section discusses only the experimental results. First, the overall recall (52.8% for CodeBERT; 55.0% on a 40-sample subset for Devign) shows that modest surface changes to vulnerable code can substantially hinder ML detectors even when vulnerability semantics are preserved. Second, CWE-specific outcomes reveal detector sensitivities: pointer-centric flaws (CWE-416/476) are harder for the token-sequence model (CodeBERT) yet readily captured by the graph-proxy (Devign), while arithmetic overflow (CWE-190) exhibits the opposite trend. Third, the diversity of variant realizations—notably loop-based copying for CWE-119 and indirect flows for CWE-134—correlates with higher evasion compared to canonical forms. These findings argue for variant-centric datasets to expose detectors to a richer distribution during training and to serve as robust stress tests during evaluation.
 
-Our results reveal several critical insights for software security:
-
-#### 5.1.1 Current Detection Systems Are Vulnerable
-
-The average evasion rate of 46.1% demonstrates that current ML-based vulnerability detectors are far from perfect. Nearly half of our generated variants successfully evade detection, suggesting that:
-
-1. **Real-world attackers** could potentially use similar obfuscation techniques to hide vulnerabilities
-2. **Defense-in-depth** strategies are essential - no single detection method is sufficient
-3. **Continuous improvement** of detection systems is necessary to keep pace with evasion techniques
-
-#### 5.1.2 Vulnerability-Specific Weaknesses
-
-The significant variation in evasion rates across CWEs (0% to 76.9%) indicates that:
-
-1. **Detection systems have blind spots** for specific vulnerability types
-2. **Complementary approaches** (e.g., combining CodeBERT and Devign) could improve overall detection
-3. **Targeted training** on specific CWE types could improve detection robustness
-
-#### 5.1.3 Obfuscation Techniques Are Effective
-
-Our results demonstrate that certain obfuscation techniques are highly effective:
-
-1. **Multi-level indirection**: Pointer aliasing (`char **pp = &p; **pp = ...`) effectively evades detection
-2. **Control flow transformation**: Loop-based copying instead of library functions
-3. **Semantic substitution**: Indirect function calls instead of direct calls
-4. **Variable renaming**: Changing variable names provides minimal benefit
-
-### 5.2 Limitations
-
-Our work has several limitations that should be acknowledged:
-
-#### 5.2.1 Dataset Limitations
-
-1. **Limited Size**: 195 variants, while diverse, is relatively small compared to real-world vulnerability datasets
-2. **CWE Coverage**: Only 5 CWEs covered; many other vulnerability types not evaluated
-3. **Synthetic Nature**: Variants are generated, not extracted from real exploits
-4. **Single Language**: Focus on C code only; other languages not evaluated
-
-#### 5.2.2 Model Limitations
-
-1. **Fine-Tuning Data**: Limited to 194 high-quality examples; larger training sets might improve performance
-2. **Overfitting Risk**: Small training set increases risk of overfitting to specific patterns
-3. **Generalization**: Model may not generalize to novel vulnerability types
-4. **Mode Collapse**: Some generated variants are repetitive or trivial
-
-#### 5.2.3 Evaluation Limitations
-
-1. **Detection Systems**: Only two models evaluated; results may not generalize to all detectors
-2. **Static Analysis**: cppcheck and other static analyzers not fully evaluated
-3. **Runtime Behavior**: No evaluation of whether variants preserve vulnerability semantics at runtime
-4. **Human Evaluation**: No expert review of variant quality or realism
-
-#### 5.2.4 Ethical Considerations
-
-1. **Dual-Use**: Generated variants could be misused for malicious purposes
-2. **Responsible Disclosure**: All experiments conducted in controlled research environment
-3. **No Deployment**: Variants remain in datasets and are not deployed in production systems
-
-### 5.3 Comparison with Related Work
-
-Our work differs from previous studies in several key aspects:
-
-| Aspect | Previous Work | Our Work |
-|--------|---------------|----------|
-| **Generation Method** | Manual, template-based | Automated, ML-based |
-| **Syntactic Validity** | Not guaranteed | Compile-in-the-loop filtering |
-| **Scale** | Tens of variants | Hundreds of variants |
-| **CWE Coverage** | Single CWE | Five CWEs |
-| **Evaluation** | Single detector | Multiple detectors |
-| **Evasion Analysis** | Qualitative | Quantitative + Qualitative |
-
-**Advantages of Our Approach**:
-- **Scalability**: Can generate hundreds of variants automatically
-- **Diversity**: ML-based generation produces more diverse variants
-- **Quality**: Compile-in-the-loop ensures syntactic validity
-- **Comprehensive**: Multi-CWE, multi-detector evaluation
-
-**Disadvantages**:
-- **Complexity**: Requires significant computational resources
-- **Training Data**: Requires large, high-quality training dataset
-- **Interpretability**: Harder to understand why specific variants are generated
-
-### 5.4 Future Directions
-
-Several promising directions for future work:
-
-#### 5.4.1 Improved Generation Techniques
-
-1. **Grammar-Constrained Decoding**: Use C grammar (e.g., Tree-sitter) to ensure generated code is always syntactically valid
-2. **Semantic Preservation**: Add runtime tests to verify variants preserve vulnerability semantics
-3. **Diversity Optimization**: Explicitly optimize for diversity using metrics like BLEU or edit distance
-4. **Multi-Language Support**: Extend to other languages (Python, Java, JavaScript)
-
-#### 5.4.2 Advanced Fine-Tuning
-
-1. **LoRA Fine-Tuning**: Use Low-Rank Adaptation to fine-tune on compiled-only variants:
-   - **Advantage**: Faster training, less overfitting
-   - **Challenge**: Requires larger compiled-only dataset (200-500 examples)
-   - **Potential**: Could improve generation quality without overfitting
-2. **Curriculum Learning**: Train on easy variants first, gradually increasing difficulty
-3. **Adversarial Training**: Fine-tune detector on generated variants to improve robustness
-
-#### 5.4.3 Enhanced Evaluation
-
-1. **More Detectors**: Evaluate against additional ML-based detectors (LineVul, ReVeal, etc.)
-2. **Static Analyzers**: Comprehensive evaluation against cppcheck, Flawfinder, Clang Static Analyzer
-3. **Runtime Verification**: Verify variants actually exhibit vulnerability behavior
-4. **Human Evaluation**: Expert review of variant quality and realism
-
-#### 5.4.4 Defensive Applications
-
-1. **Adversarial Training**: Use generated variants to train more robust detectors
-2. **Red Team Testing**: Use variants to test security systems
-3. **Benchmark Dataset**: Create standardized benchmark for vulnerability detection research
-4. **Defense Development**: Identify weaknesses to develop better defenses
-
----
+Limitations shaping these results include dataset size (195 compiling variants), partial Devign coverage for runtime reasons, and single-language focus (C). Despite these constraints, consistent trends across CWEs support the conclusion that variant diversity is a key factor in detector robustness.
 
 ## 6. Conclusion
 
-This paper presents a comprehensive framework for generating weaponizable CVE variants using fine-tuned CodeT5 models. Our approach successfully generates 195 unique, syntactically valid variants across five critical CWEs, achieving an average evasion rate of 46.1% against state-of-the-art ML-based vulnerability detectors.
-
-### 6.1 Key Contributions
-
-1. **Fine-Tuned CodeT5 Model**: Successfully adapted CodeT5-base for vulnerability variant generation using the ReposVul dataset
-2. **Compile-in-the-Loop Filtering**: Ensured 100% syntactic validity through automated compilation checking
-3. **Diverse Obfuscation Techniques**: Generated variants employing various evasion techniques including pointer indirection, control flow transformation, and semantic substitution
-4. **Comprehensive Evaluation**: Evaluated against CodeBERT and Devign, revealing complementary strengths and weaknesses
-5. **CWE-Specific Analysis**: Provided detailed analysis of evasion effectiveness across different vulnerability types
-
-### 6.2 Key Findings
-
-1. **High Evasion Rates**: Achieved evasion rates of up to 76.9% for NULL pointer dereference vulnerabilities (CodeBERT)
-2. **CWE-Specific Performance**: Significant variation in evasion rates across CWEs (0% to 100%), indicating vulnerability-specific detector weaknesses
-3. **Complementary Detectors**: CodeBERT and Devign exhibit complementary strengths, suggesting ensemble approaches could improve detection
-4. **Effective Obfuscation**: Multi-level pointer indirection and control flow transformation prove highly effective for evasion
-
-### 6.3 Implications
-
-Our results demonstrate that current ML-based vulnerability detectors are vulnerable to sophisticated obfuscation techniques. This has several important implications:
-
-1. **Security Awareness**: Developers and security teams should be aware that automated detectors are not foolproof
-2. **Defense-in-Depth**: Multiple detection methods should be employed for comprehensive security
-3. **Continuous Improvement**: Detection systems must continuously evolve to keep pace with evasion techniques
-4. **Adversarial Training**: Generated variants can be used to train more robust detectors
-
-### 6.4 Future Work
-
-Several promising directions for future research:
-
-1. **LoRA Fine-Tuning**: Implement LoRA (Low-Rank Adaptation) to fine-tune on compiled-only variants, potentially improving generation quality while avoiding overfitting
-2. **Grammar-Constrained Decoding**: Use C grammar to ensure syntactic validity without compilation checking
-3. **Semantic Preservation**: Add runtime verification to ensure variants preserve vulnerability semantics
-4. **Multi-Language Support**: Extend framework to other programming languages
-5. **Ensemble Detection**: Develop ensemble methods combining CodeBERT and Devign for improved detection
-6. **Adversarial Training**: Use generated variants to train more robust detectors
-
-### 6.5 Final Remarks
-
-The ability to generate diverse, weaponizable CVE variants is a double-edged sword. While it can be misused for malicious purposes, it also serves critical defensive applications:
-
-- **Security Research**: Understanding detector limitations to improve defenses
-- **Adversarial Testing**: Evaluating the robustness of security systems
-- **Benchmark Creation**: Developing standardized datasets for vulnerability detection research
-- **Defense Development**: Identifying weaknesses to develop better protections
-
-We advocate for responsible use of these techniques in controlled research environments, with appropriate safeguards and ethical guidelines. By understanding how vulnerabilities can be hidden, we can develop more robust detection systems and ultimately improve software security for everyone.
+We presented a data-centric framework for generating compiling, vulnerability-preserving variants of CVE-style functions using a fine-tuned CodeT5 model with compile-in-the-loop filtering. The resulting dataset of 195 variants across five CWEs shows that stylistic diversity alone can significantly affect detection performance for both token-based and graph-based models. This work is deliberately open for improvement: future iterations will broaden CWE and language coverage, integrate grammar-constrained decoding and runtime semantic checks, and explore parameter-efficient fine-tuning (e.g., LoRA) to enhance generation quality while mitigating overfitting. We view variant-rich datasets as practical tools for both stress-testing existing detectors and enabling adversarial training toward more robust vulnerability detection systems.
 
 ---
 
