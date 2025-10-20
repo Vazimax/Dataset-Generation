@@ -62,7 +62,9 @@ ReposVul, used in this work, provides over 2,000 vulnerable functions across mul
 
 ### 2.4 Variant Generation of Vulnerable Code
 
-Beyond curation, several efforts acknowledge the need for richer vulnerable corpora. Large-scale datasets like DiverseVul provide breadth but remain heavily imbalanced, with vulnerable instances comprising a small minority, which can hinder robust learning. Other resources (e.g., vulnerability reproduction datasets and curated patch corpora) emphasize reproducibility and fix mining rather than variant synthesis. Our work differs by explicitly generating compiling, semantically vulnerable variants that vary surface form while preserving CWE semantics, directly targeting diversity and balance. Empirically, our results show that such variants materially affect detector outcomes, motivating variant-centric datasets as a complement to existing benchmarks.
+Beyond curation, several efforts acknowledge the need for richer vulnerable corpora. Large-scale datasets like DiverseVul provide breadth but remain heavily imbalanced, with vulnerable instances comprising a small minority, which can hinder robust learning. Other resources (e.g., vulnerability reproduction datasets and curated patch corpora) emphasize reproducibility and fix mining rather than variant synthesis. Our work differs by explicitly generating compiling, semantically vulnerable variants that vary surface form while preserving CWE semantics, directly targeting diversity and balance.
+
+Two practical paths to variant generation are common. Transformation-based methods apply semantic-preserving edits (identifier changes, control-flow reordering, opaque predicates, library-call substitution) to produce alternate realizations of a flaw. Prompt- or template-driven generation uses rules or learned models to synthesize function bodies that retain vulnerability semantics while altering token-level patterns. Reported evaluations typically measure how these manipulations shift detector recall. We follow the latter approach using a fine-tuned CodeT5 model with compile-in-the-loop filtering, and we observe that stylistic diversity alone materially changes outcomes for both token- and graph-based detectors—supporting the case for variant-centric datasets alongside existing benchmarks.
 
 ---
 
@@ -608,11 +610,6 @@ We presented a data-centric framework for generating compiling, vulnerability-pr
 
 ---
 
-## Acknowledgments
-
-We thank the creators of the ReposVul dataset and the developers of CodeBERT, Devign, and CodeT5 for making their tools and datasets publicly available. We also acknowledge the open-source community for providing the tools and frameworks that made this research possible.
-
----
 
 ## References
 
@@ -636,147 +633,13 @@ We thank the creators of the ReposVul dataset and the developers of CodeBERT, De
 
 10. NIST. "Software Assurance Reference Dataset (SARD)." https://samate.nist.gov/SRD/
 
----
+11. DiverseVul Dataset. "DiverseVul: A large-scale, multi-CWE corpus for vulnerability detection." (Accessed 2025).
 
-## Appendix A: Reproducibility
+12. ReposVul. "ReposVul: Real-world vulnerable functions with CVE-disjoint splits." (Accessed 2025).
 
-### A.1 Environment Setup
+13. Vulnerability Reproduction Dataset. "A collection of reproducible vulnerabilities for research." (Accessed 2025).
 
-```bash
-# Python environment
-Python 3.12 (miniforge)
-transformers==4.43.4
-torch==2.3.1
-libclang==18.1.1
-scikit-learn==1.3.2
-matplotlib==3.8.2
-seaborn==0.13.0
-
-# System requirements
-CPU: Apple M-series or x86_64
-RAM: 16GB minimum
-Storage: 10GB for models and datasets
-```
-
-### A.2 Dataset
-
-- **ReposVul**: Available from [GitHub repository]
-- **CVE-disjoint splits**: Train (1,500), Validation (200), Test (300)
-- **Preprocessing scripts**: `scripts/data_prep/prepare_reposvul.py`
-
-### A.3 Model Training
-
-```bash
-# Fine-tune CodeT5-base
-python scripts/training/train_evasive_model.py \
-    --train_file datasets/weaponized/high_quality_training_train.json \
-    --val_file datasets/weaponized/high_quality_training_val.json \
-    --model_name Salesforce/codet5-base \
-    --output_dir models/codet5/codet5-evasive-model \
-    --epochs 5 \
-    --batch_size 2 \
-    --learning_rate 5e-5
-```
-
-### A.4 Variant Generation
-
-```bash
-# Generate variants
-python scripts/testing/generate_diverse_variants_fast.py \
-    --model_dir models/codet5/codet5-evasive-model \
-    --target 1000 \
-    --output diverse_variants.json \
-    --device cpu \
-    --variants_per_prompt 5 \
-    --batch_size 50 \
-    --workers 8
-```
-
-### A.5 Evaluation
-
-```bash
-# Evaluate against CodeBERT and Devign
-python scripts/testing/evaluate_final_dataset_standalone.py \
-    --input final_combined_dataset.json \
-    --output evaluation_results.json \
-    --output_dir evaluation_output
-```
-
-### A.6 Expected Results
-
-- **Generation Time**: ~30-40 minutes for 1000 candidates
-- **Compilation Success Rate**: ~40% (400/1000 compile)
-- **Final Dataset**: 195 unique, compiling variants
-- **Evaluation Time**: ~10 minutes for 195 variants
-
----
-
-## Appendix B: Ethical Considerations
-
-This research involves generating potentially weaponizable code variants. We have taken several measures to ensure responsible conduct:
-
-1. **Controlled Environment**: All experiments conducted in isolated research environment
-2. **No Deployment**: Generated variants remain in datasets and are not deployed
-3. **Research Purpose**: Explicitly for security research and defense development
-4. **Responsible Disclosure**: Following ethical guidelines for vulnerability research
-5. **No Malicious Use**: Variants not used for actual attacks or exploitation
-
-We acknowledge the dual-use nature of this research and advocate for responsible use in controlled research environments with appropriate safeguards.
-
----
-
-## Appendix C: Supplementary Materials
-
-### C.1 Sample Variants
-
-**CWE-119 (Buffer Overflow)** - Evaded CodeBERT:
-```c
-char local_buf[16];
-for(int i=0; input[i] && i<32; i++)
-    local_buf[i] = input[i];
-```
-
-**CWE-476 (NULL Deref)** - Evaded CodeBERT:
-```c
-char *pointer = NULL;
-char **pp = &pointer;
-**pp = 'x';
-```
-
-**CWE-190 (Integer Overflow)** - Detected by CodeBERT:
-```c
-int a = 2147483640;
-int b = 100;
-int r = a * b;
-```
-
-### C.2 Confusion Matrices
-
-**CodeBERT Confusion Matrix**:
-```
-                Predicted
-            Not Vuln  Vuln
-Actual
-Not Vuln       0       0
-Vuln          92     103
-```
-
-**Devign Confusion Matrix**:
-```
-                Predicted
-            Not Vuln  Vuln
-Actual
-Not Vuln       0       0
-Vuln          18      22
-```
-
-### C.3 Statistical Tests
-
-**Chi-Square Test for CWE Independence**:
-- CodeBERT: χ² = 142.3, df = 4, p < 0.001
-- Devign: χ² = 28.4, df = 4, p < 0.001
-
-**Conclusion**: Detection rate is significantly dependent on CWE type (p < 0.001).
+14. Security Patches Dataset (TQRG). "A consolidated dataset of security patches from multiple sources." (Accessed 2025).
 
 ---
 
